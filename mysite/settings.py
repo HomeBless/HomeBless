@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'HomeBless',
-    'storages'
+  #  'storages'
 ]
 
 MIDDLEWARE = [
@@ -130,30 +130,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-# The `STATIC_URL` setting in Django specifies the base URL to serve static files from. In this case,
-# `STATIC_URL = 'static/'` means that static files like CSS, JavaScript, and images will be served
-# from URLs starting with `/static/`.
-
-STORAGES = {
-    "default": {  # For media files
-        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
-    },
-    "staticfiles": {  # For static files
-        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
-    },
-}
-    
-AWS_ACCESS_KEY_ID = getenv('AWS_ACCESS_KEY')
-AWS_SECRET_ACCESS_KEY = getenv('SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = getenv('BUCKET_NAME')
-AWS_S3_REGION_NAME = getenv('S3_REGION_NAME')
-
-AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-
-MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'    
-
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
