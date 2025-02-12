@@ -15,7 +15,7 @@ from pathlib import Path
 from django.core.management import templates
 from dotenv import load_dotenv
 from urllib.parse import urlparse
-import os
+from os import getenv
 
 load_dotenv()
 
@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "HomeBless",
+    'HomeBless',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -81,7 +82,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
+tmpPostgres = urlparse(getenv("DATABASE_URL"))
 
 DATABASES = {
     'default': {
@@ -129,7 +130,29 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+# The `STATIC_URL` setting in Django specifies the base URL to serve static files from. In this case,
+# `STATIC_URL = 'static/'` means that static files like CSS, JavaScript, and images will be served
+# from URLs starting with `/static/`.
+
+STORAGES = {
+    "default": {  # For media files
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+    },
+    "staticfiles": {  # For static files
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+    },
+}
+    
+AWS_ACCESS_KEY_ID = getenv('AWS_ACCESS_KEY')
+AWS_SECRET_ACCESS_KEY = getenv('SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = getenv('BUCKET_NAME')
+AWS_S3_REGION_NAME = getenv('S3_REGION_NAME')
+
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'    
+
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # Default primary key field type
