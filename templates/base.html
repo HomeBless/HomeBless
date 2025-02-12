@@ -12,6 +12,8 @@
         }
     </style>
 </head>
+
+<body>
 {% block header %}
 <header class="fixed top-0 left-0 w-full h-[92px] p-5 bg-[#575b6f] justify-between items-center inline-flex">
     <div data-svg-wrapper class="relative">
@@ -31,24 +33,24 @@
     </svg>
     </div>
     <div class="justify-start items-center gap-4 flex">
-        <div class="px-5 py-2.5 justify-center items-center gap-1.5 flex">
+        <button class="px-5 py-2.5 justify-center items-center gap-1.5 flex">
             <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">หน้าแรก</div>
-        </div>
-        <div class="px-5 py-2.5 justify-center items-center gap-1.5 flex">
+        </button>
+        <button class="px-5 py-2.5 justify-center items-center gap-1.5 flex">
             <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">ขายบ้าน</div>
-        </div>
-        <div class="px-5 py-2.5 border-b-2 border-[#faf9f6] justify-center items-center gap-1.5 flex">
+        </button>
+        <button class="px-5 py-2.5 border-b-2 border-[#faf9f6] justify-center items-center gap-1.5 flex">
             <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">ซื้อบ้าน</div>
-        </div>
-        <div class="px-5 py-2.5 justify-center items-center gap-1.5 flex">
+        </button>
+        <button class="px-5 py-2.5 justify-center items-center gap-1.5 flex">
             <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">เปรียบเทียบ</div>
-        </div>
+        </button>
     </div>
     <div class="justify-start items-center gap-4 flex">
-        <div class="p-2.5 rounded-md justify-center items-center gap-2 flex">
+        <button class="p-2.5 rounded-md justify-center items-center gap-2 flex">
             <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">ลงทะเบียน</div>
-        </div>
-        <div class="p-2.5 bg-[#2DAB6F] rounded-md justify-center items-center gap-2 flex">
+        </button>
+        <button class="p-2.5 bg-[#2DAB6F] rounded-md justify-center items-center gap-2 flex">
             <div data-svg-wrapper class="relative">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_33_1529)">
@@ -62,7 +64,7 @@
             </svg>
             </div>
             <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">ล็อคอิน</div>
-        </div>
+        </button>
     </div>
 </header>
 {% endblock %}
@@ -89,4 +91,5 @@
     </div>
 </footer>
 {% endblock %}
+</body>
 </html>
