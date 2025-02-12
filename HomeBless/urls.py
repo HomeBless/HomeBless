@@ -5,5 +5,5 @@ app_name = "HomeBless"
 
 urlpatterns = [
     path('', views.HomePage.as_view(), name='homepage'),
-    path('property-listing', views.PropertyListing.as_view(), name='property-listing'),
+    path('property-listing/', views.PropertyListing.as_view(), name='property-listing'),
 ]
