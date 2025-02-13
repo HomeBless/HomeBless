@@ -3,8 +3,8 @@
 {% load humanize %}
 
 {% block content %}
-<div class="pt-[92px]">
-    <div class="w-full h-[86px] px-[30px] py-5 border-b border-[#d0d8ef] justify-center items-center gap-[30px] inline-flex">
+<div class="pt-[178px] pb-[60px]">
+    <div class="w-full h-[86px] px-[30px] py-5 border-b border-[#d0d8ef] justify-center items-center gap-[30px] inline-flex fixed top-[92px] left-0 bg-white z-[1]">
         <div class="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
             <div class="self-stretch p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#a6abc6] justify-start items-center gap-2.5 inline-flex">
                 <img src="{% static 'property-listing/search.svg' %}" alt="Search">
@@ -56,7 +56,7 @@
         </button>
     </div>
 <div class="flex">
-    <div id="filter" class="w-1/4 h-screen overflow-y-auto sticky top-0 border-r border-[#d0d8ef] flex-col justify-start items-start inline-flex">
+    <div id="filter" class="w-1/4 h-screen overflow-y-auto sticky top-[178px] border-r border-[#d0d8ef] flex-col justify-start items-start inline-flex">
         <div class="self-stretch px-[30px] py-5 border-b-2 border-[#d0d8ef] justify-between items-center inline-flex">
             <div class="justify-start items-center gap-4 flex">
                 <img src="{% static 'property-listing/filter.svg' %}" alt="Filter">
