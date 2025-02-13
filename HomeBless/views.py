@@ -1,33 +1,36 @@
-from django.shortcuts import render, redirect
-from django.views.generic import TemplateView
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import TemplateView, ListView, DetailView
+from .models import Property, PropertyImage
 
 
 # Create your views here.
-class PropertyListing(TemplateView):
+class PropertyListing(ListView):
+    model = Property
     template_name = 'property-listing.html'
+    context_object_name = 'properties'
 
-    def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+    def get_queryset(self):
+        """Return only available properties sorted by newest"""
+        properties = Property.objects.filter(is_available=True).order_by('-created_at')
 
-    def post(self, request, *args, **kwargs):
-        return redirect('HomeBless:property-listing')
+        for property in properties:
+            main_image = property.images.filter(is_main=True).first()
+            if not main_image:
+                main_image = property.images.first()
+            property.main_image = main_image.image.url if main_image else None
+
+        return properties
+
+def property_list(request):
+    properties = Property.objects.all()
+    return render(request, 'property-listing.html', {'properties': properties})
 
 
 class HomePage(TemplateView):
     template_name = 'homepage.html'
 
     def get(self, request, *args, **kwargs):
-        lines = [
-            {'name': 'สายสุขุมวิท', 'color': '#6fbe44', 'color_name': 'สีเขียว'},
-            {'name': 'สายสีลม', 'color': '#119b49', 'color_name': 'สีเขียวเข้ม'},
-            {'name': 'สายสีชมพู', 'color': '#ef5599', 'color_name': 'สีชมพู'},
-            {'name': 'สายเฉลิมรัชมงคล', 'color': '#0e76bc', 'color_name': 'สีน้ำเงิน'},
-            {'name': 'สายฉลองรัชธรรม', 'color': '#67318f', 'color_name': 'สีม่วง'},
-            {'name': 'สายสีทอง', 'color': '#d4af37', 'color_name': 'สีทอง'},
-            {'name': 'สายสีส้ม', 'color': '#ee7821', 'color_name': 'สีส้ม'},
-            {'name': 'สายสีแดง', 'color': '#d71a28', 'color_name': 'สีแดง'}
-        ]
-        return render(request, self.template_name, {'lines': lines})
+        return render(request, self.template_name)
 
     def post(self, request, *args, **kwargs):
         return redirect('HomeBless:homepage')

@@ -50,6 +50,7 @@ class Property(models.Model):
     garages = models.IntegerField(null=True, blank=True)
     area = models.FloatField(help_text="Area in square wa")
     is_available = models.BooleanField(default=True)
+    construct_date = models.DateField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
