@@ -14,6 +14,7 @@ class Seller(models.Model):
     def __str__(self):
         return self.first_name + " " + self.last_name
 
+
 class Property(models.Model):
     PROPERTY_TYPE_CHOICES = [
         ('house', 'House'),
