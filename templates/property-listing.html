@@ -283,6 +283,7 @@
             </div>
             <div class="flex flex-wrap gap-6 justify-center">
                 {% for property in properties %}
+                <a href="{% url 'HomeBless:property-detail' property.id %}">
                 <div class="h-auto p-5 rounded-[10px] border border-[#d0d8ef] flex-col justify-start items-start gap-4 inline-flex">
                 <img src="{{ property.main_image }}" class="w-full h-[222px] rounded-md object-cover" alt="PropertyPicture">
                     <div data-svg-wrapper>
@@ -338,6 +339,7 @@
                 </div>
                 </div>
             </div>
+            </a>
             {% endfor %}
         </div>
         <div class="p-2.5 pb-20 justify-start items-center gap-4 inline-flex">
