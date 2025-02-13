@@ -46,11 +46,22 @@ class Compare(TemplateView):
         return redirect('HomeBless:compare')
 
 
-class PropertyDetail(DetailView):
+class PropertyDetail(ListView):
     model = Property
     template_name = 'property-detail.html'
-    context_object_name = 'property'
+    context_object_name = 'properties'
 
     def post(self, request, *args, **kwargs):
         return redirect('HomeBless:property-detail', pk=self.get_object().pk)
 
+    def get_queryset(self):
+        """Return only available properties sorted by newest"""
+        properties = Property.objects.filter(is_available=True).order_by('-created_at')[:6]
+
+        for property in properties:
+            main_image = property.images.filter(is_main=True).first()
+            if not main_image:
+                main_image = property.images.first()
+            property.main_image = main_image.image.url if main_image else None
+
+        return properties
