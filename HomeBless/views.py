@@ -46,11 +46,11 @@ class Compare(TemplateView):
         return redirect('HomeBless:compare')
 
 
-class PropertyDetail(TemplateView):
+class PropertyDetail(DetailView):
+    model = Property
     template_name = 'property-detail.html'
-
-    def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+    context_object_name = 'property'
 
     def post(self, request, *args, **kwargs):
-        return redirect('HomeBless:property-detail')
+        return redirect('HomeBless:property-detail', pk=self.get_object().pk)
+
