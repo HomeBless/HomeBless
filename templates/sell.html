@@ -177,7 +177,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="self-stretch pl-4 pt-2 inline-flex flex-col justify-start items-start">
+                        <div class="self-stretch w-full pl-4 pt-2 inline-flex flex-col justify-start items-start">
                             <div class="self-stretch justify-start text-gray-600 text-base font-bold">เพดาน</div>
                             <div class="self-stretch inline-flex justify-start items-start gap-4 flex-wrap content-start">
                                 <label class="min-w-[150px] flex items-center gap-2 cursor-pointer">
@@ -200,10 +200,6 @@
                                 <label class="min-w-[150px] flex items-center gap-2 cursor-pointer">
                                     <input type="checkbox" class="form-checkbox text-blue-700" />
                                     ผนังวอลเปเปอร์
-                                </label>
-                                <label class="min-w-[150px] flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" class="form-checkbox text-blue-700" />
-                                    พื้นไม้จริง
                                 </label>
                             </div>
                         </div>
@@ -471,13 +467,18 @@
 </div>
 
 <script>
+let coverImage = null;
+let coverButton = null;
+
 function previewImages() {
     let preview = document.getElementById('imagePreview');
     let files = document.getElementById('imageUpload').files;
 
-    Array.from(files).forEach(file => {
+    let isFirstBatch = coverImage === null;
+
+    Array.from(files).forEach((file, index) => {
         let container = document.createElement('div');
-        container.className = 'relative';
+        container.className = 'relative flex flex-col items-center';
 
         let img = document.createElement('img');
         img.src = URL.createObjectURL(file);
@@ -486,12 +487,62 @@ function previewImages() {
         let removeBtn = document.createElement('button');
         removeBtn.innerHTML = '&times;';
         removeBtn.className = 'absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center shadow-md text-sm';
-        removeBtn.onclick = () => container.remove();
+        removeBtn.onclick = () => {
+            container.remove();
+            if (coverImage === img) {
+                coverImage = null;
+                coverButton = null;
+                setNewCover();
+            }
+        };
+
+        let coverBtn = document.createElement('button');
+        coverBtn.innerText = 'ใช้เป็นหน้าปก';
+        coverBtn.className = 'mt-1 px-2 py-1 bg-blue-500 text-white text-xs rounded block';
+        coverBtn.onclick = () => setCoverImage(container, img, coverBtn, removeBtn);
+
+        let btnContainer = document.createElement('div');
+        btnContainer.className = 'mt-1 flex flex-col items-center';
+        btnContainer.appendChild(coverBtn);
 
         container.appendChild(img);
         container.appendChild(removeBtn);
+        container.appendChild(btnContainer);
         preview.appendChild(container);
+
+        if (isFirstBatch && index === 0) {
+            setCoverImage(container, img, coverBtn, removeBtn);
+        }
     });
+}
+
+function setCoverImage(container, img, button, removeBtn) {
+    if (coverImage) {
+        coverImage.style.border = 'none';
+        coverButton.style.display = 'block';
+        coverImage.parentElement.querySelector('.absolute').style.display = 'block';
+    }
+
+    coverImage = img;
+    coverButton = button;
+    coverImage.style.border = '2px solid blue';
+    coverButton.style.display = 'none';
+    removeBtn.style.display = 'none';
+
+    let preview = document.getElementById('imagePreview');
+    preview.prepend(container);
+}
+
+function setNewCover() {
+    let preview = document.getElementById('imagePreview');
+    let firstImageContainer = preview.querySelector('div');
+
+    if (firstImageContainer) {
+        let img = firstImageContainer.querySelector('img');
+        let button = firstImageContainer.querySelector('button:nth-child(1)');
+        let removeBtn = firstImageContainer.querySelector('.absolute');
+        setCoverImage(firstImageContainer, img, button, removeBtn);
+    }
 }
 
 document.addEventListener("DOMContentLoaded", function () {
