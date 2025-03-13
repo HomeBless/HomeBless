@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView, ListView, DetailView
 from .models import Property, PropertyImage
@@ -85,6 +86,7 @@ class PropertyDetail(DetailView):
         return redirect('HomeBless:property-detail', pk=self.get_object().pk)
 
 
+# @login_required
 class Sell(TemplateView):
     template_name = 'sell.html'
 
@@ -92,4 +94,14 @@ class Sell(TemplateView):
         return render(request, self.template_name)
 
     def post(self, request, *args, **kwargs):
+        print("Form Data Received:", request.POST)
+
+        status = request.POST.get('status')
+
+        if status:
+            print(f"Status selected: {status}")
+        else:
+            print("No status selected")
+
         return redirect('HomeBless:sell')
+
