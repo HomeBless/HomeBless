@@ -1,11 +1,10 @@
 from django.urls import path
-from . import views
-
+from .views import *
 app_name = "HomeBless"
 
 urlpatterns = [
-    path('', views.HomePage.as_view(), name='homepage'),
-    path('property-listing/', views.PropertyListing.as_view(), name='property-listing'),
-    path('compare/', views.Compare.as_view(), name='compare'),
-    path('property-detail/<int:pk>/', views.PropertyDetail.as_view(), name='property-detail'),
+    path('', HomePage.as_view(), name='homepage'),
+    path('property-listing/', PropertyListing.as_view(), name='property-listing'),
+    path('compare/', Compare.as_view(), name='compare'),
+    path('property-detail/<int:pk>/', PropertyDetail.as_view(), name='property-detail'),
 ]
