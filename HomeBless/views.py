@@ -83,3 +83,13 @@ class PropertyDetail(DetailView):
 
     def post(self, request, *args, **kwargs):
         return redirect('HomeBless:property-detail', pk=self.get_object().pk)
+
+
+class Sell(TemplateView):
+    template_name = 'sell.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
+    def post(self, request, *args, **kwargs):
+        return redirect('HomeBless:sell')
