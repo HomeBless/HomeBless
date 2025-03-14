@@ -51,38 +51,40 @@
               </div>
             </div>
           </div>
-          <div class="flex flex-col items-center gap-8 self-stretch">
-            <button class="flex items-center justify-center gap-[6px] p-[10px] self-stretch rounded-[6px] border border-[#D0D9EF] bg-[#FAF9F6]">
-              <div class="w-[20px] h-[20px]">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <g clip-path="url(#clip0_33_1430)">
-                    <path d="M19.4902 10.1871C19.4902 9.36767 19.4255 8.76973 19.2857 8.14966H10.1895V11.848H15.5287C15.4211 12.7671 14.8398 14.1512 13.548 15.0813L13.5299 15.2051L16.406 17.4969L16.6052 17.5174C18.4352 15.7789 19.4902 13.221 19.4902 10.1871Z" fill="#4285F4"/>
-                    <path d="M10.189 19.9313C12.8048 19.9313 15.0008 19.0454 16.6048 17.5174L13.5476 15.0813C12.7295 15.6682 11.6315 16.0779 10.189 16.0779C7.62706 16.0779 5.4526 14.3395 4.67746 11.9366L4.56385 11.9466L1.57329 14.3273L1.53418 14.4391C3.12734 17.6945 6.39983 19.9313 10.189 19.9313Z" fill="#34A853"/>
-                    <path d="M4.67765 11.9366C4.47312 11.3165 4.35476 10.6521 4.35476 9.96559C4.35476 9.27902 4.47313 8.61467 4.66689 7.9946L4.66147 7.86253L1.63344 5.4436L1.53437 5.49208C0.877746 6.84299 0.500977 8.36002 0.500977 9.96559C0.500977 11.5712 0.877746 13.0881 1.53437 14.439L4.67765 11.9366Z" fill="#FBBC05"/>
-                    <path d="M10.189 3.85336C12.0083 3.85336 13.2354 4.66168 13.9352 5.33718L16.6694 2.59107C14.9901 0.985496 12.8048 0 10.189 0C6.39983 0 3.12734 2.23672 1.53418 5.49214L4.6667 7.99466C5.4526 5.59183 7.62706 3.85336 10.189 3.85336Z" fill="#EB4335"/>
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_33_1430">
-                      <rect width="19" height="20" fill="white" transform="translate(0.5)"/>
-                    </clipPath>
-                  </defs>
-                </svg>
+          <form class="flex flex-col items-center gap-8 self-stretch" method="post" action="{% url 'account_login' %}">
+            {% csrf_token %}
+            <div class="flex flex-col items-center gap-8 self-stretch">
+              <a href="/account/google/login" class="w-full">
+                <button class="flex items-center w-full justify-center gap-[6px] p-[10px] self-stretch rounded-[6px] border border-[#D0D9EF] bg-[#FAF9F6]">
+                  <div class="w-[20px] h-[20px]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                      <g clip-path="url(#clip0_33_1430)">
+                        <path d="M19.4902 10.1871C19.4902 9.36767 19.4255 8.76973 19.2857 8.14966H10.1895V11.848H15.5287C15.4211 12.7671 14.8398 14.1512 13.548 15.0813L13.5299 15.2051L16.406 17.4969L16.6052 17.5174C18.4352 15.7789 19.4902 13.221 19.4902 10.1871Z" fill="#4285F4"/>
+                        <path d="M10.189 19.9313C12.8048 19.9313 15.0008 19.0454 16.6048 17.5174L13.5476 15.0813C12.7295 15.6682 11.6315 16.0779 10.189 16.0779C7.62706 16.0779 5.4526 14.3395 4.67746 11.9366L4.56385 11.9466L1.57329 14.3273L1.53418 14.4391C3.12734 17.6945 6.39983 19.9313 10.189 19.9313Z" fill="#34A853"/>
+                        <path d="M4.67765 11.9366C4.47312 11.3165 4.35476 10.6521 4.35476 9.96559C4.35476 9.27902 4.47313 8.61467 4.66689 7.9946L4.66147 7.86253L1.63344 5.4436L1.53437 5.49208C0.877746 6.84299 0.500977 8.36002 0.500977 9.96559C0.500977 11.5712 0.877746 13.0881 1.53437 14.439L4.67765 11.9366Z" fill="#FBBC05"/>
+                        <path d="M10.189 3.85336C12.0083 3.85336 13.2354 4.66168 13.9352 5.33718L16.6694 2.59107C14.9901 0.985496 12.8048 0 10.189 0C6.39983 0 3.12734 2.23672 1.53418 5.49214L4.6667 7.99466C5.4526 5.59183 7.62706 3.85336 10.189 3.85336Z" fill="#EB4335"/>
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_33_1430">
+                          <rect width="19" height="20" fill="white" transform="translate(0.5)"/>
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </div>
+                  <div class="text-[16px] text-[#444F85] text-base font-normal leading-normal">เข้าสู่ระบบด้วย Google</div>
+                </button>
+              </a>
+              <div class="flex items-center gap-2 px-6 self-stretch">
+                <div class="flex flex-col items-start gap-[10px] flex-1">
+                  <div class="w-[235.5px] h-[1px] bg-[#575B6F]"></div>
+                </div>
+                <div class="text-[12px] text-[#575B6F] text-base font-normal leading-normal">หรือ</div>
+                <div class="flex flex-col items-start gap-[10px] flex-1">
+                  <div class="w-[235.5px] h-[1px] bg-[#575B6F]"></div>
+                </div>
               </div>
-              <div class="text-[16px] text-[#444F85] text-base font-normal leading-normal">เข้าสู่ระบบด้วย Google</div>
-            </button>
-            <div class="flex items-center gap-2 px-6 self-stretch">
-              <div class="flex flex-col items-start gap-[10px] flex-1">
-                <div class="w-[235.5px] h-[1px] bg-[#575B6F]"></div>
-              </div>
-              <div class="text-[12px] text-[#575B6F] text-base font-normal leading-normal">หรือ</div>
-              <div class="flex flex-col items-start gap-[10px] flex-1">
-                <div class="w-[235.5px] h-[1px] bg-[#575B6F]"></div>
-              </div>
-            </div>
-            <div class="flex flex-col items-start gap-[16px] self-stretch">
               <div class="flex flex-col items-start gap-[16px] self-stretch">
-                <form class="flex flex-col items-start gap-[16px] self-stretch w-full" method="post" action="{% url 'account_login' %}">
-                  {% csrf_token %}
+                <div class="flex flex-col items-start gap-[16px] self-stretch">
                   <div class="flex flex-col items-start gap-1.5 self-stretch">
                     <div class="text-[16px] text-[#444F85] text-base font-normal leading-normal">ชื่อ</div>
                     <div class="flex p-[10px] items-center gap-[10px] self-stretch rounded-[10px] border border-[#A6ABC6]">
@@ -105,22 +107,22 @@
                         {{ form.password}}
                       </div>
                   </div>
-                </form>
+                </div>
+                <div class="flex justify-end items-center self-stretch">
+                  <a href="/account/password/reset/" class="text-[16px] text-[#2162D0] text-base font-normal leading-normal">ลืมรหัสผ่าน</a>
+                </div>
               </div>
-              <div class="flex justify-end items-center self-stretch">
-                <div class="text-[16px] text-[#2162D0] text-base font-normal leading-normal">ลืมรหัสผ่าน</div>
+              <button type="submit" class="flex p-2.5 justify-center items-center gap-2.5 self-stretch rounded-md bg-[#2162D0] text-[16px] text-[#FAF9F6] text-base font-normal leading-normal">
+                เข้าสู่ระบบ
+              </button>
+              <div class="self-stretch text-center text-[16px] text-[#575B6F] text-base font-normal leading-normal">
+                ยังไม่มีบัญชีของเรา?
+                <a href="/account/signup" class="text-[#2162D0] underline decoration-solid underline-offset-2 decoration-2">
+                  สร้างบัญชีเลย
+                </a>
               </div>
             </div>
-            <button class="flex p-2.5 justify-center items-center gap-2.5 self-stretch rounded-md bg-[#2162D0]">
-              <div class="text-[16px] text-[#FAF9F6] text-base font-normal leading-normal">เข้าสู่ระบบ</div>
-            </button>
-            <div class="self-stretch text-center text-[16px] text-[#575B6F] text-base font-normal leading-normal">
-              ยังไม่มีบัญชีของเรา?
-              <a href="/account/signup" class="text-[#2162D0] underline decoration-solid underline-offset-2 decoration-2">
-                สร้างบัญชีเลย
-              </a>
-            </div>
-          </div>
+          </form>
         </div>
       </div>
     <!-- Logo Zone -->
