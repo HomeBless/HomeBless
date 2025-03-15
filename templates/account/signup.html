@@ -1,5 +1,6 @@
 {% load static %}
 {% load humanize %}
+{% load socialaccount %}
 
 <!DOCTYPE html>
 <html lang="th">
@@ -22,7 +23,7 @@
 {% block content %}
   <div>
     <div class="inline-flex justify-center items-start h-[982px]">
-    <!-- Login Zone -->
+    <!-- Signup Zone -->
       <div class="flex h-[981px] justify-center items-center">
         <div class="flex px-[130px] flex-col justify-center items-center gap-6 flex-1 self-stretch">
           <div class="flex flex-col items-start gap-4 self-stretch">
@@ -54,8 +55,9 @@
             </div>
           </div>
             <div class="flex flex-col items-center gap-8 self-stretch">
-              <a href="/account/google/login" class="w-full">
-                <button class="flex items-center w-full justify-center gap-[6px] p-[10px] self-stretch rounded-[6px] border border-[#D0D9EF] bg-[#FAF9F6]">
+              <form action="{% provider_login_url 'google' %}" method="post" class="w-full">
+                {% csrf_token %}
+                <button type="submit" class="flex items-center w-full justify-center gap-[6px] p-[10px] self-stretch rounded-[6px] border border-[#D0D9EF] bg-[#FAF9F6]">
                   <div class="w-[20px] h-[20px]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                       <g clip-path="url(#clip0_33_1430)">
@@ -73,7 +75,7 @@
                   </div>
                   <div class="text-[16px] text-[#444F85] text-base font-normal leading-normal">ลงทะเบียนด้วย Google</div>
                 </button>
-              </a>
+              </form>
               <form class="flex flex-col items-center gap-8 self-stretch" method="post" action="{% url 'account_signup' %}">
                 {% csrf_token %}
                 <div class="flex items-center gap-2 px-6 self-stretch">
