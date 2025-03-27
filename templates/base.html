@@ -43,10 +43,11 @@
                 <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">หน้าแรก</div>
             </button>
         </a>
-{#        <a href="{% url 'HomeBless:sell' %}">#}
-        <button class="px-5 py-2.5 justify-center items-center gap-1.5 flex {% if request.path == '/sell/' %}border-b-2 border-[#faf9f6]{% endif %}">
-            <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">ขายบ้าน</div>
-        </button>
+        <a href="{% url 'HomeBless:sell' %}">
+            <button class="px-5 py-2.5 justify-center items-center gap-1.5 flex {% if request.path == '/sell/' %}border-b-2 border-[#faf9f6]{% endif %}">
+                <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">ขายบ้าน</div>
+            </button>
+        </a>
         <a href="{% url 'HomeBless:property-listing' %}">
         <button class="px-5 py-2.5 justify-center items-center gap-1.5 flex {% if request.path == '/property-listing/' %}border-b-2 border-[#faf9f6]{% endif %}">
             <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">ซื้อบ้าน</div>
