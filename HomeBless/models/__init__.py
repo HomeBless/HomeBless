@@ -11,3 +11,5 @@ from .home_feature import HomeFeature
 from .decoration import Decoration
 from .flooring import Flooring
 from .wall import Wall
+from .buyer import Buyer
+from wishlist import Wishlist
