@@ -37,10 +37,10 @@ class Property(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     # Decoration & Materials
-    decoration = models.ForeignKey(Decoration, on_delete=models.SET_NULL, null=True, blank=True)
-    flooring = models.ForeignKey(Flooring, on_delete=models.SET_NULL, null=True, blank=True)
-    wall_type = models.ForeignKey(Wall, on_delete=models.SET_NULL, null=True, blank=True)
-    ceiling_type = models.ForeignKey(Ceiling, on_delete=models.SET_NULL, null=True, blank=True)
+    decoration = models.ManyToManyField(Decoration, on_delete=models.SET_NULL, null=True, blank=True)
+    flooring = models.ManyToManyField(Flooring, on_delete=models.SET_NULL, null=True, blank=True)
+    wall_type = models.ManyToManyField(Wall, on_delete=models.SET_NULL, null=True, blank=True)
+    ceiling_type = models.ManyToManyField(Ceiling, on_delete=models.SET_NULL, null=True, blank=True)
 
     # Features & Amenities (Many-to-Many)
     home_features = models.ManyToManyField(HomeFeature, blank=True)

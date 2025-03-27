@@ -7,4 +7,5 @@ urlpatterns = [
     path('property-listing/', PropertyListing.as_view(), name='property-listing'),
     path('compare/', Compare.as_view(), name='compare'),
     path('property-detail/<int:pk>/', PropertyDetail.as_view(), name='property-detail'),
+    path('create-property/', create_property_view, name='create_property'),
 ]
