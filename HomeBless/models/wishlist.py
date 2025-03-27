@@ -10,4 +10,3 @@ class Wishlist(models.Model):
 
     def __str__(self):
         return f"{self.seller.first_name} has {self.property.id} as wishlist."
-    
