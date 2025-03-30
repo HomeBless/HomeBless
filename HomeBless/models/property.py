@@ -6,10 +6,14 @@ from .flooring import Flooring
 from .wall import Wall
 from .ceiling import Ceiling
 from .home_feature import HomeFeature
-from .project_amenity import ProjectAmenity
 from .property_condition import PropertyCondition
 from .view import View
 from .warranty import Warranty
+from .home_system import HomeSystem
+from .security import Security
+from .common_area import CommonArea
+from .facility import Facility
+from .travelling import Travelling
 
 
 class Property(models.Model):
@@ -44,20 +48,24 @@ class Property(models.Model):
 
     # Features & Amenities (Many-to-Many)
     home_features = models.ManyToManyField(HomeFeature, blank=True)
-    project_amenities = models.ManyToManyField(ProjectAmenity, blank=True)
+    security = models.ManyToManyField(Security, blank=True)
+    common_area = models.ManyToManyField(CommonArea, blank=True)
+    travelling = models.ManyToManyField(Travelling, blank=True)
+    facilities = models.ManyToManyField(Facility, blank=True)
+
 
     # Additional Property Conditions
     conditions = models.ManyToManyField(PropertyCondition, blank=True)
     views = models.ManyToManyField(View, blank=True)
     warranties = models.ManyToManyField(Warranty, blank=True)
 
-    # Home Systems (Boolean Fields)
-    electrical_system = models.BooleanField(default=True)
-    air_conditioning = models.BooleanField(default=False)
-    hot_cold_water = models.BooleanField(default=False)
-    safety_circuit_breaker = models.BooleanField(default=True)
-    backup_power = models.BooleanField(default=False)
-    drainage_system = models.BooleanField(default=True)
+    # Home Systems
+    home_systems = models.ManyToManyField(HomeSystem, blank=True)
+
+    # Contacts
+    line_id = models.CharField(max_length=20, blank=True, null=True)
+    phone_number = models.CharField(max_length=10, blank=False, null=False)
+    contact_email = models.EmailField(blank=True, null=True)
 
     def __str__(self):
         return self.title
