@@ -1,1 +1,1 @@
-from .property_form import SellForm
+from .property_form import PropertyForm

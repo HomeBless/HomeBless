@@ -21,13 +21,18 @@ class Property(models.Model):
         ('buy', 'For Sale'),
         ('rent', 'For Rent')
     ]
+    SELLER_STATUS_CHOICES = [
+        ('owner', 'Owner'),
+        ('agent', 'Agent')
+    ]
 
     seller = models.ForeignKey(Seller, on_delete=models.CASCADE, related_name="properties")
     title = models.CharField(max_length=255)
     description = models.TextField()
+    seller_status = models.CharField(max_length=10, choices=SELLER_STATUS_CHOICES, default='owner')
     property_type = models.ForeignKey(PropertyType, on_delete=models.SET_NULL, null=True, blank=True)
-    transaction_type = models.CharField(max_length=10, choices=SELLING_TYPE_CHOICES, default='buy')
-    price = models.FloatField(blank=False, null=False)
+    selling_type = models.CharField(max_length=10, choices=SELLING_TYPE_CHOICES, default='buy')
+    price = models.FloatField(blank=True, null=True)
     location = models.CharField(max_length=255)
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
