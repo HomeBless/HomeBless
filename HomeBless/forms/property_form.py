@@ -24,7 +24,6 @@ class SellForm(forms.ModelForm):
             'wall_type': forms.CheckboxSelectMultiple,
             'ceiling_type': forms.CheckboxSelectMultiple,
             'home_features': forms.CheckboxSelectMultiple,
-            'project_amenities': forms.CheckboxSelectMultiple,
             'conditions': forms.CheckboxSelectMultiple,
             'views': forms.CheckboxSelectMultiple,
             'warranties': forms.CheckboxSelectMultiple,
