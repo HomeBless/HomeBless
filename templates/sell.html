@@ -27,11 +27,11 @@
                     <p class="text-gray-600 text-xl font-medium">สถานะ</p>
                     <div class="flex flex-wrap gap-4">
                         <label class="min-w-[150px] flex items-center gap-2 cursor-pointer">
-                            <input type="radio" name="status" value="owner" class="form-radio text-blue-700" />
+                            <input type="radio" name="seller_status" value="owner" class="form-radio text-blue-700" />
                             เจ้าของบ้าน
                         </label>
                         <label class="min-w-[150px] flex items-center gap-2 cursor-pointer">
-                            <input type="radio" name="status" value="agent" class="form-radio text-blue-700" />
+                            <input type="radio" name="seller_status" value="agent" class="form-radio text-blue-700" />
                             นายหน้า
                         </label>
                     </div>
@@ -42,11 +42,11 @@
                     <p class="text-gray-600 text-xl font-medium">ประกาศ</p>
                     <div class="flex flex-wrap gap-4">
                         <label class="min-w-[150px] flex items-center gap-2 cursor-pointer">
-                            <input type="radio" name="listing" value="sell" class="form-radio text-blue-700" />
+                            <input type="radio" name="selling_type" value="buy" class="form-radio text-blue-700" />
                             ขาย
                         </label>
                         <label class="min-w-[150px] flex items-center gap-2 cursor-pointer">
-                            <input type="radio" name="listing" value="rent" class="form-radio text-blue-700" />
+                            <input type="radio" name="selling_type" value="rent" class="form-radio text-blue-700" />
                             เช่า
                         </label>
                     </div>
@@ -57,23 +57,23 @@
                     <p class="text-gray-600 text-xl font-medium">ประเภท</p>
                     <div class="flex flex-wrap gap-4">
                         <label class="min-w-[150px] flex items-center gap-2 cursor-pointer">
-                            <input type="radio" name="type" value="condo" class="form-radio text-blue-700" />
+                            <input type="radio" name="property_type" value="1" class="form-radio text-blue-700" />
                             คอนโด
                         </label>
                         <label class="min-w-[150px] flex items-center gap-2 cursor-pointer">
-                            <input type="radio" name="type" value="apartment" class="form-radio text-blue-700" />
+                            <input type="radio" name="property_type" value="2" class="form-radio text-blue-700" />
                             อพาร์ตเมนต์
                         </label>
                         <label class="min-w-[150px] flex items-center gap-2 cursor-pointer">
-                            <input type="radio" name="type" value="house" class="form-radio text-blue-700" />
+                            <input type="radio" name="property_type" value="3" class="form-radio text-blue-700" />
                             บ้านเดี่ยว
                         </label>
                         <label class="min-w-[150px] flex items-center gap-2 cursor-pointer">
-                            <input type="radio" name="type" value="town-home" class="form-radio text-blue-700" />
+                            <input type="radio" name="property_type" value="4" class="form-radio text-blue-700" />
                             ทาวน์โฮม
                         </label>
                         <label class="min-w-[150px] flex items-center gap-2 cursor-pointer">
-                            <input type="radio" name="type" value="home-office" class="form-radio text-blue-700" />
+                            <input type="radio" name="property_type" value="5" class="form-radio text-blue-700" />
                             โฮมออฟฟิศ
                         </label>
                     </div>
@@ -85,10 +85,51 @@
                     <input type="text" name="location" placeholder="ทำเล เช่น ลาดพร้าว 71"
                         class="w-full p-2.5 bg-stone-50 rounded-lg border border-slate-400 text-gray-600" />
                 </div>
+                 <!-- ห้องนอน -->
+                <div>
+                    <p class="text-gray-600 text-xl font-medium">จำนวนห้องนอน</p>
+                    <input type="number" name="bedrooms" placeholder="จำนวนห้องนอน"
+                        class="w-full p-2.5 bg-stone-50 rounded-lg border border-slate-400 text-gray-600" />
+                </div>
+                <!-- ห้องน้ำ -->
+                <div>
+                    <p class="text-gray-600 text-xl font-medium">จำนวนห้องน้ำ</p>
+                    <input type="number" name="bathrooms" placeholder="จำนวนห้องน้ำ"
+                        class="w-full p-2.5 bg-stone-50 rounded-lg border border-slate-400 text-gray-600" />
+                </div>
 
+                <!-- ชั้น -->
+                <div>
+                    <p class="text-gray-600 text-xl font-medium">จำนวนชั้น</p>
+                    <input type="number" name="floors" placeholder="จำนวนชั้น"
+                        class="w-full p-2.5 bg-stone-50 rounded-lg border border-slate-400 text-gray-600" />
+                </div>
+
+                <!-- ที่จอดรถ -->
+                <div>
+                    <p class="text-gray-600 text-xl font-medium">จำนวนรถยนต์ที่จอดได้</p>
+                    <input type="number" name="garages" placeholder="จำนวนรถยนต์ที่จอดได้"
+                        class="w-full p-2.5 bg-stone-50 rounded-lg border border-slate-400 text-gray-600" />
+                </div>
+
+                <!-- พื้นที่ -->
+                <div>
+                    <p class="text-gray-600 text-xl font-medium">พื้นที่ใช้สอย</p>
+                    <input type="number" name="area" placeholder="พื้นที่ในหน่วย ตารางวา"
+                        class="w-full p-2.5 bg-stone-50 rounded-lg border border-slate-400 text-gray-600" />
+                </div>
+
+                <!-- ปีที่สร้าง -->
+                <div>
+                    <p class="text-gray-600 text-xl font-medium">ปีที่สร้าง</p>
+                    <input type="number" name="construct_year" placeholder="โปรดใส่ปี พ.ศ."
+                        class="w-full p-2.5 bg-stone-50 rounded-lg border border-slate-400 text-gray-600" />
+                </div>
                 <button type="button" id="section-1-next-btn" class="p-2.5 bg-blue-700 text-white rounded-md w-[100px] text-center hover:bg-blue-800">ต่อไป</button>
             </div>
         </div>
+
+
     </div>
 
     <!-- ขั้นตอนที่ 2 -->
@@ -106,14 +147,14 @@
                 <!-- หัวข้อประกาศ -->
                 <div>
                     <p class="text-gray-600 text-xl font-medium">หัวข้อประกาศ</p>
-                    <input type="text" name="topic" placeholder="หัวข้อประกาศ เช่น ขายบ้านโครงการ..."
+                    <input type="text" name="title" placeholder="หัวข้อประกาศ เช่น ขายบ้านโครงการ..."
                         class="w-full p-2.5 bg-stone-50 rounded-lg border border-slate-400 text-gray-600" />
                 </div>
 
                 <!-- รายละเอียด -->
                 <div>
                     <p class="text-gray-600 text-xl font-medium">รายละเอียด</p>
-                    <textarea name="detail" placeholder="เช่น บ้านเดี่ยว ปลูกเอง ทำเลดี สวยมาก พร้อมตกแต่ง..."
+                    <textarea name="description" placeholder="เช่น บ้านเดี่ยว ปลูกเอง ทำเลดี สวยมาก พร้อมตกแต่ง..."
                         class="w-full h-24 p-2.5 bg-stone-50 rounded-lg border border-slate-400 text-gray-600"></textarea>
                 </div>
 
@@ -124,6 +165,12 @@
                         <p class="text-gray-600">เพิ่มรูปภาพ</p>
                     </label>
                     <div id="imagePreview" class="flex flex-wrap gap-2 mt-4"></div>
+                </div>
+                 <!-- ราคา -->
+                <div>
+                    <p class="text-gray-600 text-xl font-medium">ราคา</p>
+                    <input type="number" name="price" placeholder="โปรดใส่ราคา"
+                        class="w-full p-2.5 bg-stone-50 rounded-lg border border-slate-400 text-gray-600" />
                 </div>
                 <div class="flex gap-2">
                     <button type="button" id="section-2-before-btn" class="p-2.5 text-blue-700 rounded-md outline outline-1 outline-blue-700 w-[100px] text-center -mr-px hover:bg-blue-100">
@@ -153,30 +200,30 @@
                     <p class="text-gray-600 text-xl font-medium">การตกแต่ง</p>
                     <div class="flex flex-wrap gap-4">
                         <label class="min-w-[150px] flex items-center gap-2 cursor-pointer">
-                            <input type="checkbox" name="decoration" class="form-checkbox text-blue-700" />
+                            <input type="checkbox" name="decoration" value="1" class="form-checkbox text-blue-700" />
                             พร้อมเข้าอยู่
                         </label>
                         <label class="min-w-[150px] flex items-center gap-2 cursor-pointer">
-                            <input type="checkbox" name="decoration" class="form-checkbox text-blue-700" />
+                            <input type="checkbox" name="decoration" value="2" class="form-checkbox text-blue-700" />
                             ตกแต่งบางส่วน
                         </label>
                         <label class="min-w-[150px] flex items-center gap-2 cursor-pointer">
-                            <input type="checkbox" name="decoration" class="form-checkbox text-blue-700" />
+                            <input type="checkbox" name="decoration" value="3" class="form-checkbox text-blue-700" />
                             เฟอร์นิเจอร์บิวท์อิน
                         </label>
                         <div class="self-stretch pl-4 pt-2 inline-flex flex-col justify-start items-start">
                             <div class="self-stretch justify-start text-gray-600 text-base font-bold">วัสดุปูพื้น</div>
                             <div class="self-stretch inline-flex justify-start items-start gap-4 flex-wrap content-start">
                                 <label class="min-w-[150px] flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="flooring" class="form-checkbox text-blue-700" />
+                                    <input type="checkbox" name="flooring" value="1" class="form-checkbox text-blue-700" />
                                     กระเบื้อง
                                 </label>
                                 <label class="min-w-[150px] flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="flooring" class="form-checkbox text-blue-700" />
+                                    <input type="checkbox" name="flooring" value="2" class="form-checkbox text-blue-700" />
                                     ลามิเนต
                                 </label>
                                 <label class="min-w-[150px] flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="flooring" class="form-checkbox text-blue-700" />
+                                    <input type="checkbox" name="flooring" value="3" class="form-checkbox text-blue-700" />
                                     พื้นไม้จริง
                                 </label>
                             </div>
@@ -185,11 +232,11 @@
                             <div class="self-stretch justify-start text-gray-600 text-base font-bold">เพดาน</div>
                             <div class="self-stretch inline-flex justify-start items-start gap-4 flex-wrap content-start">
                                 <label class="min-w-[150px] flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="ceiling_type" class="form-checkbox text-blue-700" />
+                                    <input type="checkbox" name="ceiling_type" value="1" class="form-checkbox text-blue-700" />
                                     ฝ้าหลุมพร้อมไฟซ่อน
                                 </label>
                                 <label class="min-w-[150px] flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="ceiling_type" class="form-checkbox text-blue-700" />
+                                    <input type="checkbox" name="ceiling_type" value="2" class="form-checkbox text-blue-700" />
                                     ฝ้าธรรมดา
                                 </label>
                             </div>
@@ -198,11 +245,11 @@
                             <div class="self-stretch justify-start text-gray-600 text-base font-bold">ผนัง</div>
                             <div class="self-stretch inline-flex justify-start items-start gap-4 flex-wrap content-start">
                                 <label class="min-w-[150px] flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="wall_type" class="form-checkbox text-blue-700" />
+                                    <input type="checkbox" name="wall_type" value="1" class="form-checkbox text-blue-700" />
                                     ทาสีใหม่
                                 </label>
                                 <label class="min-w-[150px] flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="wall_type" class="form-checkbox text-blue-700" />
+                                    <input type="checkbox" name="wall_type" value="2" class="form-checkbox text-blue-700" />
                                     ผนังวอลเปเปอร์
                                 </label>
                             </div>

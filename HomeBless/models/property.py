@@ -43,7 +43,6 @@ class Property(models.Model):
     area = models.FloatField(help_text="Area in square wa")
     is_available = models.BooleanField(default=True)
     construct_year = models.IntegerField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
 
     # Decoration & Materials
     decoration = models.ManyToManyField(Decoration, blank=True)
@@ -57,7 +56,6 @@ class Property(models.Model):
     common_area = models.ManyToManyField(CommonArea, blank=True)
     travelling = models.ManyToManyField(Travelling, blank=True)
     facilities = models.ManyToManyField(Facility, blank=True)
-
 
     # Additional Property Conditions
     conditions = models.ManyToManyField(PropertyCondition, blank=True)
