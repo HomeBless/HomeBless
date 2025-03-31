@@ -41,10 +41,10 @@ class Property(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     # Decoration & Materials
-    decoration = models.ManyToManyField(Decoration, on_delete=models.SET_NULL, null=True, blank=True)
-    flooring = models.ManyToManyField(Flooring, on_delete=models.SET_NULL, null=True, blank=True)
-    wall_type = models.ManyToManyField(Wall, on_delete=models.SET_NULL, null=True, blank=True)
-    ceiling_type = models.ManyToManyField(Ceiling, on_delete=models.SET_NULL, null=True, blank=True)
+    decoration = models.ManyToManyField(Decoration, blank=True)
+    flooring = models.ManyToManyField(Flooring, blank=True)
+    wall_type = models.ManyToManyField(Wall, blank=True)
+    ceiling_type = models.ManyToManyField(Ceiling, blank=True)
 
     # Features & Amenities (Many-to-Many)
     home_features = models.ManyToManyField(HomeFeature, blank=True)
@@ -64,7 +64,7 @@ class Property(models.Model):
 
     # Contacts
     line_id = models.CharField(max_length=20, blank=True, null=True)
-    phone_number = models.CharField(max_length=10, blank=False, null=False)
+    phone_number = models.CharField(max_length=10, blank=True, null=True)
     contact_email = models.EmailField(blank=True, null=True)
 
     def __str__(self):

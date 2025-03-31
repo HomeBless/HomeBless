@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from ..models import (
     Property, PropertyType, HomeFeature,
-    ProjectAmenity, PropertyCondition, View as PropertyView, Warranty
+    PropertyCondition, View as PropertyView, Warranty
 )
 
 class SellForm(forms.ModelForm):
@@ -13,9 +13,7 @@ class SellForm(forms.ModelForm):
             'price', 'location', 'latitude', 'longitude',
             'bedrooms', 'bathrooms', 'floors', 'garages', 'area', 'construct_year',
             'decoration', 'flooring', 'wall_type', 'ceiling_type',
-            'home_features', 'project_amenities', 'conditions', 'views', 'warranties',
-            'electrical_system', 'air_conditioning', 'hot_cold_water',
-            'safety_circuit_breaker', 'backup_power', 'drainage_system'
+            'home_features', 'conditions', 'views', 'warranties',
         ]
 
         widgets = {
