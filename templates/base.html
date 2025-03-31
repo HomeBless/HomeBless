@@ -43,10 +43,11 @@
                 <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">หน้าแรก</div>
             </button>
         </a>
-{#        <a href="{% url 'HomeBless:sell' %}">#}
-        <button class="px-5 py-2.5 justify-center items-center gap-1.5 flex {% if request.path == '/sell/' %}border-b-2 border-[#faf9f6]{% endif %}">
-            <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">ขายบ้าน</div>
-        </button>
+        <a href="{% url 'HomeBless:sell' %}">
+            <button class="px-5 py-2.5 justify-center items-center gap-1.5 flex {% if request.path == '/sell/' %}border-b-2 border-[#faf9f6]{% endif %}">
+                <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">ขายบ้าน</div>
+            </button>
+        </a>
         <a href="{% url 'HomeBless:property-listing' %}">
         <button class="px-5 py-2.5 justify-center items-center gap-1.5 flex {% if request.path == '/property-listing/' %}border-b-2 border-[#faf9f6]{% endif %}">
             <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">ซื้อบ้าน</div>
@@ -58,26 +59,52 @@
         </button>
         </a>
     </div>
-    <div class="justify-start items-center gap-4 flex">
-        <button class="p-2.5 rounded-md justify-center items-center gap-2 flex">
-            <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">ลงทะเบียน</div>
-        </button>
-        <button class="p-2.5 bg-[#2DAB6F] rounded-md justify-center items-center gap-2 flex">
-            <div data-svg-wrapper class="relative">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clip-path="url(#clip0_33_1529)">
-            <path d="M14.75 1.6875C15.0649 1.6875 15.367 1.81261 15.5897 2.03531C15.8124 2.25801 15.9375 2.56006 15.9375 2.875V18.3125H17.7188C17.8762 18.3125 18.0272 18.3751 18.1386 18.4864C18.2499 18.5978 18.3125 18.7488 18.3125 18.9062C18.3125 19.0637 18.2499 19.2147 18.1386 19.3261C18.0272 19.4374 17.8762 19.5 17.7188 19.5H2.28125C2.12378 19.5 1.97276 19.4374 1.86141 19.3261C1.75006 19.2147 1.6875 19.0637 1.6875 18.9062C1.6875 18.7488 1.75006 18.5978 1.86141 18.4864C1.97276 18.3751 2.12378 18.3125 2.28125 18.3125H4.0625V2.875C4.0625 2.56006 4.18761 2.25801 4.41031 2.03531C4.63301 1.81261 4.93506 1.6875 5.25 1.6875H14.75ZM12.375 12.375C12.6899 12.375 12.992 12.2499 13.2147 12.0272C13.4374 11.8045 13.5625 11.5024 13.5625 11.1875C13.5625 10.8726 13.4374 10.5705 13.2147 10.3478C12.992 10.1251 12.6899 10 12.375 10C12.0601 10 11.758 10.1251 11.5353 10.3478C11.3126 10.5705 11.1875 10.8726 11.1875 11.1875C11.1875 11.5024 11.3126 11.8045 11.5353 12.0272C11.758 12.2499 12.0601 12.375 12.375 12.375Z" fill="#FAF9F6"/>
-            </g>
-            <defs>
-            <clipPath id="clip0_33_1529">
-            <rect width="19" height="19" fill="white" transform="translate(0.5 0.5)"/>
-            </clipPath>
-            </defs>
-            </svg>
-            </div>
-            <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">ล็อคอิน</div>
-        </button>
-    </div>
+    {% if user.is_authenticated %}
+      <div class="justify-start items-center gap-4 flex">
+        <a href="/account/logout">
+          <button class="p-2.5 bg-[#2DAB6F] rounded-md justify-center items-center gap-2 flex">
+              <div data-svg-wrapper class="relative">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_33_1529)">
+              <path d="M14.75 1.6875C15.0649 1.6875 15.367 1.81261 15.5897 2.03531C15.8124 2.25801 15.9375 2.56006 15.9375 2.875V18.3125H17.7188C17.8762 18.3125 18.0272 18.3751 18.1386 18.4864C18.2499 18.5978 18.3125 18.7488 18.3125 18.9062C18.3125 19.0637 18.2499 19.2147 18.1386 19.3261C18.0272 19.4374 17.8762 19.5 17.7188 19.5H2.28125C2.12378 19.5 1.97276 19.4374 1.86141 19.3261C1.75006 19.2147 1.6875 19.0637 1.6875 18.9062C1.6875 18.7488 1.75006 18.5978 1.86141 18.4864C1.97276 18.3751 2.12378 18.3125 2.28125 18.3125H4.0625V2.875C4.0625 2.56006 4.18761 2.25801 4.41031 2.03531C4.63301 1.81261 4.93506 1.6875 5.25 1.6875H14.75ZM12.375 12.375C12.6899 12.375 12.992 12.2499 13.2147 12.0272C13.4374 11.8045 13.5625 11.5024 13.5625 11.1875C13.5625 10.8726 13.4374 10.5705 13.2147 10.3478C12.992 10.1251 12.6899 10 12.375 10C12.0601 10 11.758 10.1251 11.5353 10.3478C11.3126 10.5705 11.1875 10.8726 11.1875 11.1875C11.1875 11.5024 11.3126 11.8045 11.5353 12.0272C11.758 12.2499 12.0601 12.375 12.375 12.375Z" fill="#FAF9F6"/>
+              </g>
+              <defs>
+              <clipPath id="clip0_33_1529">
+              <rect width="19" height="19" fill="white" transform="translate(0.5 0.5)"/>
+              </clipPath>
+              </defs>
+              </svg>
+              </div>
+              <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">ล็อคเอาท์</div>
+          </button>
+        </a>
+      </div>
+    {% else %}
+      <div class="justify-start items-center gap-4 flex">
+        <a href="/account/signup">
+          <button class="p-2.5 rounded-md justify-center items-center gap-2 flex">
+              <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">ลงทะเบียน</div>
+          </button>
+        </a>
+        <a href="/account/login">
+          <button class="p-2.5 bg-[#2DAB6F] rounded-md justify-center items-center gap-2 flex">
+              <div data-svg-wrapper class="relative">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_33_1529)">
+              <path d="M14.75 1.6875C15.0649 1.6875 15.367 1.81261 15.5897 2.03531C15.8124 2.25801 15.9375 2.56006 15.9375 2.875V18.3125H17.7188C17.8762 18.3125 18.0272 18.3751 18.1386 18.4864C18.2499 18.5978 18.3125 18.7488 18.3125 18.9062C18.3125 19.0637 18.2499 19.2147 18.1386 19.3261C18.0272 19.4374 17.8762 19.5 17.7188 19.5H2.28125C2.12378 19.5 1.97276 19.4374 1.86141 19.3261C1.75006 19.2147 1.6875 19.0637 1.6875 18.9062C1.6875 18.7488 1.75006 18.5978 1.86141 18.4864C1.97276 18.3751 2.12378 18.3125 2.28125 18.3125H4.0625V2.875C4.0625 2.56006 4.18761 2.25801 4.41031 2.03531C4.63301 1.81261 4.93506 1.6875 5.25 1.6875H14.75ZM12.375 12.375C12.6899 12.375 12.992 12.2499 13.2147 12.0272C13.4374 11.8045 13.5625 11.5024 13.5625 11.1875C13.5625 10.8726 13.4374 10.5705 13.2147 10.3478C12.992 10.1251 12.6899 10 12.375 10C12.0601 10 11.758 10.1251 11.5353 10.3478C11.3126 10.5705 11.1875 10.8726 11.1875 11.1875C11.1875 11.5024 11.3126 11.8045 11.5353 12.0272C11.758 12.2499 12.0601 12.375 12.375 12.375Z" fill="#FAF9F6"/>
+              </g>
+              <defs>
+              <clipPath id="clip0_33_1529">
+              <rect width="19" height="19" fill="white" transform="translate(0.5 0.5)"/>
+              </clipPath>
+              </defs>
+              </svg>
+              </div>
+              <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">ล็อคอิน</div>
+          </button>
+        </a>
+      </div>
+    {% endif %}
 </header>
 {% endblock %}
 {% block content %}

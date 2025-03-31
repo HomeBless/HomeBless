@@ -1,6 +1,5 @@
 from django.shortcuts import redirect
 from django.views.generic import DetailView
-
 from ..models import Property
 
 class PropertyDetail(DetailView):
