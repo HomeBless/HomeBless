@@ -1,5 +1,5 @@
 from django.db import models
-from .seller import Seller
+from django.contrib.auth.models import User
 from .property_type import PropertyType
 from .decoration import Decoration
 from .flooring import Flooring
@@ -26,7 +26,7 @@ class Property(models.Model):
         ('agent', 'Agent')
     ]
 
-    seller = models.ForeignKey(Seller, on_delete=models.CASCADE, related_name="properties")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="properties")
     title = models.CharField(max_length=255)
     description = models.TextField()
     seller_status = models.CharField(max_length=10, choices=SELLER_STATUS_CHOICES, default='owner')
@@ -43,6 +43,8 @@ class Property(models.Model):
     area = models.FloatField(help_text="Area in square wa")
     is_available = models.BooleanField(default=True)
     construct_year = models.IntegerField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+
 
     # Decoration & Materials
     decoration = models.ManyToManyField(Decoration, blank=True)

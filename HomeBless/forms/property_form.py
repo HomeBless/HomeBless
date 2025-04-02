@@ -6,7 +6,7 @@ from ..models import Property
 class PropertyForm(forms.ModelForm):
     class Meta:
         model = Property
-        exclude = ['seller']
+        exclude = ['user']
 
     def clean_price(self):
         price = self.cleaned_data.get('price')
