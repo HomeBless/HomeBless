@@ -1,51 +1,7 @@
 {% load static %}
 {% load humanize %}
 
-<!-- description -->
-<div class="flex flex-col items-start gap-[16px] self-stretch">
-    <!-- status -->
-    <div class="flex items-center gap-[16px]">
-        <div class="flex p-1.5 justify-center items-center gap-1.5 rounded-[10px] bg-green-300/30">
-            <p class="text-[#2DAB6F] text-base font-normal leading-normal">
-                {% if selling_type == "For Sell" %}
-                    ขาย
-                {% elif selling_type == "For Rent" %}
-                    เช่า
-                {% endif %}
-            </p>
-        </div>
-    </div>
-    <!-- Title -->
-    <div class="self-stretch inline-flex justify-start items-start gap-4">
-        <div class="flex-1 justify-start text-slate-600 text-3xl font-bold font-['IBM_Plex_Sans_Thai']">
-            {{ property.title }}
-        </div>
-        <button onclick="toggleBookmark(this)" class="relative p-2 rounded-full transition-transform duration-200 hover:scale-110 focus:outline-none">
-            <span class="absolute inset-0 rounded-full bg-blue-200 opacity-0 scale-50 transition-all duration-300 ease-out group-hover:opacity-20"></span>
-            <img id="bookmark-icon" src="{% static 'property-detail/bookmark.svg' %}" alt="Bookmark" 
-                 class="w-15 h-15 relative z-10">
-        </button>
-    </div>
-    <!-- Location pin -->
-    <div class="flex p-2 px-3 justify-center items-center gap-1.5 rounded-md bg-[#2162D0]">
-        <div class="flex items-center gap-2">
-            <div class="h-[14px] w-[13px]">
-                <img id="bookmark-icon" src="{% static 'property-detail/location_pin.svg' %}" alt="Bookmark">
-            </div>
-            <div class="text-[#FAF9F6] font-bold text-[16px]">
-                {{ property.location }}
-            </div>
-        </div>
-    </div>
-    <!-- Price -->
-    <div class="flex flex-col items-start gap-[-10px] self-stretch">
-        <div class="text-[#575B6F] font-bold text-[16px] self-stretch">
-            ราคา
-        </div>
-        <div class="text-[#2DAB6F] font-bold text-[48px] self-stretch uppercase">{{ property.price|intcomma }}
-            บาท
-        </div>
-    </div>
+
     <!-- Features -->
     <div class="flex items-start gap-[16px] self-stretch">
         <div class="flex p-2.5 flex-col justify-center items-center gap-1.5 flex-1 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6]">
@@ -128,4 +84,3 @@
             </div>
         </div>
     </div>
-</div>
