@@ -4,4 +4,4 @@ from .property_detail import PropertyDetail
 from .property_listing import PropertyListing
 from .property_list import property_list
 from .sell import Sell
-from .wishlist import Wishlist
+from .wishlist import WishlistView

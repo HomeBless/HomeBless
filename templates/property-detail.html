@@ -51,17 +51,17 @@
                         <div class="flex-1 justify-start text-slate-600 text-3xl font-bold font-['IBM_Plex_Sans_Thai']">
                             {{ property.title }}
                         </div>
-<form method="POST" action="{% url 'HomeBless:property-detail' pk=property.pk %}">
-    {% csrf_token %}
-    <input type="hidden" name="bookmark_property" value="{{ property.id }}">
-    <button onclick="toggleBookmark(this)" class="relative p-2 rounded-full transition-transform duration-200 hover:scale-110 focus:outline-none">
-        <span class="absolute inset-0 rounded-full bg-blue-500 opacity-0 scale-50 transition-all duration-300 ease-out group-hover:opacity-20"></span>
-        <img id="bookmark-icon" 
-             src="{% if wishlist_bool %}{% static 'property-detail/booked.svg' %}{% else %}{% static 'property-detail/bookmark.svg' %}{% endif %}" 
-             alt="Bookmark" 
-             class="w-15 h-15 relative z-10">
-    </button>
-</form>
+                        <form method="POST" action="{% url 'HomeBless:property-detail' pk=property.pk %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="bookmark_property" value="{{ property.id }}">
+                            <button onclick="toggleBookmark(this)" class="relative p-2 rounded-full transition-transform duration-200 hover:scale-110 focus:outline-none">
+                                <span class="absolute inset-0 rounded-full bg-blue-500 opacity-0 scale-50 transition-all duration-300 ease-out group-hover:opacity-20"></span>
+                                <img id="bookmark-icon" 
+                                     src="{% if wishlist_bool %}{% static 'property-detail/booked.svg' %}{% else %}{% static 'property-detail/bookmark.svg' %}{% endif %}" 
+                                     alt="Bookmark" 
+                                     class="w-15 h-15 relative z-10">
+                            </button>
+                        </form>
                     </div>
                     <!-- Location pin -->
                     <div class="flex p-2 px-3 justify-center items-center gap-1.5 rounded-md bg-[#2162D0]">

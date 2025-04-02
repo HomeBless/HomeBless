@@ -9,5 +9,5 @@ urlpatterns = [
     path('compare/', Compare.as_view(), name='compare'),
     path('property-detail/<int:pk>/', PropertyDetail.as_view(), name='property-detail'),
     path('sell/', Sell.as_view(), name='sell'),
-    path('wishlist/', Wishlist.as_view(), name='wishlist'),
+    path('wishlist/', WishlistView.as_view(), name='wishlist'),
 ]
