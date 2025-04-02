@@ -24,7 +24,7 @@ class PropertyDetail(DetailView):
         self.object.price_per_area = float(self.object.price)/float(self.object.area)
 
         # Get related properties (exclude the current property)
-        related_properties = Property.objects.filter(is_available=True).exclude(id=self.object.id).order_by('-created_at')[:6]
+        related_properties = Property.objects.filter(is_available=True).exclude(id=self.object.id) #.order_by('-created_at')[:6]
 
         for property in related_properties:
             # Get main image for each related property
