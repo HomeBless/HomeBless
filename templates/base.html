@@ -61,7 +61,7 @@
     </div>
     {% if user.is_authenticated %}
       <div class="justify-start items-center gap-4 flex">
-        <a href="/account/logout">
+        <a href="/accounts/logout">
           <button class="p-2.5 bg-[#2DAB6F] rounded-md justify-center items-center gap-2 flex">
               <div data-svg-wrapper class="relative">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -81,12 +81,12 @@
       </div>
     {% else %}
       <div class="justify-start items-center gap-4 flex">
-        <a href="/account/signup">
+        <a href="/accounts/signup">
           <button class="p-2.5 rounded-md justify-center items-center gap-2 flex">
               <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">ลงทะเบียน</div>
           </button>
         </a>
-        <a href="/account/login">
+        <a href="/accounts/login">
           <button class="p-2.5 bg-[#2DAB6F] rounded-md justify-center items-center gap-2 flex">
               <div data-svg-wrapper class="relative">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
