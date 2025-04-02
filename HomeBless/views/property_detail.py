@@ -79,4 +79,5 @@ class PropertyDetail(DetailView):
         }
 
     def post(self, request, *args, **kwargs):
+
         return redirect('HomeBless:property-detail', pk=self.get_object().pk)

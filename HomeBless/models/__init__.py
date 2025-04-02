@@ -17,3 +17,4 @@ from .facility import Facility
 from .security import Security
 from .travelling import Travelling
 from .common_area import CommonArea
+from .wishlist import Wishlist
