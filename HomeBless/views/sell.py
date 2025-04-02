@@ -33,5 +33,5 @@ class Sell(TemplateView):
             form.save_m2m()
 
             return redirect('HomeBless:sell')
-
+        print(form.errors)
         return render(request, self.template_name, {'form': form})
