@@ -43,7 +43,7 @@ class PropertyDetail(DetailView):
 
     def get_seller_short_name(self):
         """Get seller name as 'First LastInitial.'"""
-        full_name = self.object.seller.user.get_full_name()
+        full_name = self.object.user.get_full_name()
         name_parts = full_name.split()
         if len(name_parts) > 1:
             first_name = name_parts[0]
