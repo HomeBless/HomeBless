@@ -41,6 +41,9 @@ class PropertyDetail(DetailView):
         # Map API
         context['google_maps_api_key'] = settings.GOOGLE_MAPS_API_KEY
 
+        # Get Address
+        context['address'] = self.get_property_address()
+
         # Nearby Places (Multiple Types)
         universities = self.get_nearby_places("","มหาวิทยาลัย")
         filtered_universities = [uni for uni in universities if uni["name"].startswith("มหาวิทยาลัย")][:2]
@@ -130,6 +133,18 @@ class PropertyDetail(DetailView):
             'view_tags': self.object.views.all(),
             'warranty_tags': self.object.warranties.all(),
         }
+
+    def get_property_address(self):
+        """Fetch formatted address using Google Geocode API."""
+        lat = self.object.latitude
+        lng = self.object.longitude
+        google_api_key = settings.GOOGLE_MAPS_API_KEY
+
+        url = f"https://maps.googleapis.com/maps/api/geocode/json?latlng={lat},{lng}&language=th&key={google_api_key}"
+        response = requests.get(url)
+        data = response.json()
+
+        return data["results"][0]["formatted_address"]
 
     def get_nearby_places(self, type, keyword):
         """Fetch nearby places using Google Places API."""
