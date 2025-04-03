@@ -572,7 +572,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                      <a href="https://www.google.com/maps?q=13.84814,100.57223" target="_blank" class="flex w-full items-center justify-center gap-2 px-4 py-2">
+                                      <a href="https://www.google.com/maps?q={{ property.latitude }}, {{ property.longitude }}" target="_blank" class="flex w-full items-center justify-center gap-2 px-4 py-2">
                                         <button class="flex w-full items-center justify-center gap-2 px-4 py-2 border border-gray-300 bg-offWhite rounded-md hover:bg-gray-100">
                                             <div class="w-[21px] h-[21px]">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="21" height="22"
@@ -612,9 +612,9 @@
                                     <!-- Map -->
                                     <div class="flex w-[377px] flex-col justify-between items-start self-stretch">
                                         <div class="flex flex-col items-center flex-1 self-stretch rounded-lg border border-gray-300">
-                                          <gmp-map center="13.84814, 100.57223" zoom="14" style="height: 100%;" map-id="DEMO_MAP_ID">
+                                          <gmp-map center="{{ property.latitude }},{{ property.longitude }}" zoom="14" style="height: 100%;" map-id="DEMO_MAP_ID">
                                             <!-- Add the gmp-advanced-marker component -->
-                                            <gmp-advanced-marker position="13.848141, 100.57223" title=""></gmp-advanced-marker>
+                                            <gmp-advanced-marker position="{{ property.latitude }},{{ property.longitude }}" title=""></gmp-advanced-marker>
                                           </gmp-map>
                                         </div>
                                     </div>
@@ -689,7 +689,7 @@
                                             {% endfor %}
                                             {% for place in nearby_transport %}
                                                 <tr data-category="transport">
-                                                    <td class="p-2">{{ place.name }}</td>
+                                                    <td class="p-2">(สถานีรถไฟฟ้า) {{ place.name }}</td>
                                                     <td class="p-2 bg-indigo-100">{{ place.distance }}</td>
                                                 </tr>
                                             {% endfor %}

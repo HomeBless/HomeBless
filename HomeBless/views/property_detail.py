@@ -101,8 +101,8 @@ class PropertyDetail(DetailView):
 
     def get_nearby_places(self, keyword):
         """Fetch nearby places using Google Places API."""
-        lat = 13.84814
-        lng = 100.57223
+        lat = self.object.latitude
+        lng = self.object.longitude
         google_api_key = settings.GOOGLE_MAPS_API_KEY
 
         url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={lat},{lng}&rankby=distance&keyword={keyword}&language=th&key={google_api_key}"
