@@ -3,7 +3,7 @@
 {% load humanize %}
 
 {% block head %}
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyMdZRSJ_UnpLnmVV2aaOn2YjS9ft19bw&libraries=maps,marker&v=beta" defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&libraries=maps,marker,places,geometry&callback=initMap" defer></script>
 {% endblock %}
 
 {% block content %}
@@ -640,11 +640,11 @@
                                         <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100" data-category="mall">
                                             <div class="text-[#575B6F] font-normal text-[16px]">ห้างสรรพสินค้า</div>
                                         </button>
-                                      <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100" data-category="park">
-                                            <div class="text-[#575B6F] font-normal text-[16px]">สวนสาธารณะ</div>
+                                      <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100" data-category="hospital">
+                                            <div class="text-[#575B6F] font-normal text-[16px]">โรงพยาบาล</div>
                                         </button>
-                                      <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100" data-category="public transport">
-                                            <div class="text-[#575B6F] font-normal text-[16px]">ขนส่งสาธารณะ</div>
+                                      <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100" data-category="transport">
+                                            <div class="text-[#575B6F] font-normal text-[16px]">สถานีรถไฟฟ้า</div>
                                         </button>
                                     </div>
                                     <!-- Table List -->
@@ -654,30 +654,45 @@
                                                 <tr>
                                                     <th class="text-left font-bold text-[16px] border-b border-[#575B6F] p-2">สถานที่</th>
                                                     <th class="text-left font-bold text-[16px] border-b border-[#575B6F] p-2 bg-indigo-100">ระยะทาง</th>
-                                                    <th class="text-left font-bold text-[16px] border-b border-[#575B6F] p-2">ค้นหาในละแวก</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="nearby-places">
+                                            {% for place in nearby_university %}
                                                 <tr data-category="school">
-                                                    <td class="p-2">สถาบันการจัดการปัญญาภิวัฒน์</td>
-                                                    <td class="p-2 bg-indigo-100">0.5 กม.</td>
-                                                    <td class="p-2 text-[#2162D0]"><a href="#">ค้นหา ></a></td>
+                                                    <td class="p-2">{{ place.name }}</td>
+                                                    <td class="p-2 bg-indigo-100">{{ place.distance }}</td>
                                                 </tr>
-                                                <tr data-category="mall">
-                                                    <td class="p-2">เซ็นทรัลพลาซ่า แจ้งวัฒนะ</td>
-                                                    <td class="p-2 bg-indigo-100">0.7 กม.</td>
-                                                    <td class="p-2 text-[#2162D0]"><a href="#">ค้นหา ></a></td>
-                                                </tr>
+                                            {% endfor %}
+                                            {% for place in nearby_school %}
                                                 <tr data-category="school">
-                                                    <td class="p-2">มหาวิทยาลัยหอการค้าไทย</td>
-                                                    <td class="p-2 bg-indigo-100">1.5 กม.</td>
-                                                    <td class="p-2 text-[#2162D0]"><a href="#">ค้นหา ></a></td>
+                                                    <td class="p-2">{{ place.name }}</td>
+                                                    <td class="p-2 bg-indigo-100">{{ place.distance }}</td>
                                                 </tr>
+                                            {% endfor %}
+                                            {% for place in nearby_airport %}
+                                                <tr data-category="airport">
+                                                    <td class="p-2">{{ place.name }}</td>
+                                                    <td class="p-2 bg-indigo-100">{{ place.distance }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            {% for place in nearby_mall %}
                                                 <tr data-category="mall">
-                                                    <td class="p-2">สยามพารากอน</td>
-                                                    <td class="p-2 bg-indigo-100">1.8 กม.</td>
-                                                    <td class="p-2 text-[#2162D0]"><a href="#">ค้นหา ></a></td>
+                                                    <td class="p-2">{{ place.name }}</td>
+                                                    <td class="p-2 bg-indigo-100">{{ place.distance }}</td>
                                                 </tr>
+                                            {% endfor %}
+                                            {% for place in nearby_hospital %}
+                                                <tr data-category="hospital">
+                                                    <td class="p-2">{{ place.name }}</td>
+                                                    <td class="p-2 bg-indigo-100">{{ place.distance }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            {% for place in nearby_transport %}
+                                                <tr data-category="transport">
+                                                    <td class="p-2">{{ place.name }}</td>
+                                                    <td class="p-2 bg-indigo-100">{{ place.distance }}</td>
+                                                </tr>
+                                            {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>
