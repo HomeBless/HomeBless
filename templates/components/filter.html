@@ -1,0 +1,210 @@
+{% load static %}
+
+<div id="filter" class="w-1/4 h-screen overflow-y-auto sticky top-[178px] border-r border-[#d0d8ef] flex-col justify-start items-start inline-flex">
+        <div class="self-stretch px-[30px] py-5 border-b-2 border-[#d0d8ef] justify-between items-center inline-flex">
+            <div class="justify-start items-center gap-4 flex">
+                <img src="{% static 'property-listing/filter.svg' %}" alt="Filter">
+                <div class="text-[#575b6f] text-[22px] font-medium font-['IBM Plex Sans Thai']">ตัวกรอง</div>
+            </div>
+            <img src="{% static 'property-listing/close.svg' %}" alt="Close" class="w-22 h-22 cursor-pointer" id="close-filter">
+        </div>
+        <div class="self-stretch h-auto px-[30px] py-5 border-b-2 border-[#d0d8ef] flex-col justify-start items-start gap-6 flex">
+            <div class="self-stretch justify-between items-center inline-flex">
+                <div class="justify-start items-center gap-4 flex">
+                    <div data-svg-wrapper class="relative">
+                        <img src="{% static 'property-listing/apply.svg' %}" alt="Filter">
+                    </div>
+                    <div class="text-[#575b6f] text-[22px] font-medium font-['IBM Plex Sans Thai']">ตัวกรองที่ใส่แล้ว</div>
+                </div>
+                <div class="justify-start items-center gap-2 flex">
+                    <div class="text-[#575b6f] text-[22px] font-medium font-['IBM Plex Sans Thai']">ล้าง</div>
+                    <img src="{% static 'property-listing/x.svg' %}" alt="Delete">
+                </div>
+            </div>
+            <div class="justify-start items-center gap-4 inline-flex">
+                <div class="p-2.5 bg-[#2162d0] rounded-[10px] justify-center items-center gap-2 flex">
+                    <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">บ้านเดี่ยว</div>
+                    <img src="{% static 'property-listing/x-white.svg' %}" alt="Delete">
+                </div>
+                <div class="p-2.5 bg-[#2162d0] rounded-[10px] justify-center items-center gap-2 flex">
+                    <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">โครงการบ้านจัดสรร</div>
+                    <img src="{% static 'property-listing/x-white.svg' %}" alt="Delete">
+                </div>
+            </div>
+        </div>
+        <div class="self-stretch h-auto px-[30px] py-5 border-b-2 border-[#d0d8ef] flex-col justify-start items-start gap-6 flex">
+            <div class="self-stretch justify-between items-center inline-flex">
+                <div class="text-[#575b6f] text-[22px] font-medium font-['IBM Plex Sans Thai']">ตัวกรองพื้นฐาน</div>
+                <img id="basic-filter-arrow"
+                     src="{% static 'property-listing/arrow.svg' %}"
+                     alt="arrow"
+                     class="w-6 h-6 cursor-pointer transition-transform duration-300">
+            </div>
+            <div id="basic-filter" class="w-full">
+            <div class="flex-col justify-start items-start gap-2 flex">
+                <div class="text-[#575b6f] text-base font-bold font-['IBM Plex Sans Thai']">ประเภทของอสังหา</div>
+                <div class="justify-start items-center gap-4 inline-flex">
+                    <div class="p-2.5 bg-[#2162d0] rounded-[10px] justify-center items-center gap-2 flex">
+                        <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">บ้านเดี่ยว</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">ทาวน์เฮ้าส์</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">คอนโด</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">ที่ดิน</div>
+                    </div>
+                </div>
+            </div>
+            <div class="self-stretch h-auto flex-col justify-start items-start gap-2 flex mt-4">
+                <div class="text-[#575b6f] text-base font-bold font-['IBM Plex Sans Thai']">ช่วงราคาขาย</div>
+                <div class="self-stretch justify-start items-center gap-4 inline-flex">
+                    <div class="grow shrink basis-0 h-[46px] p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#a6abc6] text-base font-normal font-['IBM Plex Sans Thai']">min</div>
+                    </div>
+                    <div class="grow shrink basis-0 h-[46px] p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#a6abc6] text-base font-normal font-['IBM Plex Sans Thai']">max</div>
+                    </div>
+                </div>
+                <div class="self-stretch h-auto flex-col justify-start items-center flex">
+                    <div class="self-stretch justify-between items-center inline-flex">
+                        <div class="text-center text-[#2162d0] text-base font-normal font-['IBM Plex Sans Thai']">0บาท</div>
+                        <div class="text-center text-[#2162d0] text-base font-normal font-['IBM Plex Sans Thai']">infบาท</div>
+                    </div>
+                    <div class="self-stretch px-[3px] justify-start items-center inline-flex">
+                        <div class="w-4 h-4 bg-[#2162d0] rounded-full border border-[#faf9f6]"></div>
+                        <div class="grow shrink basis-0 flex-col justify-start items-start gap-2.5 inline-flex">
+                            <div class="self-stretch h-[0px] border-2 border-[#2162d0]"></div>
+                        </div>
+                        <div class="w-4 h-4 bg-[#2162d0] rounded-full border border-[#faf9f6]"></div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="self-stretch h-auto px-[30px] py-5 border-b-2 border-[#d0d8ef] flex-col justify-start items-start gap-6 flex">
+            <div class="self-stretch justify-between items-center inline-flex">
+                <div class="text-[#575b6f] text-[22px] font-medium font-['IBM Plex Sans Thai']">ลักษณะบ้าน</div>
+                <img id="charac-filter-arrow"
+                     src="{% static 'property-listing/arrow.svg' %}"
+                     alt="arrow"
+                     class="w-6 h-6 cursor-pointer transition-transform duration-300">
+            </div>
+            <div id="charac-filter" class="w-full">
+            <div class="self-stretch h-auto flex-col justify-start items-start gap-2 flex">
+                <div class="text-[#575b6f] text-base font-bold font-['IBM Plex Sans Thai']">จำนวนห้องนอน</div>
+                <div class="self-stretch justify-start items-center gap-4 flex flex-wrap">
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">1 ห้องนอน</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">4 ห้องนอน</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">2 ห้องนอน</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">5 ห้องนอน</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">3 ห้องนอน</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">มากกว่า 5 ห้องนอน</div>
+                    </div>
+                </div>
+            </div>
+            <div class="self-stretch h-auto flex-col justify-start items-start gap-2 flex mt-4">
+                <div class="text-[#575b6f] text-base font-bold font-['IBM Plex Sans Thai']">จำนวนห้องน้ำ</div>
+                <div class="self-stretch justify-start items-center gap-4 flex flex-wrap">
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">1 ห้องน้ำ</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">2 ห้องน้ำ</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">3 ห้องน้ำ</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">4 ห้องน้ำ</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">5 ห้องน้ำ</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">มากกว่า 5 ห้องน้ำ</div>
+                    </div>
+                </div>
+            </div>
+            <div class="self-stretch h-auto flex-col justify-start items-start gap-2 flex mt-4">
+                <div class="text-[#575b6f] text-base font-bold font-['IBM Plex Sans Thai']">จำนวนที่จอดรถ</div>
+                <div class="self-stretch justify-start items-center gap-4 flex flex-wrap">
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">ไม่มี</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">1 คัน</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">2 คัน</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">3 คัน</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">4 คันขึ้นไป</div>
+                    </div>
+                </div>
+            </div>
+            <div class="self-stretch h-auto flex-col justify-start items-start gap-2 flex mt-4">
+                <div class="text-[#575b6f] text-base font-bold font-['IBM Plex Sans Thai']">ขนาดพื้นที่ใช้สอย</div>
+                <div class="self-stretch justify-start items-center gap-4 inline-flex w-full">
+                    <label>
+                        <input type="number" placeholder="min"
+                            class="grow shrink basis-0 h-[46px] p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] text-[#a6abc6] text-base font-normal font-['IBM Plex Sans Thai'] text-center outline-none">
+                    </label>
+                    <label>
+                        <input type="number" placeholder="max"
+                            class="grow shrink basis-0 h-[46px] p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] text-[#a6abc6] text-base font-normal font-['IBM Plex Sans Thai'] text-center outline-none">
+                    </label>
+                </div>
+                <div class="self-stretch h-auto] flex-col justify-start items-center flex">
+                    <div class="self-stretch justify-between items-center inline-flex">
+                        <div class="text-center text-[#2162d0] text-base font-normal font-['IBM Plex Sans Thai']">0ตร.ม</div>
+                        <div class="text-center text-[#2162d0] text-base font-normal font-['IBM Plex Sans Thai']">infตร.ม</div>
+                    </div>
+                    <div class="self-stretch px-[3px] justify-start items-center inline-flex">
+                        <div class="w-4 h-4 bg-[#2162d0] rounded-full border border-[#faf9f6]"></div>
+                        <div class="grow shrink basis-0 flex-col justify-start items-start gap-2.5 inline-flex">
+                            <div class="self-stretch h-[0px] border-2 border-[#2162d0]"></div>
+                        </div>
+                        <div class="w-4 h-4 bg-[#2162d0] rounded-full border border-[#faf9f6]"></div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="self-stretch h-auto px-[30px] py-5 border-b-2 border-[#d0d8ef] flex-col justify-start items-start gap-6 flex">
+            <div class="self-stretch justify-between items-center inline-flex">
+                <div class="text-[#575b6f] text-[22px] font-medium font-['IBM Plex Sans Thai']">รายละเอียดเพิ่มเติม</div>
+                <div data-svg-wrapper class="relative">
+                <svg width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M2.36613 7.17857C2.43289 7.11163 2.51221 7.05853 2.59953 7.02229C2.68685 6.98606 2.78046 6.96741 2.875 6.96741C2.96954 6.96741 3.06316 6.98606 3.15048 7.02229C3.2378 7.05853 3.31711 7.11163 3.38388 7.17857L11.5 15.2961L19.6161 7.17857C19.683 7.11174 19.7623 7.05873 19.8496 7.02257C19.9369 6.9864 20.0305 6.96779 20.125 6.96779C20.2195 6.96779 20.3131 6.9864 20.4004 7.02257C20.4877 7.05873 20.5671 7.11174 20.6339 7.17857C20.7007 7.2454 20.7537 7.32473 20.7899 7.41204C20.826 7.49936 20.8447 7.59294 20.8447 7.68745C20.8447 7.78195 20.826 7.87553 20.7899 7.96285C20.7537 8.05016 20.7007 8.12949 20.6339 8.19632L12.0089 16.8213C11.9421 16.8883 11.8628 16.9414 11.7755 16.9776C11.6882 17.0138 11.5945 17.0325 11.5 17.0325C11.4055 17.0325 11.3118 17.0138 11.2245 16.9776C11.1372 16.9414 11.0579 16.8883 10.9911 16.8213L2.36613 8.19632C2.29919 8.12955 2.24609 8.05024 2.20985 7.96292C2.17362 7.87559 2.15497 7.78198 2.15497 7.68744C2.15497 7.5929 2.17362 7.49929 2.20985 7.41197C2.24609 7.32465 2.29919 7.24533 2.36613 7.17857Z" fill="#575B6F"/>
+                </svg>
+                </div>
+            </div>
+        </div>
+        <div class="self-stretch h-auto px-[30px] py-5 border-b-2 border-[#d0d8ef] flex-col justify-start items-start gap-6 flex">
+            <div class="self-stretch justify-between items-center inline-flex">
+                <div class="text-[#575b6f] text-[22px] font-medium font-['IBM Plex Sans Thai']">การใช้งานและทำเล</div>
+                <div data-svg-wrapper class="relative">
+                <svg width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M2.36613 7.17857C2.43289 7.11163 2.51221 7.05853 2.59953 7.02229C2.68685 6.98606 2.78046 6.96741 2.875 6.96741C2.96954 6.96741 3.06316 6.98606 3.15048 7.02229C3.2378 7.05853 3.31711 7.11163 3.38388 7.17857L11.5 15.2961L19.6161 7.17857C19.683 7.11174 19.7623 7.05873 19.8496 7.02257C19.9369 6.9864 20.0305 6.96779 20.125 6.96779C20.2195 6.96779 20.3131 6.9864 20.4004 7.02257C20.4877 7.05873 20.5671 7.11174 20.6339 7.17857C20.7007 7.2454 20.7537 7.32473 20.7899 7.41204C20.826 7.49936 20.8447 7.59294 20.8447 7.68745C20.8447 7.78195 20.826 7.87553 20.7899 7.96285C20.7537 8.05016 20.7007 8.12949 20.6339 8.19632L12.0089 16.8213C11.9421 16.8883 11.8628 16.9414 11.7755 16.9776C11.6882 17.0138 11.5945 17.0325 11.5 17.0325C11.4055 17.0325 11.3118 17.0138 11.2245 16.9776C11.1372 16.9414 11.0579 16.8883 10.9911 16.8213L2.36613 8.19632C2.29919 8.12955 2.24609 8.05024 2.20985 7.96292C2.17362 7.87559 2.15497 7.78198 2.15497 7.68744C2.15497 7.5929 2.17362 7.49929 2.20985 7.41197C2.24609 7.32465 2.29919 7.24533 2.36613 7.17857Z" fill="#575B6F"/>
+                </svg>
+                </div>
+            </div>
+        </div>
+    </div>

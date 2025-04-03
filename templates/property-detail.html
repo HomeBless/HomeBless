@@ -681,20 +681,20 @@
         }
     }
         
-function toggleBookmark(button) {
-    const icon = button.querySelector('#bookmark-icon');
-    const ring = button.querySelector('span');
-    const isBooked = icon.src.includes('booked.svg');
+    function toggleBookmark(button) {
+        const icon = button.querySelector('#bookmark-icon');
+        const ring = button.querySelector('span');
+        const isBooked = icon.src.includes('booked.svg');
+        
+        // Toggle the image source
+        icon.src = isBooked ? "{% static 'property-detail/bookmark.svg' %}" : "{% static 'property-detail/booked.svg' %}";
     
-    // Toggle the image source
-    icon.src = isBooked ? "{% static 'property-detail/bookmark.svg' %}" : "{% static 'property-detail/booked.svg' %}";
-
-    // Add animation
-    ring.classList.add('ring-animate');
-    setTimeout(() => {
-        ring.classList.remove('ring-animate');
-    }, 300);
-}
+        // Add animation
+        ring.classList.add('ring-animate');
+        setTimeout(() => {
+            ring.classList.remove('ring-animate');
+        }, 300);
+    }
 
         
     </script>
