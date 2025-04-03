@@ -3,7 +3,7 @@ from django.views.generic import ListView
 from django.db.models import Q
 from ..models import Property, PropertyType
 
-PROPERTY_PER_PAGE = 2
+PROPERTY_PER_PAGE = 20
 
 
 class PropertyListing(ListView):
