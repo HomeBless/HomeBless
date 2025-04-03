@@ -24,7 +24,10 @@
             </div>
         </div>
         <div id="selected-filters-container" class="justify-start items-center gap-4 inline-flex flex-wrap">
-            <!-- Selected filters will be dynamically added here -->
+            <!-- Selected filters will be added here -->
+            <div id="no-filters-message" class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">
+                ไม่มีตัวกรองที่เลือก
+            </div>
         </div>
     </div>
     <div class="self-stretch h-auto px-[30px] py-5 border-b-2 border-[#d0d8ef] flex-col justify-start items-start gap-6 flex w-full">
@@ -334,10 +337,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function updateSelectedFiltersDisplay() {
         selectedFiltersContainer.innerHTML = '';
+        let hasFilters = false;
         
         filterButtons.forEach(button => {
             const isSelected = button.getAttribute('data-selected') === 'true';
             if (isSelected) {
+                hasFilters = true;
                 const filterType = button.getAttribute('data-filter-type');
                 const filterValue = button.getAttribute('data-filter-value');
                 const filterLabel = button.getAttribute('data-filter-label');
@@ -366,7 +371,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     
                     filterTag.remove();
-                    
+                    checkNoFilters();
                     updateFiltersObject();
                 });
                 
@@ -376,6 +381,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 selectedFiltersContainer.appendChild(filterTag);
             }
         });
+        
+        checkNoFilters();
+    }
+    
+    function checkNoFilters() {
+        const noFiltersMessage = document.getElementById('no-filters-message') || 
+                               document.createElement('div');
+        
+        if (!noFiltersMessage.id) {
+            noFiltersMessage.id = 'no-filters-message';
+            noFiltersMessage.className = 'text-[#575b6f] text-base font-normal font-[\'IBM Plex Sans Thai\']';
+            noFiltersMessage.textContent = 'ไม่มีตัวกรองที่เลือก';
+        }
+        
+        const hasActiveFilters = document.querySelectorAll('.filter-toggle-btn[data-selected="true"]').length > 0 ||
+                               (priceMinInput.value && priceMinInput.value !== '0') ||
+                               (priceMaxInput.value && priceMaxInput.value !== '10000000') ||
+                               (areaMinInput.value && areaMinInput.value !== '0') ||
+                               (areaMaxInput.value && areaMaxInput.value !== '10000');
+        
+        if (!hasActiveFilters) {
+            if (!document.getElementById('no-filters-message')) {
+                selectedFiltersContainer.appendChild(noFiltersMessage);
+            }
+        } else {
+            if (noFiltersMessage.parentNode) {
+                noFiltersMessage.parentNode.removeChild(noFiltersMessage);
+            }
+        }
     }
     
     function updateFiltersObject() {
@@ -431,7 +465,26 @@ document.addEventListener('DOMContentLoaded', function() {
         areaMaxInput.value = '10000';
 
         selectedFiltersContainer.innerHTML = '';
+        checkNoFilters();
         window.location.href = window.location.pathname;
+    });
+    
+    document.getElementById('submit-filter').addEventListener('click', function() {
+        const selectedFilters = updateFiltersObject();
+        const params = new URLSearchParams();
+        
+        params.set('page', '1');
+        
+        for (const [key, value] of Object.entries(selectedFilters)) {
+            if (Array.isArray(value)) {
+                value.forEach(val => params.append(key, val));
+            } else if (value !== '' && value !== '0') {
+                params.set(key, value);
+            }
+        }
+    
+        const baseUrl = window.location.pathname;
+        window.location.href = `${baseUrl}?${params.toString()}`;
     });
     
     function initializeFiltersFromUrl() {
@@ -494,6 +547,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         updateSelectedFiltersDisplay();
+        checkNoFilters();
     }
     
     initializeFiltersFromUrl();

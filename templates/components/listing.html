@@ -6,6 +6,7 @@
 {#        <span class="text-[#575b6f] text-[32px] font-bold font-['IBM Plex Sans Thai']">ผลการค้นหา </span>#}
 {#        <span class="text-[#2162d0] text-[32px] font-bold font-['IBM Plex Sans Thai']">“ลาดพร้าว”</span>#}
 {#    </div>#}
+    {% if properties %}
     <div class="self-stretch h-auto flex-col justify-start items-center gap-2 flex">
         {% include "components/sort_selector.html" %}
     
@@ -82,4 +83,13 @@
         </div>
         {% include "components/pagination.html" %}
     </div>
+    {% else %}
+        <div class="text-center py-10">
+            <p class="text-lg text-gray-600">{{ empty_message }}</p>
+            <a href="?clear=1" class="mt-4 inline-block px-4 py-3 bg-[#2162d0] text-white rounded-[10px]
+            hover:bg-[#1e4cae] transition-all duration-200">
+                ลบตัวกรอง
+            </a>
+        </div>
+    {% endif %}
 </div>

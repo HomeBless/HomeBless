@@ -1,12 +1,16 @@
+from django.core.paginator import Paginator
 from django.views.generic import ListView
 from django.db.models import Q
 from ..models import Property, PropertyType
+
+PROPERTY_PER_PAGE = 2
 
 
 class PropertyListing(ListView):
     model = Property
     template_name = 'property-listing.html'
     context_object_name = 'properties'
+    paginate_by = PROPERTY_PER_PAGE
 
     def get_filters(self):
         """Helper function to get and parse the filter parameters"""
@@ -120,5 +124,17 @@ class PropertyListing(ListView):
     def get_context_data(self, **kwargs):
         """Override the get_context_data method to add additional context"""
         context = super().get_context_data(**kwargs)
+
+        for property in context['object_list']:
+            main_image = property.images.filter(is_main=True).first() or property.images.first()
+            property.main_image = main_image.image.url if main_image else None
+
         context['current_sort'] = self.request.GET.get('sort', 'latest')
+        context['empty_message'] = 'ไม่พบคุณสมบัติบ้านที่ตรงตามเกณฑ์ของคุณ'
+
+        if 'page_obj' not in context:
+            paginator = Paginator(self.get_queryset(), self.paginate_by)
+            page_number = self.request.GET.get('page')
+            context['page_obj'] = paginator.get_page(page_number)
+
         return context

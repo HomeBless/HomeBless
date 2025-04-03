@@ -1,40 +1,80 @@
 {% load static %}
 
 <div class="p-2.5 pb-20 justify-start items-center gap-4 inline-flex">
-            <div class="justify-start items-center gap-2 flex">
-                <img src="{% static 'property-listing/double-arrow-left.svg' %}" alt="DoubleArrow">
-                <img src="{% static 'property-listing/single-arrow-left.svg' %}" alt="Arrow">
-                <div class="w-10 h-10 bg-[#2162d0] rounded-[50px] flex-col justify-center items-center gap-1.5 inline-flex">
-                    <div class="self-stretch text-center text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">1</div>
-                </div>
-                <div class="w-10 h-10 rounded-[50px] flex-col justify-center items-center gap-1.5 inline-flex">
-                    <div class="self-stretch text-center text-[#444f85] text-base font-normal font-['IBM Plex Sans Thai']">2</div>
-                </div>
-                <div class="w-10 h-10 rounded-[50px] flex-col justify-center items-center gap-1.5 inline-flex">
-                    <div class="self-stretch text-center text-[#444f85] text-base font-normal font-['IBM Plex Sans Thai']">3</div>
-                </div>
-                <div class="w-10 h-10 rounded-[50px] flex-col justify-center items-center gap-1.5 inline-flex">
-                    <div class="self-stretch text-center text-[#444f85] text-base font-normal font-['IBM Plex Sans Thai']">4</div>
-                </div>
-                <div class="w-10 h-10 rounded-[50px] flex-col justify-center items-center gap-1.5 inline-flex">
-                    <div class="self-stretch text-center text-[#444f85] text-base font-normal font-['IBM Plex Sans Thai']">5</div>
-                </div>
-                <div class="w-10 h-10 rounded-[50px] flex-col justify-center items-center gap-1.5 inline-flex">
-                    <div class="self-stretch text-center text-[#444f85] text-base font-normal font-['IBM Plex Sans Thai']">...</div>
-                </div>
-                <div class="w-10 h-10 rounded-[50px] flex-col justify-center items-center gap-1.5 inline-flex">
-                    <div class="self-stretch text-center text-[#444f85] text-base font-normal font-['IBM Plex Sans Thai']">100</div>
-                </div>
-                <img src="{% static 'property-listing/double-arrow-right.svg' %}" alt="DoubleArrow">
-                <img src="{% static 'property-listing/single-arrow-right.svg' %}" alt="Arrow">
+    <div class="justify-start items-center gap-2 flex">
+        {% with params=request.GET.urlencode %}
+        {% with base_url="?"|add:params|cut:"&page="|cut:"page=" %}
+        
+        {% if page_obj.has_previous %}
+            <a href="{{ base_url }}&page=1" class="flex items-center">
+                <img src="{% static 'property-listing/double-arrow-left.svg' %}" alt="First Page">
+            </a>
+            <a href="{{ base_url }}&page={{ page_obj.previous_page_number }}" class="flex items-center">
+                <img src="{% static 'property-listing/single-arrow-left.svg' %}" alt="Previous Page">
+            </a>
+        {% else %}
+            <span class="flex items-center opacity-30">
+                <img src="{% static 'property-listing/double-arrow-left.svg' %}" alt="First Page">
+            </span>
+            <span class="flex items-center opacity-30">
+                <img src="{% static 'property-listing/single-arrow-left.svg' %}" alt="Previous Page">
+            </span>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <span class="w-10 h-10 bg-[#2162d0] rounded-[50px] flex-col justify-center items-center gap-1.5 inline-flex">
+                    <span class="self-stretch text-center text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">{{ num }}</span>
+                </span>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a href="{{ base_url }}&page={{ num }}" class="w-10 h-10 rounded-[50px] flex-col justify-center items-center gap-1.5 inline-flex hover:bg-gray-100">
+                    <span class="self-stretch text-center text-[#444f85] text-base font-normal font-['IBM Plex Sans Thai']">{{ num }}</span>
+                </a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a href="{{ base_url }}&page={{ page_obj.next_page_number }}" class="flex items-center">
+                <img src="{% static 'property-listing/single-arrow-right.svg' %}" alt="Next Page">
+            </a>
+            <a href="{{ base_url }}&page={{ page_obj.paginator.num_pages }}" class="flex items-center">
+                <img src="{% static 'property-listing/double-arrow-right.svg' %}" alt="Last Page">
+            </a>
+        {% else %}
+            <span class="flex items-center opacity-30">
+                <img src="{% static 'property-listing/single-arrow-right.svg' %}" alt="Next Page">
+            </span>
+            <span class="flex items-center opacity-30">
+                <img src="{% static 'property-listing/double-arrow-right.svg' %}" alt="Last Page">
+            </span>
+        {% endif %}
+        
+        {% endwith %}
+        {% endwith %}
+    </div>
+    
+    <div class="pl-5 border-l border-[#d0d8ef] justify-start items-center gap-[5px] flex">
+        <form method="get" class="flex items-center gap-2">
+            {% for key, value_list in request.GET.lists %}
+                {% if key != 'page' %}
+                    {% for value in value_list %}
+                        <input type="hidden" name="{{ key }}" value="{{ value }}">
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+            <div class="h-[46px] p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#a6abc6] justify-start items-center gap-2.5 flex">
+                <input type="number" 
+                       name="page" 
+                       min="1" 
+                       max="{{ page_obj.paginator.num_pages }}" 
+                       class="w-16 text-center bg-transparent outline-none text-[#444f85] text-base font-normal font-['IBM Plex Sans Thai']" 
+                       placeholder="Page"
+                       value="{{ page_obj.number }}">
             </div>
-            <div class="pl-5 border-l border-[#d0d8ef] justify-start items-center gap-[5px] flex">
-                <div class="h-[46px] p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#a6abc6] justify-start items-center gap-2.5 flex">
-                    <div class="text-[#a6abc6] text-base font-normal font-['IBM Plex Sans Thai']"></div>
-                </div>
-                <button class="justify-start items-center flex">
-                    <div class="text-center text-[#444f85] text-base font-normal font-['IBM Plex Sans Thai']">Go</div>
-                    <img src="{% static 'property-listing/go-arrow.svg' %}" alt="Arrow">
-                </button>
-            </div>
-        </div>
+            <button type="submit" class="justify-start items-center flex">
+                <div class="text-center text-[#444f85] text-base font-normal font-['IBM Plex Sans Thai']">Go</div>
+                <img src="{% static 'property-listing/go-arrow.svg' %}" alt="Arrow">
+            </button>
+        </form>
+    </div>
+</div>
