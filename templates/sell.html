@@ -2,6 +2,10 @@
 {% load static %}
 {% load humanize %}
 
+{% block head %}
+  <script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&libraries=places"></script>
+{% endblock %}
+
 {% block content %}
 
 <form id="add-property-form" action="{% url 'HomeBless:sell' %}" method="POST">
@@ -172,6 +176,13 @@
                     <input type="number" name="price" placeholder="โปรดใส่ราคา"
                         class="w-full p-2.5 bg-stone-50 rounded-lg border border-slate-400 text-gray-600" />
                 </div>
+                  <!-- map -->
+                <div>
+                    <p class="text-gray-600 text-xl font-medium">ที่อยู่บนแผนที่</p>
+                    <div id="map" style="height: 400px; width: 100%; margin-top: 10px;"></div>
+                </div>
+                <input type="hidden" id="id_latitude" name="latitude" value="{{ form.latitude.value|default:'' }}">
+                <input type="hidden" id="id_longitude" name="longitude" value="{{ form.longitude.value|default:'' }}">
                 <div class="flex gap-2">
                     <button type="button" id="section-2-before-btn" class="p-2.5 text-blue-700 rounded-md outline outline-1 outline-blue-700 w-[100px] text-center -mr-px hover:bg-blue-100">
                         ก่อนหน้า
@@ -627,7 +638,90 @@ document.addEventListener("DOMContentLoaded", function () {
     showSection(currentIndex);
 });
 
+let map;
+let marker;
 
+function initMap() {
+  // Default center for Bangkok
+  const defaultLocation = { lat: 13.7563, lng: 100.5018 };
+
+  // Get saved coordinates if available
+  const savedLat = document.getElementById("id_latitude").value;
+  const savedLng = document.getElementById("id_longitude").value;
+
+  const mapCenter = (savedLat && savedLng)
+    ? { lat: parseFloat(savedLat), lng: parseFloat(savedLng) }
+    : defaultLocation;
+
+  // Initialize the map
+  map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 13,
+    center: mapCenter,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  });
+
+  // Create the marker
+  marker = new google.maps.Marker({
+    position: mapCenter,
+    map: map,
+    draggable: true
+  });
+
+  // Update coordinates when marker is dragged
+  google.maps.event.addListener(marker, 'dragend', function() {
+    updateCoordinates(marker.getPosition());
+  });
+
+  // Update marker and coordinates when map is clicked
+  google.maps.event.addListener(map, 'click', function(event) {
+    marker.setPosition(event.latLng);
+    updateCoordinates(event.latLng);
+  });
+
+  // Initialize the search box
+  const input = document.createElement("input");
+  input.type = "text";
+  input.placeholder = "Search for a location";
+  input.className = "form-control";
+  input.style.margin = "10px";
+  input.style.width = "300px";
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+  // Initialize autocomplete with the older Places API
+  const autocomplete = new google.maps.places.Autocomplete(input);
+  autocomplete.bindTo('bounds', map);
+
+  // Listen for place selection
+  autocomplete.addListener('place_changed', function() {
+    const place = autocomplete.getPlace();
+
+    if (!place.geometry) {
+      window.alert("No details available for: '" + place.name + "'");
+      return;
+    }
+
+    // Set map view to selected place
+    if (place.geometry.viewport) {
+      map.fitBounds(place.geometry.viewport);
+    } else {
+      map.setCenter(place.geometry.location);
+      map.setZoom(17);
+    }
+
+    // Update marker position
+    marker.setPosition(place.geometry.location);
+    updateCoordinates(place.geometry.location);
+  });
+}
+
+function updateCoordinates(position) {
+  document.getElementById("id_latitude").value = position.lat();
+  document.getElementById("id_longitude").value = position.lng();
+}
 </script>
-
+<script>
+window.onload = function() {
+  initMap();
+};
+</script>
 {% endblock %}
