@@ -1,0 +1,25 @@
+{% load static %}
+
+<div class="self-stretch justify-end items-center inline-flex">
+    <div class="text-center text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">เรียงตาม:</div>
+    <div class="p-2.5 justify-start items-center gap-2.5 flex">
+        <select id="sort-select" class="bg-white border border-gray-300 rounded-md text-[#575b6f] text-base font-bold p-2 focus:outline-none">
+            <option value="latest" {% if request.GET.sort == 'latest' or not request.GET.sort %}selected{% endif %}>เวลาที่ลงขาย (ล่าสุดก่อน)</option>
+            <option value="oldest" {% if request.GET.sort == 'oldest' %}selected{% endif %}>เวลาที่ลงขาย (เก่าสุดก่อน)</option>
+            <option value="price-asc" {% if request.GET.sort == 'price-asc' %}selected{% endif %}>ราคาต่ำไปสูง</option>
+            <option value="price-desc" {% if request.GET.sort == 'price-desc' %}selected{% endif %}>ราคาสูงไปต่ำ</option>
+        </select>
+    </div>
+</div>
+
+<script>
+document.getElementById('sort-select').addEventListener('change', function() {
+    const sortValue = this.value;
+    const url = new URL(window.location.href);
+    
+    const params = new URLSearchParams(window.location.search);
+    params.set('sort', sortValue);
+
+    window.location.href = window.location.pathname + '?' + params.toString();
+});
+</script>
