@@ -2,10 +2,11 @@ import datetime
 from django import forms
 from ..models import Property
 
+
 class PropertyForm(forms.ModelForm):
     class Meta:
         model = Property
-        exclude = ['seller']
+        exclude = ['user']
 
     def clean_price(self):
         price = self.cleaned_data.get('price')
@@ -21,8 +22,8 @@ class PropertyForm(forms.ModelForm):
 
     def clean_construct_year(self):
         year = self.cleaned_data.get('construct_year')
-        current_year = datetime.datetime.now().year
-        if year and (year < 1900 or year > current_year):
+        current_year = datetime.datetime.now().year + 543
+        if year and (year < 2000 or year > current_year):
             raise forms.ValidationError(f"Construction year must be between 1900 and {current_year}.")
         return year
 

@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from ..forms import PropertyForm
-from ..models import Seller
+from django.contrib.auth.models import User
 
 
 @method_decorator(login_required, name='dispatch')
@@ -20,18 +20,16 @@ class Sell(TemplateView):
         if form.is_valid():
             property_obj = form.save(commit=False)
 
-            try:
-                seller = Seller.objects.get(user=request.user)
-            except Seller.DoesNotExist:
+            if not request.user.is_authenticated:
                 return render(request, self.template_name, {
                     'form': form,
-                    'error': "You must be registered as a seller to post a property."
+                    'error': "You must be logged in to list a property."
                 })
 
-            property_obj.seller = seller
+            property_obj.user = request.user
             property_obj.save()
             form.save_m2m()
 
             return redirect('HomeBless:sell')
-
+        print(form.errors)
         return render(request, self.template_name, {'form': form})
