@@ -87,7 +87,7 @@ class PropertyDetail(DetailView):
                                 "สามแยกบางใหญ่", "บางพลู", "บางรักใหญ่", "บางรักน้อยท่าอิฐ",
                                 "ไทรม้า", "สะพานพระนั่งเกล้า", "แยกนนทบุรี 1", "บางกระสอ",
                                 "กระทรวงสาธารณสุข", "แยกติวานนท์", "วงศ์สว่าง", "บางซ่อน"]]
-        context['nearby_transport'] = self.get_nearby_places("สถานีรถไฟฟ้า", "สถานีรถไฟฟ้า")[:2]
+        context['nearby_transport'] = filtered_transports
 
         # Decoration and Home Features
         context.update(self.get_property_tags())
