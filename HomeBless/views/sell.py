@@ -26,7 +26,7 @@ class Sell(TemplateView):
                     'error': "You must be logged in to list a property."
                 })
 
-            property_obj.seller = request.user
+            property_obj.user = request.user
             property_obj.save()
             form.save_m2m()
 
