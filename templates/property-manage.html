@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+
+
+    <div class="pt-[110px] pb-[90px]">
+        <div class="w-full p-7 inline-flex flex-col justify-start items-start gap-4">
+            <div class="self-stretch inline-flex justify-start items-center gap-4">
+                <div class="flex-1 justify-start text-blue-700 text-3xl font-bold font-['IBM_Plex_Sans_Thai']">
+                    บ้านที่คุณลงขาย
+                </div>
+            </div>
+            <div class="self-stretch inline-flex justify-start items-center">
+                <div class="flex-1 p-2.5 border-b border-slate-300 inline-flex flex-col justify-start items-start">
+                    <div class="self-stretch justify-start text-gray-600 text-base font-bold font-['IBM_Plex_Sans_Thai']">
+                        บ้าน
+                    </div>
+                </div>
+                <div class="w-[150px] p-2.5 border-b border-slate-300 inline-flex flex-col justify-start items-center">
+                    <div class="self-stretch justify-start text-gray-600 text-base font-bold font-['IBM_Plex_Sans_Thai']">
+                        ตัวเลือก
+                    </div>
+                </div>
+            </div>
+
+            {% for property in properties %}
+                <div x-data="{ open: false }" class="self-stretch flex flex-col justify-start items-start gap-2">
+                    <div class="self-stretch py-5 border-b border-slate-300 flex flex-col justify-start items-start gap-8">
+                        <div class="self-stretch h-36 p-2.5 inline-flex justify-start items-center gap-4">
+                            <img class="w-36 self-stretch relative rounded-[10px]" src="https://placehold.co/142x121"/>
+                            <div class="flex-1 inline-flex flex-col justify-start items-start gap-4">
+                                <div class="self-stretch flex flex-col justify-start items-start gap-2">
+                                    <div class="self-stretch justify-start text-slate-600 text-base font-bold font-['IBM_Plex_Sans_Thai'] underline">{{ property.title }}</div>
+                                    <div class="self-stretch justify-start text-[#2DAB6F] text-base font-bold font-['IBM_Plex_Sans_Thai']">
+                                        ฿{{ property.price }}</div>
+                                </div>
+                                <div class="self-stretch inline-flex justify-start items-center flex-wrap content-center">
+                                    <div class="px-2.5 flex justify-start items-center gap-1.5">
+                                        <img src="{% static 'property-listing/floor.svg' %}" alt="Floor">
+                                        <div class="justify-start text-gray-600 text-xs font-normal font-['IBM_Plex_Sans_Thai']">{{ property.floors }}
+                                            ชั้น
+                                        </div>
+                                    </div>
+                                    <div class="px-2.5 border-l border-r border-gray-600 flex justify-start items-center gap-1.5">
+                                        <img src="{% static 'property-listing/bedroom.svg' %}" alt="Bedroom">
+                                        <div class="justify-start text-gray-600 text-xs font-normal font-['IBM_Plex_Sans_Thai']">{{ property.bedrooms }}
+                                            ห้องนอน
+                                        </div>
+                                    </div>
+                                    <div class="px-2.5 flex justify-start items-center gap-1.5">
+                                        <img src="{% static 'property-listing/bathroom.svg' %}" alt="Bathroom">
+                                        <div class="justify-start text-gray-600 text-xs font-normal font-['IBM_Plex_Sans_Thai']">{{ property.bathrooms }}
+                                            ห้องน้ำ
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Edit Button -->
+                            <button @click="open = true" type="button"
+                                    class="w-14 p-2.5 border-b border-blue-700 inline-flex flex-col justify-center items-center hover:bg-blue-100 hover:border-blue-900 transition duration-300 ease-in-out">
+                                <div class="self-stretch text-center justify-start text-blue-700 text-base font-bold font-['IBM_Plex_Sans_Thai']">
+                                    แก้ไข
+                                </div>
+                            </button>
+
+                            <!-- Delete Form -->
+                            <div x-data="{ showConfirm: false }">
+    <!-- Delete Button -->
+    <button type="button" @click="showConfirm = true"
+        class="w-14 p-2.5 border-b border-blue-700 inline-flex flex-col justify-center items-center hover:bg-blue-100 hover:border-blue-900 transition duration-300 ease-in-out">
+        <div class="self-stretch text-center justify-start text-blue-700 text-base font-bold font-['IBM_Plex_Sans_Thai']">
+            ลบ
+        </div>
+    </button>
+
+    <!-- Confirmation Modal -->
+    <div x-show="showConfirm" x-transition
+         class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-[100]"
+         x-cloak>
+        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-sm relative">
+            <div class="text-lg font-semibold text-gray-800 mb-4">ยืนยันการลบ</div>
+            <p class="text-gray-600 mb-6">คุณแน่ใจหรือไม่ว่าต้องการลบบ้านหลังนี้?</p>
+
+            <div class="flex justify-end gap-3">
+                <button @click="showConfirm = false"
+                    class="px-4 py-2 text-gray-600 border rounded hover:bg-gray-100">ยกเลิก</button>
+
+                <form method="POST" action="{% url 'HomeBless:manage' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="delete_property_id" value="{{ property.id }}">
+                    <button type="submit"
+                        class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">ลบ</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+
+                    <!-- Modal -->
+                    <div x-show="open" x-transition
+                         class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start pt-[120px] z-[100] overflow-y-auto"
+                         x-cloak>
+                        <div class="bg-white p-6 rounded-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto relative shadow-xl">
+                            <button @click="open = false"
+                                    class="sticky top-0 ml-auto mb-2 text-gray-500 hover:text-red-500 text-lg bg-white z-10">
+                                ×
+                            </button>
+
+                            <h2 class="text-lg font-bold mb-4">แก้ไขข้อมูลบ้าน</h2>
+                            <form method="POST" action="{% url 'HomeBless:edit_property' property.id %}">
+                                {% csrf_token %}
+
+                                <!-- Title -->
+                                <div class="mb-4">
+                                    <label class="block mb-1 font-bold">ชื่อประกาศ</label>
+                                    <input type="text" name="title" value="{{ property.title }}"
+                                           class="w-full border p-2 rounded" required>
+                                </div>
+
+                                <!-- Description -->
+                                <div class="mb-4">
+                                    <label class="block mb-1 font-bold">รายละเอียด</label>
+                                    <textarea name="description" class="w-full border p-2 rounded"
+                                              rows="4">{{ property.description }}</textarea>
+                                </div>
+
+
+                                <!-- Price  -->
+                                <div class="mb-4">
+                                    <label class="block mb-1 font-bold">ราคา</label>
+                                    <input type="number" step="0.01" name="price" value="{{ property.price }}"
+                                           class="w-full border p-2 rounded">
+                                </div>
+
+
+                                <!-- Availability -->
+                                <div class="mb-4">
+                                    <label class="block mb-1 font-bold">พร้อมขาย?</label>
+                                    <select name="is_available" class="w-full border p-2 rounded">
+                                        <option value="True" {% if property.is_available %}selected{% endif %}>ใช่
+                                        </option>
+                                        <option value="False" {% if not property.is_available %}selected{% endif %}>
+                                            ไม่ใช่
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <!-- Contact -->
+                                <div class="mb-4">
+                                    <label class="block mb-1 font-bold">Line ID</label>
+                                    <input type="text" name="line_id" value="{{ property.line_id }}"
+                                           class="w-full border p-2 rounded">
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="block mb-1 font-bold">เบอร์โทรศัพท์</label>
+                                    <input type="text" name="phone_number" value="{{ property.phone_number }}"
+                                           class="w-full border p-2 rounded">
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="block mb-1 font-bold">อีเมลติดต่อ</label>
+                                    <input type="email" name="contact_email" value="{{ property.contact_email }}"
+                                           class="w-full border p-2 rounded">
+                                </div>
+
+                                <!-- Submit -->
+                                <div class="flex justify-end gap-2">
+                                    <button type="button" @click="open = false"
+                                            class="px-4 py-2 border rounded text-gray-600 hover:bg-gray-100">ยกเลิก
+                                    </button>
+                                    <button type="submit"
+                                            class="px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-800">บันทึก
+                                    </button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

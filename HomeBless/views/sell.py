@@ -5,7 +5,7 @@ from django.views.generic import TemplateView
 
 from mysite import settings
 from ..forms import PropertyForm
-from django.contrib.auth.models import User
+from ..models import PropertyImage
 
 
 @method_decorator(login_required, name='dispatch')
@@ -21,7 +21,7 @@ class Sell(TemplateView):
 
 
     def post(self, request, *args, **kwargs):
-        form = PropertyForm(request.POST)
+        form = PropertyForm(request.POST, request.FILES)
 
         if form.is_valid():
             property_obj = form.save(commit=False)
@@ -37,6 +37,23 @@ class Sell(TemplateView):
             property_obj.user = request.user
             property_obj.save()
             form.save_m2m()
+
+            image_files = request.FILES.getlist('images[]')
+            cover_index = int(request.POST.get('cover_image_index', 0))
+
+            print("FILES:", request.FILES)
+            print("IMAGES[]:", request.FILES.getlist("images[]"))
+            print("NEW PROPERTY ID:", property_obj.id)
+            for i, image_file in enumerate(image_files):
+                print(i)
+                print(image_file)
+                prop_img = PropertyImage(
+                    property=property_obj,
+                    is_main=(i == cover_index)
+                )
+                prop_img.image.save(image_file.name, image_file)
+                prop_img.save()
+                print(f"Saved image: {prop_img.image.url}")
 
             return redirect('HomeBless:sell')
         print(form.errors)
