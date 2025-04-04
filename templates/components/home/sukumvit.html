@@ -4,10 +4,7 @@
             {% for property in sukumvit %}
             <a href="{% url 'HomeBless:property-detail' property.pk %}" class="block">
             <div class="p-2.5 rounded-[20px] border border-[#d0d8ef] justify-start items-center gap-4 flex">
-                <div data-svg-wrapper class="relative">
-                    <svg width="142" height="121" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    </svg>
-                </div>
+                <img class="w-36 self-stretch relative rounded-[10px]" src="https://placehold.co/142x121" />
                 <div class="w-full flex-col justify-start items-start gap-4 inline-flex">
                     <div class="self-stretch h-[85px] flex-col justify-start items-start gap-2 flex">
                         <div class="self-stretch h-[51px] text-[#444f85] text-base font-bold font-['IBM Plex Sans Thai'] line-clamp-2">
