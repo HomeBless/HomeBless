@@ -88,9 +88,15 @@
                 <div class="text-[#575B6F] font-bold text-[16px] self-stretch">
                     ราคา
                 </div>
+              {% if property.selling_type == 'buy' %}
                 <div class="text-[#2DAB6F] font-bold text-[48px] self-stretch uppercase">{{ property.price|intcomma }}
                     บาท
                 </div>
+              {% elif property.selling_type == 'rent' %}
+                <div class="text-[#2DAB6F] font-bold text-[48px] self-stretch uppercase">{{ property.price|intcomma }}
+                    บาท/ด.
+                </div>
+              {% endif %}
             </div>
         </div>
 
@@ -417,7 +423,7 @@
                     <h2 class="text-[#2162D0] text-3xl md:text-4xl font-bold">
                         แนะนำบ้านอื่นที่คล้ายกัน
                     </h2>
-                
+
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {% for related in related_properties %}
                             <a href="{% url 'HomeBless:property-detail' related.pk %}">
@@ -429,12 +435,12 @@
                                         class="w-full h-[222px] rounded-lg object-cover"
                                         />
                                     </div>
-                            
+
                                 <div class="p-4 flex flex-col h-full">
                                     <h3 class="text-[#444f85] text-base font-bold font-['IBM Plex Sans Thai'] line-clamp-1 mb-3">
                                         {{ related.title }}
                                     </h3>
-                                
+
                                     <div class="inline-flex items-center bg-[#2162d0] rounded-md px-3 py-2 mb-4 w-fit">
                                         <img src="{% static 'property-detail/pin.svg' %}" alt="Pin" class="w-3 h-3">
                                         <span class="text-[#faf9f6] text-xs ml-1.5 max-w-[150px] truncate">
@@ -597,3 +603,4 @@
 </style>
 
 {% endblock %}
+</div>
