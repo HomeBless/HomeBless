@@ -32,16 +32,28 @@ class Compare(TemplateView):
                 'main_lon': main_property.longitude
             })
 
+            radius = request.GET.get("radius")
+            try:
+                radius = int(radius)
+            except (TypeError, ValueError):
+                radius = 10  # default to 10 km
 
-            nearby_cheapest = self.get_lowest_nearby(main_property)
+            selling_type = request.GET.get("selling_type", main_property.selling_type)
+            all_properties = Property.objects.exclude(id=main_property.id) \
+                .exclude(latitude=None) \
+                .exclude(longitude=None) \
+                .filter(selling_type=selling_type)
+
+
+            nearby_cheapest = self.get_lowest_nearby(main_property, radius, all_properties)
             if nearby_cheapest:
                 context['cheapest_nearby'] = nearby_cheapest
 
-            nearby_highest = self.get_highest_nearby(main_property)
+            nearby_highest = self.get_highest_nearby(main_property, radius, all_properties)
             if nearby_highest:
                 context['highest_nearby'] = nearby_highest
 
-            nearby_closest = self.get_nearest_price_per_wa_nearby(main_property)
+            nearby_closest = self.get_nearest_price_per_wa_nearby(main_property, radius, all_properties)
             if nearby_closest:
                 context['closest_nearby'] = nearby_closest
 
@@ -57,9 +69,8 @@ class Compare(TemplateView):
 
         return render(request, self.template_name, context)
 
-    def get_lowest_nearby(self, main_property, max_km=5):
+    def get_lowest_nearby(self, main_property, max_km, all_properties):
         matrix_url = "https://maps.googleapis.com/maps/api/distancematrix/json"
-        all_properties = Property.objects.exclude(id=main_property.id).exclude(latitude=None).exclude(longitude=None)
         destinations = [f"{p.latitude},{p.longitude}" for p in all_properties]
 
         highest_property = None
@@ -103,10 +114,8 @@ class Compare(TemplateView):
 
         return None
 
-    def get_highest_nearby(self, main_property, max_km=5):
+    def get_highest_nearby(self, main_property, max_km, all_properties):
         matrix_url = "https://maps.googleapis.com/maps/api/distancematrix/json"
-        all_properties = Property.objects.exclude(id=main_property.id).exclude(
-            latitude=None).exclude(longitude=None)
         destinations = [f"{p.latitude},{p.longitude}" for p in all_properties]
 
         best_property = None
@@ -151,10 +160,8 @@ class Compare(TemplateView):
 
         return None
 
-    def get_nearest_price_per_wa_nearby(self, main_property, max_km=5):
+    def get_nearest_price_per_wa_nearby(self, main_property, max_km, all_properties):
         matrix_url = "https://maps.googleapis.com/maps/api/distancematrix/json"
-        all_properties = Property.objects.exclude(id=main_property.id).exclude(
-            latitude=None).exclude(longitude=None)
         destinations = [f"{p.latitude},{p.longitude}" for p in all_properties]
 
         main_price_per_wa = main_property.price / main_property.area if main_property.area else None

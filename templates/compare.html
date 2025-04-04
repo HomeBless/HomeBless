@@ -12,23 +12,27 @@
                 <div class="justify-start text-blue-700 text-3xl font-bold">
                     เปรียบเทียบในระแวกนี้
                 </div>
-                <div>
-                    <label>
-                        <select class="py-2 bg-stone-50 rounded-lg border border-slate-300 flex items-center gap-4">
-                            <option value="5">5 ก.ม</option>
-                            <option value="10" selected>10 ก.ม</option>
-                            <option value="15">15 ก.ม</option>
-                        </select>
-                    </label>
+                <form method="get" id="filter-form">
+                <div class="self-stretch flex justify-start items-center gap-4">
+                  <label>
+                      <select name="radius" onchange="document.getElementById('filter-form').submit();" class="py-2 bg-stone-50 rounded-lg border border-slate-300 flex gap-4">
+                          <option value="5" {% if request.GET.radius == "5" %}selected{% endif %}>5 ก.ม</option>
+                          <option value="10" {% if request.GET.radius == "10" or not request.GET.radius %}selected{% endif %}>10 ก.ม</option>
+                          <option value="15" {% if request.GET.radius == "15" %}selected{% endif %}>15 ก.ม</option>
+                      </select>
+                  </label>
+
+                  <label>
+                      <select name="selling_type" onchange="document.getElementById('filter-form').submit();" class="py-2 bg-stone-50 rounded-lg border border-slate-300 flex gap-4">
+                          <option value="sell" {% if request.GET.selling_type == "buy" or not request.GET.selling_type %}selected{% endif %}>ขาย</option>
+                          <option value="rent" {% if request.GET.selling_type == "rent" %}selected{% endif %}>เช่า</option>
+                      </select>
+                  </label>
+
+                  <!-- Keep the selected property_id -->
+                  <input type="hidden" name="property_id" value="{{ request.GET.property_id }}">
                 </div>
-                <div>
-                    <label>
-                        <select class="py-2 bg-stone-50 rounded-lg border border-slate-300 flex items-center gap-4">
-                            <option value="sell" selected>ขาย</option>
-                            <option value="rent">เช่า</option>
-                        </select>
-                    </label>
-                </div>
+              </form>
             </div>
 
             <div class="self-stretch flex flex-col justify-start items-start gap-8">
@@ -42,14 +46,6 @@
                 <div class="self-stretch inline-flex justify-start items-center gap-4">
                     {% include "components/compare/similar.html" %}
                     <!-- Wishlist Selection Box -->
-                    <div id="wishlistBox" class="flex-1 self-stretch p-2.5 rounded-[10px] border-2 border-dashed border-slate-300 hover:bg-slate-100 hover:border-blue-500 inline-flex flex-col justify-center items-center gap-2.5 cursor-pointer">
-                        <div class="self-stretch flex flex-col justify-start items-center">
-                            <img src="{% static "bookmark.svg" %}" alt="Bookmark" class="w-7 h-7">
-                            <div class="self-stretch p-2.5 inline-flex justify-center items-center gap-2.5">
-                                <div class="justify-start text-gray-600 text-base font-normal">เลือกบ้านในบุ๊คมาร์กของคุณมาเปรียบเทียบ</div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
             </div>
@@ -139,93 +135,5 @@
     </div>
 </div>
 
-{% include "components/wishlist_overlay.html" %}
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const wishlistBox = document.getElementById('wishlistBox');
-    const overlay = document.getElementById('wishlist-overlay');
-    const closeBtn = document.getElementById('close-overlay');
-    const cancelBtn = document.getElementById('cancel-selection');
-    const confirmBtn = document.getElementById('confirm-selection');
-    const selectButtons = document.querySelectorAll('.select-property');
-
-    let selectedPropertyId = null;
-
-    if (wishlistBox) {
-        wishlistBox.addEventListener('click', function(e) {
-            e.preventDefault();
-            overlay.classList.remove('hidden');
-            overlay.classList.add('flex');
-            document.body.classList.add('overflow-hidden');
-        });
-    }
-
-    function hideOverlay() {
-        overlay.classList.remove('flex');
-        overlay.classList.add('hidden');
-        document.body.classList.remove('overflow-hidden');
-        selectedPropertyId = null;
-        selectButtons.forEach(btn => {
-            btn.classList.remove('bg-blue-600', 'text-white');
-            btn.classList.add('bg-blue-100', 'text-blue-600');
-            btn.textContent = 'เลือก';
-        });
-        confirmBtn.disabled = true;
-    }
-
-    document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('select-property') || e.target.closest('.select-property')) {
-            const button = e.target.classList.contains('select-property') ?
-                e.target : e.target.closest('.select-property');
-
-            selectedPropertyId = button.getAttribute('data-property-id');
-
-            document.querySelectorAll('.select-property').forEach(btn => {
-                btn.classList.remove('bg-blue-600', 'text-white');
-                btn.classList.add('bg-blue-100', 'text-blue-600');
-                btn.textContent = 'เลือก';
-            });
-
-            button.classList.remove('bg-blue-100', 'text-blue-600');
-            button.classList.add('bg-blue-600', 'text-white');
-            button.textContent = 'เลือกแล้ว';
-            confirmBtn.disabled = false;
-        }
-    });
-
-    if (confirmBtn) {
-        confirmBtn.addEventListener('click', function() {
-            if (selectedPropertyId) {
-                fetch('/compare/set-wishlist-property/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': '{{ csrf_token }}'
-                    },
-                    body: JSON.stringify({
-                        property_id: selectedPropertyId
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        window.location.reload();
-                    } else {
-                        alert('การบันทึกล้มเหลว');
-                    }
-                })
-                .catch(() => {
-                    alert('เกิดข้อผิดพลาดระหว่างการส่งคำขอ');
-                });
-            }
-            hideOverlay();
-        });
-    }
-
-    if (closeBtn) closeBtn.addEventListener('click', hideOverlay);
-    if (cancelBtn) cancelBtn.addEventListener('click', hideOverlay);
-});
-</script>
 
 {% endblock %}
