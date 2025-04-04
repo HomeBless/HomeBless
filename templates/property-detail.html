@@ -2,6 +2,10 @@
 {% load static %}
 {% load humanize %}
 
+{% block head %}
+  <script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&libraries=maps,marker,places,geometry&callback=initMap" defer></script>
+{% endblock %}
+
 {% block content %}
 
     <div class="pt-[178px] pb-[60px]">
@@ -57,9 +61,9 @@
                             <input type="hidden" name="bookmark_property" value="{{ property.id }}">
                             <button onclick="toggleBookmark(this)" class="relative p-2 rounded-full transition-transform duration-200 hover:scale-110 focus:outline-none">
                                 <span class="absolute inset-0 rounded-full bg-blue-500 opacity-0 scale-50 transition-all duration-300 ease-out group-hover:opacity-20"></span>
-                                <img id="bookmark-icon" 
-                                     src="{% if wishlist_bool %}{% static 'property-detail/booked.svg' %}{% else %}{% static 'property-detail/bookmark.svg' %}{% endif %}" 
-                                     alt="Bookmark" 
+                                <img id="bookmark-icon"
+                                     src="{% if wishlist_bool %}{% static 'property-detail/booked.svg' %}{% else %}{% static 'property-detail/bookmark.svg' %}{% endif %}"
+                                     alt="Bookmark"
                                      class="w-15 h-15 relative z-10">
                             </button>
                         </form>
@@ -86,10 +90,10 @@
                         </div>
                     </div>
                 </div>
-            
+
                 <!-- Property Info Card-->
                 {% include "components/card.html" %}
-            
+
                 <!-- Additional Info -->
                 <div class="flex justify-between items-start self-stretch">
                     <!-- Tags Tabs -->
@@ -118,13 +122,13 @@
                         <!-- Tabs Content for 'Details' -->
                         <div class="tab-content flex flex-col items-start gap-[16px] self-stretch"
                              data-tab-content="details">
-                        
+
                             <!-- Tag -->
                             {% include "components/tag.html" %}
-                            
+
                             <!-- Message -->
                             {% include "components/message.html" %}
-                            
+
                         <!-- Tabs Content for 'Location' -->
                         <div class="tab-content hidden flex flex-col items-start gap-[16px] self-stretch"
                              data-tab-content="location">
@@ -134,46 +138,22 @@
                                 <div class="flex items-start gap-[24px] self-stretch">
                                     <!-- Address -->
                                     <div class="flex flex-col items-start gap-[17px] flex-[1_0_0]">
-                                        <div class="flex flex-col items-start gap-[8px] self-stretch">
+                                        <div class="flex flex-col items-start gap-[64px] self-stretch max-w-[500px]">
                                             <div class="text-[#2162D0] font-medium text-[22px]">
                                                 ทำเลที่ตั้ง
                                             </div>
                                             <div class="flex flex-col items-start gap-[16px] self-stretch">
                                                 <div class="flex flex-col items-start gap-[8px] self-stretch">
                                                     <div class="text-[#575B6F] font-bold text-[16px] self-stretch">
-                                                        โครงการ
-                                                    </div>
-                                                    <div class="flex justify-between items-center self-stretch">
-                                                        <div class="flex justify-center items-center content-center gap-2 flex-[1_0_0] flex-wrap">
-                                                            <div class="text-[#575B6F] font-normal text-[16px] flex-[1_0_0]">
-                                                                นิชดา ธานี
-                                                            </div>
-                                                        </div>
-                                                        <div class="flex items-center gap-[5px]">
-                                                            <a class="text-[#2162D0] font-normal text-[16px]" href="#">
-                                                                ค้นหาบ้านในโครงการเดียวกัน
-                                                            </a>
-                                                            <div class="w-[7.5px] h-[13px]">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="8"
-                                                                     height="14" viewBox="0 0 8 14" fill="none">
-                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                          d="M0.716621 0.24897C0.76597 0.199497 0.824594 0.160245 0.889136 0.133463C0.953677 0.106681 1.02287 0.0928955 1.09275 0.0928955C1.16262 0.0928955 1.23182 0.106681 1.29636 0.133463C1.3609 0.160245 1.41952 0.199497 1.46887 0.24897L7.84387 6.62397C7.89334 6.67332 7.9326 6.73194 7.95938 6.79648C7.98616 6.86103 7.99995 6.93022 7.99995 7.00009C7.99995 7.06997 7.98616 7.13916 7.95938 7.20371C7.9326 7.26825 7.89334 7.32687 7.84387 7.37622L1.46887 13.7512C1.36912 13.851 1.23382 13.907 1.09275 13.907C0.951672 13.907 0.816376 13.851 0.716621 13.7512C0.616867 13.6515 0.560825 13.5162 0.560825 13.3751C0.560825 13.234 0.616867 13.0987 0.716621 12.999L6.71656 7.00009L0.716621 1.00122C0.667148 0.951872 0.627896 0.893248 0.601114 0.828706C0.574332 0.764164 0.560547 0.694973 0.560547 0.625095C0.560547 0.555217 0.574332 0.486026 0.601114 0.421485C0.627896 0.356943 0.667148 0.298319 0.716621 0.24897Z"
-                                                                          fill="#2162D0"/>
-                                                                </svg>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="flex flex-col items-start gap-[8px] self-stretch">
-                                                    <div class="text-[#575B6F] font-bold text-[16px] self-stretch">
                                                         ที่อยู่
                                                     </div>
                                                     <div class="text-[#575B6F] font-normal text-[16px] self-stretch">
-                                                        แจ้งวัฒนะ เมืองทอง งามวงศ์วาน เลียบคลองประปา แคราย ปากเกร็ด
+                                                      {{ address }}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                      <a href="https://www.google.com/maps?q={{ property.latitude }}, {{ property.longitude }}" target="_blank" class="flex w-full items-center justify-center gap-2 px-4 py-2">
                                         <button class="flex w-full items-center justify-center gap-2 px-4 py-2 border border-gray-300 bg-offWhite rounded-md hover:bg-gray-100">
                                             <div class="w-[21px] h-[21px]">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="21" height="22"
@@ -208,10 +188,15 @@
                                                 ดูใน Google map
                                             </div>
                                         </button>
+                                      </a>
                                     </div>
                                     <!-- Map -->
                                     <div class="flex w-[377px] flex-col justify-between items-start self-stretch">
-                                        <div class="flex flex-col items-center flex-1 self-stretch rounded-lg border border-gray-300 bg-[url('{% static "map.png" %}')] bg-lightgray bg-cover bg-center">
+                                        <div class="flex flex-col items-center flex-1 self-stretch rounded-lg border border-gray-300">
+                                          <gmp-map center="{{ property.latitude }},{{ property.longitude }}" zoom="14" style="height: 100%;" map-id="DEMO_MAP_ID">
+                                            <!-- Add the gmp-advanced-marker component -->
+                                            <gmp-advanced-marker position="{{ property.latitude }},{{ property.longitude }}" title=""></gmp-advanced-marker>
+                                          </gmp-map>
                                         </div>
                                     </div>
                                 </div>
@@ -224,141 +209,71 @@
                                     </div>
                                     <!-- Navigations -->
                                     <div class="flex items-center gap-[16px] self-stretch">
-                                        <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 border-b-2 border-[#575B6F] hover:bg-gray-100">
-                                            <div class="text-[#575B6F] font-normal text-[16px]">
-                                                ทั้งหมด
-                                            </div>
+                                        <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 border-b-2 border-[#575B6F] hover:bg-gray-100" data-category="all">
+                                            <div class="text-[#575B6F] font-normal text-[16px]">ทั้งหมด</div>
                                         </button>
-                                        <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100">
-                                            <div class="text-[#575B6F] font-normal text-[16px]">
-                                                โรงเรียน/มหาวิทยาลัย
-                                            </div>
+                                        <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100" data-category="school">
+                                            <div class="text-[#575B6F] font-normal text-[16px]">โรงเรียน/มหาวิทยาลัย</div>
                                         </button>
-                                        <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100">
-                                            <div class="text-[#575B6F] font-normal text-[16px]">
-                                                สนามบิน
-                                            </div>
+                                        <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100" data-category="airport">
+                                            <div class="text-[#575B6F] font-normal text-[16px]">สนามบิน</div>
                                         </button>
-                                        <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100">
-                                            <div class="text-[#575B6F] font-normal text-[16px]">
-                                                ห้างสรรพสินค้า
-                                            </div>
+                                        <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100" data-category="mall">
+                                            <div class="text-[#575B6F] font-normal text-[16px]">ห้างสรรพสินค้า</div>
                                         </button>
-                                        <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100">
-                                            <div class="text-[#575B6F] font-normal text-[16px]">
-                                                สวนสาธารณะ
-                                            </div>
+                                      <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100" data-category="hospital">
+                                            <div class="text-[#575B6F] font-normal text-[16px]">โรงพยาบาล</div>
                                         </button>
-                                        <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100">
-                                            <div class="text-[#575B6F] font-normal text-[16px]">
-                                                ขนส่งสาธารณะ
-                                            </div>
+                                      <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100" data-category="transport">
+                                            <div class="text-[#575B6F] font-normal text-[16px]">สถานีรถไฟฟ้า</div>
                                         </button>
                                     </div>
                                     <!-- Table List -->
                                     <div class="flex items-center px-5 gap-2 self-stretch">
                                         <table class="w-full border-collapse">
                                             <thead>
-                                            <tr>
-                                                <th class="text-left font-bold text-[16px] border-b border-[#575B6F] p-2">
-                                                    สถานที่
-                                                </th>
-                                                <th class="text-left font-bold text-[16px] border-b border-[#575B6F] p-2 bg-indigo-100">
-                                                    ระยะทาง
-                                                </th>
-                                                <th class="text-left font-bold text-[16px] border-b border-[#575B6F] p-2">
-                                                    ค้นหาในละแวก
-                                                </th>
-                                            </tr>
+                                                <tr>
+                                                    <th class="text-left font-bold text-[16px] border-b border-[#575B6F] p-2">สถานที่</th>
+                                                    <th class="text-left font-bold text-[16px] border-b border-[#575B6F] p-2 bg-indigo-100">ระยะทาง</th>
+                                                </tr>
                                             </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td class="p-2 flex items-center">
-                                                    <span class="w-[24px] h-[24px] mr-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" 
-                                                             fill="none">
-                                                            <g clip-path="url(#clip0_37_699)">
-                                                                <path d="M5.00003 13.18V15.99C5.00003 16.72 5.40003 17.4 6.04003 17.75L11.04 20.48C11.64 20.81 12.36 20.81 12.96 20.48L17.96 17.75C18.6 17.4 19 16.72 19 15.99V13.18L12.96 16.48C12.36 16.81 11.64 16.81 11.04 16.48L5.00003 13.18ZM11.04 3.52003L2.61003 8.12003C1.92003 8.50003 1.92003 9.50003 2.61003 9.88003L11.04 14.48C11.64 14.81 12.36 14.81 12.96 14.48L21 10.09V16C21 16.55 21.45 17 22 17C22.55 17 23 16.55 23 16V9.59003C23 9.22003 22.8 8.89003 22.48 8.71003L12.96 3.52003C12.36 3.20003 11.64 3.20003 11.04 3.52003Z" 
-                                                                      fill="#575B6F"/>
-                                                            </g>
-                                                            <defs>
-                                                                <clipPath id="clip0_37_699">
-                                                                    <rect width="24" height="24" fill="white"/>
-                                                                </clipPath>
-                                                            </defs>
-                                                        </svg>
-                                                    </span>
-                                                    สถาบันการจัดการปัญญาภิวัฒน์
-                                                </td>
-                                                <td class="p-2 bg-indigo-100">
-                                                    0.5 กม.
-                                                </td>
-                                                <td class="p-2 text-[#2162D0]">
-                                                    <a href=" ">ค้นหา ></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p-2 flex items-center">
-                                                    <span class="w-[24px] h-[24px] mr-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" 
-                                                             fill="none">
-                                                            <path d="M5.84615 15.9375C4.74606 15.9375 3.84615 16.8514 3.84615 17.9688C3.84615 19.086 4.74606 20 5.84615 20C6.94625 20 7.8462 19.086 7.8462 17.9688C7.84615 16.8514 6.9462 15.9375 5.84615 15.9375ZM0 0V2.03125H2L5.60014 9.43758L4.09495 11.9256C3.94505 12.1795 3.84495 12.535 3.84495 12.8906C3.84495 14.2505 4.75962 14.9219 6 14.9219H17.6923V12.9688H6.24486C6.09495 12.9688 5.99486 12.8671 5.99486 12.7149C5.99486 12.6643 6.10096 12.461 6.10096 12.461L7.1001 10.8594H14.5498C15.2999 10.8594 15.9502 10.4533 16.2998 9.79319L19.8999 3.50414C19.9594 3.38398 20 3.19916 20 2.99638C20 2.43749 19.5498 2.03129 19 2.03129H4.20019L3.25 0H0ZM15.6923 15.9375C14.5922 15.9375 13.6923 16.8514 13.6923 17.9688C13.6923 19.086 14.5922 20 15.6923 20C16.7924 20 17.6923 19.086 17.6923 17.9687C17.6923 16.8514 16.7924 15.9375 15.6923 15.9375Z" 
-                                                                  fill="#575B6F"/>
-                                                        </svg>
-                                                    </span>
-                                                    เซ็นทรัลพลาซ่า แจ้งวัฒนะ
-                                                </td>
-                                                <td class="p-2 bg-indigo-100">
-                                                    0.7 กม.
-                                                </td>
-                                                <td class="p-2 text-[#2162D0]">
-                                                    <a href=" ">ค้นหา ></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p-2 flex items-center">
-                                                    <span class="w-[24px] h-[24px] mr-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                         viewBox="0 0 24 24"
-                                                         fill="none">
-                                                            <g clip-path="url(#clip0_37_699)">
-                                                                <path d="M5.00003 13.18V15.99C5.00003 16.72 5.40003 17.4 6.04003 17.75L11.04 20.48C11.64 20.81 12.36 20.81 12.96 20.48L17.96 17.75C18.6 17.4 19 16.72 19 15.99V13.18L12.96 16.48C12.36 16.81 11.64 16.81 11.04 16.48L5.00003 13.18ZM11.04 3.52003L2.61003 8.12003C1.92003 8.50003 1.92003 9.50003 2.61003 9.88003L11.04 14.48C11.64 14.81 12.36 14.81 12.96 14.48L21 10.09V16C21 16.55 21.45 17 22 17C22.55 17 23 16.55 23 16V9.59003C23 9.22003 22.8 8.89003 22.48 8.71003L12.96 3.52003C12.36 3.20003 11.64 3.20003 11.04 3.52003Z"
-                                                              fill="#575B6F"/>
-                                                            </g>
-                                                            <defs>
-                                                                <clipPath id="clip0_37_699">
-                                                                    <rect width="24" height="24" fill="white"/>
-                                                                </clipPath>
-                                                            </defs>
-                                                        </svg>
-                                                    </span>
-                                                    มหาวิทยาลัยหอการค้าไทย
-                                                </td>
-                                                <td class="p-2 bg-indigo-100">
-                                                    1.5 กม.
-                                                </td>
-                                                <td class="p-2 text-[#2162D0]">
-                                                    <a href=" ">ค้นหา ></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p-2 flex items-center">
-                                                    <span class="w-[24px] h-[24px] mr-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" 
-                                                             fill="none">
-                                                            <path d="M5.84615 15.9375C4.74606 15.9375 3.84615 16.8514 3.84615 17.9688C3.84615 19.086 4.74606 20 5.84615 20C6.94625 20 7.8462 19.086 7.8462 17.9688C7.84615 16.8514 6.9462 15.9375 5.84615 15.9375ZM0 0V2.03125H2L5.60014 9.43758L4.09495 11.9256C3.94505 12.1795 3.84495 12.535 3.84495 12.8906C3.84495 14.2505 4.75962 14.9219 6 14.9219H17.6923V12.9688H6.24486C6.09495 12.9688 5.99486 12.8671 5.99486 12.7149C5.99486 12.6643 6.10096 12.461 6.10096 12.461L7.1001 10.8594H14.5498C15.2999 10.8594 15.9502 10.4533 16.2998 9.79319L19.8999 3.50414C19.9594 3.38398 20 3.19916 20 2.99638C20 2.43749 19.5498 2.03129 19 2.03129H4.20019L3.25 0H0ZM15.6923 15.9375C14.5922 15.9375 13.6923 16.8514 13.6923 17.9688C13.6923 19.086 14.5922 20 15.6923 20C16.7924 20 17.6923 19.086 17.6923 17.9687C17.6923 16.8514 16.7924 15.9375 15.6923 15.9375Z" 
-                                                                  fill="#575B6F"/>
-                                                        </svg>
-                                                    </span>
-                                                    สยามพารากอน
-                                                </td>
-                                                <td class="p-2 bg-indigo-100">
-                                                    1.8 กม.
-                                                </td>
-                                                <td class="p-2 text-[#2162D0]">
-                                                    <a href=" ">ค้นหา ></a>
-                                                </td>
-                                            </tr>
+                                            <tbody id="nearby-places">
+                                            {% for place in nearby_university %}
+                                                <tr data-category="school">
+                                                    <td class="p-2">{{ place.name }}</td>
+                                                    <td class="p-2 bg-indigo-100">{{ place.distance }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            {% for place in nearby_school %}
+                                                <tr data-category="school">
+                                                    <td class="p-2">{{ place.name }}</td>
+                                                    <td class="p-2 bg-indigo-100">{{ place.distance }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            {% for place in nearby_airport %}
+                                                <tr data-category="airport">
+                                                    <td class="p-2">{{ place.name }}</td>
+                                                    <td class="p-2 bg-indigo-100">{{ place.distance }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            {% for place in nearby_mall %}
+                                                <tr data-category="mall">
+                                                    <td class="p-2">{{ place.name }}</td>
+                                                    <td class="p-2 bg-indigo-100">{{ place.distance }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            {% for place in nearby_hospital %}
+                                                <tr data-category="hospital">
+                                                    <td class="p-2">{{ place.name }}</td>
+                                                    <td class="p-2 bg-indigo-100">{{ place.distance }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            {% for place in nearby_transport %}
+                                                <tr data-category="transport">
+                                                    <td class="p-2">(สถานีรถไฟฟ้า) {{ place.name }}</td>
+                                                    <td class="p-2 bg-indigo-100">{{ place.distance }}</td>
+                                                </tr>
+                                            {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>
@@ -422,7 +337,7 @@
                                             </div>
                                         </button>
                                         {% endif %}
-                                    
+
                                         <!-- Line Button -->
                                         {% if seller_line_id %}
                                         <button name="line" onclick="flipCard(this, 'line-info')" class="flip-card flex p-2 items-center gap-2 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6] transition-transform duration-300">
@@ -446,7 +361,7 @@
                                             </div>
                                         </button>
                                         {% endif %}
-                                    
+
                                         <!-- Mail Button -->
                                         {% if seller_email %}
                                         <button name="mail" onclick="flipCard(this, 'mail-info')" class="flip-card flex p-2 items-center gap-2 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6] transition-transform duration-300">
@@ -487,7 +402,7 @@
                                     เปรียบเทียบ
                                 </div>
                             </div>
-                            <button onclick="window.location.href='{% url 'HomeBless:compare' %}?property_id={{ property.id }}'" 
+                            <button onclick="window.location.href='{% url 'HomeBless:compare' %}?property_id={{ property.id }}'"
                                     class="flex p-2.5 justify-center items-start gap-2 self-stretch rounded-md bg-[#2DAB6F] hover:bg-[#24975e] active:ring-2 active:ring-[#1e7c4d] transition duration-200 ease-in-out">
                                 <div class="w-[25px] h-[25px]">
                                     <img src="{% static 'property-detail/compare.svg' %}" alt="Compare">
@@ -660,19 +575,28 @@
             });
         });
 
-        document.querySelectorAll(".tab-nearby-btn").forEach(button => {
-            button.addEventListener("click", function () {
-                document.querySelectorAll(".tab-nearby-btn").forEach(btn => {
-                    btn.classList.remove("border-b-2", "border-[#575B6F]");
-                });
-                this.classList.add("border-b-2", "border-[#575B6F]");
+    document.querySelectorAll(".tab-nearby-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            document.querySelectorAll(".tab-nearby-btn").forEach(btn => {
+                btn.classList.remove("border-b-2", "border-[#575B6F]");
+            });
+            this.classList.add("border-b-2", "border-[#575B6F]");
+
+            let selectedCategory = this.getAttribute("data-category");
+            document.querySelectorAll("#nearby-places tr").forEach(row => {
+                if (selectedCategory === "all" || row.getAttribute("data-category") === selectedCategory) {
+                    row.style.display = "table-row";
+                } else {
+                    row.style.display = "none";
+                }
             });
         });
-        
+    });
+
     function flipCard(button, infoId) {
         const info = document.getElementById(infoId);
         const front = button.querySelector('.flip-card-front');
-        
+
         if (info.classList.contains('hidden')) {
             // Flip to show info
             front.classList.add('hidden');
@@ -683,31 +607,33 @@
             info.classList.add('hidden');
         }
     }
-        
+
     function toggleBookmark(button) {
         const icon = button.querySelector('#bookmark-icon');
         const ring = button.querySelector('span');
         const isBooked = icon.src.includes('booked.svg');
-        
+
+        // Toggle the image source
         icon.src = isBooked ? "{% static 'property-detail/bookmark.svg' %}" : "{% static 'property-detail/booked.svg' %}";
-        
+
+        // Add animation
         ring.classList.add('ring-animate');
         setTimeout(() => {
             ring.classList.remove('ring-animate');
         }, 300);
     }
 
-        
+
     </script>
-    
+
     <style>
-    
+
     @keyframes ring-pop {
         0% { transform: scale(0.5); opacity: 0.5; }
         50% { transform: scale(1.1); opacity: 0.8; }
         100% { transform: scale(1); opacity: 0; }
     }
-    
+
     .ring-animate {
         animation: ring-pop 0.3s ease-out;
     }
