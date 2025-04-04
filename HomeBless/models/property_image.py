@@ -1,6 +1,8 @@
-from django.db import models
-from .property import Property
 import os
+
+from django.db import models
+
+from .property import Property
 
 
 def property_image_upload_path(instance, filename):
@@ -8,7 +10,9 @@ def property_image_upload_path(instance, filename):
 
 
 class PropertyImage(models.Model):
-    property = models.ForeignKey(Property, on_delete=models.CASCADE, related_name='images')
+    property = models.ForeignKey(
+        Property, on_delete=models.CASCADE, related_name='images'
+    )
     image = models.ImageField(upload_to=property_image_upload_path)
     is_main = models.BooleanField(default=False)
 

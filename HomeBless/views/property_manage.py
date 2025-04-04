@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from ..models import Property, PropertyType, PropertyImage
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views.generic import TemplateView
+
+from ..models import Property, PropertyImage, PropertyType
 
 
 class PropertyManage(LoginRequiredMixin, TemplateView):
@@ -15,8 +16,7 @@ class PropertyManage(LoginRequiredMixin, TemplateView):
 
         # Get main images for current user's properties
         main_images = PropertyImage.objects.filter(
-            property__in=user_properties,
-            is_main=True
+            property__in=user_properties, is_main=True
         )
 
         # Convert to dict: {property_id: image}
@@ -28,6 +28,8 @@ class PropertyManage(LoginRequiredMixin, TemplateView):
     def post(self, request, *args, **kwargs):
         property_id = request.POST.get('delete_property_id')
         if property_id:
-            property_instance = get_object_or_404(Property, id=property_id, user=request.user)
+            property_instance = get_object_or_404(
+                Property, id=property_id, user=request.user
+            )
             property_instance.delete()
         return redirect('HomeBless:manage')

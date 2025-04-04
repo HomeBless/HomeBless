@@ -1,9 +1,10 @@
-from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
+from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
 from mysite import settings
+
 from ..forms import PropertyForm
 from ..models import PropertyImage
 
@@ -14,11 +15,11 @@ class Sell(TemplateView):
 
     def get(self, request, *args, **kwargs):
         form = PropertyForm()
-        return render(request, self.template_name, {
-            'form': form,
-            'google_maps_api_key': settings.GOOGLE_MAPS_API_KEY
-        })
-
+        return render(
+            request,
+            self.template_name,
+            {'form': form, 'google_maps_api_key': settings.GOOGLE_MAPS_API_KEY},
+        )
 
     def post(self, request, *args, **kwargs):
         form = PropertyForm(request.POST, request.FILES)
@@ -27,10 +28,14 @@ class Sell(TemplateView):
             property_obj = form.save(commit=False)
 
             if not request.user.is_authenticated:
-                return render(request, self.template_name, {
-                    'form': form,
-                    'error': "You must be logged in to list a property."
-                })
+                return render(
+                    request,
+                    self.template_name,
+                    {
+                        'form': form,
+                        'error': "You must be logged in to list a property.",
+                    },
+                )
 
             property_obj.latitude = request.POST.get('latitude')
             property_obj.longitude = request.POST.get('longitude')
@@ -48,8 +53,7 @@ class Sell(TemplateView):
                 print(i)
                 print(image_file)
                 prop_img = PropertyImage(
-                    property=property_obj,
-                    is_main=(i == cover_index)
+                    property=property_obj, is_main=(i == cover_index)
                 )
                 prop_img.image.save(image_file.name, image_file)
                 prop_img.save()
@@ -57,7 +61,8 @@ class Sell(TemplateView):
 
             return redirect('HomeBless:sell')
         print(form.errors)
-        return render(request, self.template_name, {
-            'form': form,
-            'google_maps_api_key': settings.GOOGLE_MAPS_API_KEY
-        })
+        return render(
+            request,
+            self.template_name,
+            {'form': form, 'google_maps_api_key': settings.GOOGLE_MAPS_API_KEY},
+        )

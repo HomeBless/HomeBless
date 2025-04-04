@@ -1,6 +1,8 @@
 from django.shortcuts import get_object_or_404, redirect
 from django.views.decorators.http import require_POST
+
 from ..models import Property
+
 
 @require_POST
 def edit_property(request, property_id):
