@@ -5,6 +5,7 @@ from ..models import Property, PropertyType, Wishlist
 
 PROPERTY_PER_PAGE = 9
 
+
 class PropertyListing(ListView):
     model = Property
     template_name = 'property-listing.html'
