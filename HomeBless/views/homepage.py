@@ -1,68 +1,39 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
-
-from ..models import Property
+from ..models import Property, PropertyImage
 
 
 class HomePage(TemplateView):
     template_name = 'homepage.html'
 
-    def get(self, request, *args, **kwargs):
-        """Render the homepage template"""
-        ladproa = Property.objects.filter(location__icontains='ลาดพร้าว').order_by(
-            '-created_at'
-        )[:3]
-        thonglo = Property.objects.filter(location__icontains='ทองหล่อ').order_by(
-            '-created_at'
-        )[:3]
-        silom = Property.objects.filter(location__icontains='สีลม').order_by(
-            '-created_at'
-        )[:3]
-        phakanong = Property.objects.filter(location__icontains='พระโขนง').order_by(
-            '-created_at'
-        )[:3]
-        wipawadee = Property.objects.filter(location__icontains='วิภาวดี').order_by(
-            '-created_at'
-        )[:3]
-        sukumvit = Property.objects.filter(location__icontains='สุขุมวิท').order_by(
-            '-created_at'
-        )[:3]
-        asok = Property.objects.filter(location__icontains='อโศก').order_by(
-            '-created_at'
-        )[:3]
-        aonuch = Property.objects.filter(location__icontains='อ่อนนุช').order_by(
-            '-created_at'
-        )[:3]
+    def get_main_images(self, properties):
+        """Return a list of tuples (property, main_image)"""
+        return [
+            {
+                'property': prop,
+                'main_image': PropertyImage.objects.filter(property=prop, is_main=True).first()
+                              or PropertyImage.objects.filter(property=prop).first()
+            }
+            for prop in properties
+        ]
 
-        context = {
-            'ladproa': ladproa,
-            'thonglo': thonglo,
-            'silom': silom,
-            'phakanong': phakanong,
-            'wipawadee': wipawadee,
-            'sukumvit': sukumvit,
-            'asok': asok,
-            'aonuch': aonuch,
+    def get(self, request, *args, **kwargs):
+        locations = {
+            'ladproa': 'ลาดพร้าว',
+            'thonglo': 'ทองหล่อ',
+            'silom': 'สีลม',
+            'phakanong': 'พระโขนง',
+            'wipawadee': 'วิภาวดี',
+            'sukumvit': 'สุขุมวิท',
+            'asok': 'อโศก',
+            'aonuch': 'อ่อนนุช',
         }
 
-        print(
-            "ladproa:",
-            ladproa,
-            "thonglo:",
-            thonglo,
-            "silom:",
-            silom,
-            "phakanong:",
-            phakanong,
-            "wipawadee:",
-            wipawadee,
-            "sukumvit:",
-            sukumvit,
-            "asok:",
-            asok,
-            "aonuch:",
-            aonuch,
-        )
+        context = {}
+
+        for key, name in locations.items():
+            props = Property.objects.filter(location__icontains=name).order_by('-created_at')[:3]
+            context[key] = self.get_main_images(props)
 
         return render(request, self.template_name, context)
 
