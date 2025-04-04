@@ -9,4 +9,6 @@ urlpatterns = [
     path('property-detail/<int:pk>/', PropertyDetail.as_view(), name='property-detail'),
     path('sell/', Sell.as_view(), name='sell'),
     path('manage/', PropertyManage.as_view(), name='manage'),
+    path('edit-property/<int:property_id>/', edit_property, name='edit_property'),
+
 ]

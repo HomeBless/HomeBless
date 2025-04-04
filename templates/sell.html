@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<form id="add-property-form" action="{% url 'HomeBless:sell' %}" method="POST">
+<form id="add-property-form" action="{% url 'HomeBless:sell' %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
 
 <div class="pt-[178px] pb-[60px]">
@@ -157,21 +157,42 @@
                     <textarea name="description" placeholder="เช่น บ้านเดี่ยว ปลูกเอง ทำเลดี สวยมาก พร้อมตกแต่ง..."
                         class="w-full h-24 p-2.5 bg-stone-50 rounded-lg border border-slate-400 text-gray-600"></textarea>
                 </div>
-
+                <!-- รูปภาพ -->
                 <div>
                     <p class="text-gray-600 text-xl font-medium">รูปภาพ</p>
-                    <input type="file" multiple accept="image/*" id="imageUpload" class="hidden" onchange="previewImages()" />
+                    <input type="hidden" name="cover_image_index" id="coverImageIndex" value="0">
+                    <input type="file" name="images[]" multiple accept="image/*" id="imageUpload" class="hidden" onchange="previewImages()" />
                     <label for="imageUpload" class="w-full h-52 rounded-lg border-2 border-dashed border-slate-300 flex justify-center items-center cursor-pointer hover:bg-gray-100">
                         <p class="text-gray-600">เพิ่มรูปภาพ</p>
                     </label>
                     <div id="imagePreview" class="flex flex-wrap gap-2 mt-4"></div>
                 </div>
+
                  <!-- ราคา -->
                 <div>
                     <p class="text-gray-600 text-xl font-medium">ราคา</p>
                     <input type="number" name="price" placeholder="โปรดใส่ราคา"
                         class="w-full p-2.5 bg-stone-50 rounded-lg border border-slate-400 text-gray-600" />
                 </div>
+
+                <div>
+                    <p class="text-gray-600 text-xl font-medium">Line ID</p>
+                    <input type="text" name="line_id" placeholder="ใส่ ID line"
+                        class="w-full p-2.5 bg-stone-50 rounded-lg border border-slate-400 text-gray-600" />
+                </div>
+
+                <div>
+                    <p class="text-gray-600 text-xl font-medium">เบอร์ติดต่อ</p>
+                    <input type="number" name="phone_number" placeholder="ex.0987654321"
+                        class="w-full p-2.5 bg-stone-50 rounded-lg border border-slate-400 text-gray-600" />
+                </div>
+
+                <div>
+                    <p class="text-gray-600 text-xl font-medium">อีเมลล์</p>
+                    <input type="email" name="contact_email" placeholder="example@gmail.com"
+                        class="w-full p-2.5 bg-stone-50 rounded-lg border border-slate-400 text-gray-600" />
+                </div>
+
                 <div class="flex gap-2">
                     <button type="button" id="section-2-before-btn" class="p-2.5 text-blue-700 rounded-md outline outline-1 outline-blue-700 w-[100px] text-center -mr-px hover:bg-blue-100">
                         ก่อนหน้า
@@ -484,6 +505,8 @@
                         </div>
                     </div>
                 </div>
+
+
                 <div class="flex gap-2">
                     <button type="button" id="section-3-before-btn" class="p-2.5 text-blue-700 rounded-md outline outline-1 outline-blue-700 w-[100px] text-center -mr-px hover:bg-blue-100">
                         ก่อนหน้า
@@ -569,7 +592,13 @@ function setCoverImage(container, img, button, removeBtn) {
 
     let preview = document.getElementById('imagePreview');
     preview.prepend(container);
+
+    const containers = Array.from(preview.children);
+    const newIndex = containers.indexOf(container);
+    document.getElementById("coverImageIndex").value = newIndex;
 }
+
+
 
 function setNewCover() {
     let preview = document.getElementById('imagePreview');
