@@ -23,7 +23,7 @@
                                     value="{{ request.GET.search }}">
                             </div>
                         </div>
-                    
+
                         <div class="px-8 border-l border-r border-[#d0d8ef] justify-start items-center gap-4 flex">
                             <div class="relative">
                                 <select name="listing_type" id="listingTypeSelect" class="h-[46px] px-2.5 bg-[#faf9f6] rounded-[10px] border border-[#2162d0] text-[#2162d0] text-base font-normal font-['IBM Plex Sans Thai'] appearance-none pr-8">
@@ -149,7 +149,7 @@
                         <div class="text-[#2162d0] text-base font-normal font-['IBM Plex Sans Thai']">อ่อนนุช</div>
                     </button>
                 </div>
-                        
+
                 {% include "components/home/ladproa.html" %}
                 {% include "components/home/thonglo.html" %}
                 {% include "components/home/silom.html" %}
@@ -158,12 +158,12 @@
                 {% include "components/home/sukumvit.html" %}
                 {% include "components/home/asok.html" %}
                 {% include "components/home/aonuch.html" %}
-                
+
             </div>
         </div>
     </div>
 </div>
-    
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -178,31 +178,31 @@ document.addEventListener('DOMContentLoaded', function() {
         'asok',
         'aonuch'
     ].map(id => document.getElementById(id)).filter(Boolean);
-    
+
     locationComponents.forEach((component, index) => {
         if (index !== 0) {
             component.style.display = 'none';
         }
     });
-    
+
     locationTabButtons.forEach((button, index) => {
         button.addEventListener('click', function() {
             locationComponents.forEach(component => {
                 component.style.display = 'none';
             });
-            
+
             if (locationComponents[index]) {
                 locationComponents[index].style.display = 'block';
             }
-            
+
             locationTabButtons.forEach(btn => {
                 btn.classList.remove('active', 'border-b-2', 'border-[#2162d0]');
             });
-            
+
             this.classList.add('active', 'border-b-2', 'border-[#2162d0]');
         });
     });
-    
+
     document.querySelectorAll('.keyword-btn').forEach(button => {
         button.addEventListener('click', function(event) {
             event.preventDefault();
@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('searchForm').submit();
         });
     });
-    
+
     document.querySelectorAll('.property-type-btn').forEach(button => {
         button.addEventListener('click', function(event) {
             event.preventDefault();
@@ -220,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('searchForm').submit();
         });
     });
-    
+
     locationTabButtons.forEach(button => {
         button.addEventListener('dblclick', function() {
             const locationText = this.querySelector('div').innerText;
@@ -228,30 +228,40 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('searchForm').submit();
         });
     });
-    
+
     const trainTabButtons = document.querySelectorAll('.tab-train-btn');
-    
+
     trainTabButtons.forEach(button => {
         button.addEventListener('click', function() {
             trainTabButtons.forEach(btn => {
                 btn.classList.remove('active', 'border-b-2', 'border-[#2162d0]');
             });
-            
+
             this.classList.add('active', 'border-b-2', 'border-[#2162d0]');
         });
     });
-    
-    const typeTabButtons = document.querySelectorAll('.tab-type-btn');
-    
-    typeTabButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            typeTabButtons.forEach(btn => {
-                btn.classList.remove('active', 'border-b-2', 'border-[#2162d0]');
-            });
-            
-            this.classList.add('active', 'border-b-2', 'border-[#2162d0]');
-        });
+
+    const propertyTypeMapping = {
+    "บ้านเดี่ยว": "Single-House",
+    "คอนโด": "Condo",
+    "โฮมออฟฟิศ": "Home-Office",
+    "อพาร์ทเม้นท์": "Apartment",
+    "ทาวน์เฮ้าส์": "Townhouse"
+  };
+
+  document.querySelectorAll('.property-type-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const thaiType = button.getAttribute('data-property-type');
+      const propertyType = propertyTypeMapping[thaiType] || thaiType; // fallback if not mapped
+
+      const url = new URL('http://127.0.0.1:8000/property-listing/');
+      url.searchParams.set('page', 1);
+      url.searchParams.set('sort', 'latest');
+      url.searchParams.set('property_type', propertyType);
+
+      window.location.href = url.toString();
     });
+  });
 });
 </script>
 
