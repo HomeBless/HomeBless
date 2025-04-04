@@ -3,88 +3,103 @@
 {% load humanize %}
 
 {% block content %}
-<div class="pt-[178px] pb-[90px]">
-    <div class="w-full h-auto px-[30px] py-5 border-b border-[#d0d8ef] justify-center items-center gap-[30px] inline-flex fixed top-[92px] left-0 bg-white z-[1] w-full h-auto px-[30px] py-5 border-b border-[#d0d8ef] fixed">
-        <div class="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex w-full">
-            <div class="self-stretch p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#a6abc6] justify-start items-center gap-2.5 inline-flex w-full">
-                <img src="{% static 'property-listing/search.svg' %}" alt="Search" class="w-5 h-5">
-                <input type="text" placeholder="คีย์เวิร์ด, สถานที่สำคัญ, จังหวัดฯลฯ"
-                       class="grow shrink basis-0 h-[26px] bg-transparent text-[#333] text-base font-normal font-['IBM Plex Sans Thai'] outline-none">
-            </div>
-        </div>
-    </div>
-    <div class="w-full p-7 inline-flex flex-col justify-start items-start gap-4">
-        <div class="self-stretch inline-flex justify-start items-center gap-4">
-            <div class="flex-1 justify-start text-blue-700 text-3xl font-bold font-['IBM_Plex_Sans_Thai']">บ้านที่อยากได้</div>
-        </div>
-        {% if wishlist_details %}
-        <div class="self-stretch inline-flex justify-start items-center">
-            <div class="flex-1 p-2.5 border-b border-slate-300 inline-flex flex-col justify-start items-start">
-                <div class="self-stretch justify-start text-gray-600 text-base font-bold font-['IBM_Plex_Sans_Thai']">บ้าน</div>
-            </div>
-            <div class="p-2.5 border-b border-slate-300 inline-flex flex-col justify-start items-start">
-                <div class="self-stretch justify-start text-gray-600 text-base font-bold font-['IBM_Plex_Sans_Thai']">ตัวเลือก</div>
-            </div>
-        </div>
-
-        {% for item in wishlist_details %}
-        <div class="self-stretch flex flex-col justify-start items-start gap-2">
-            <div class="self-stretch py-5 border-b border-slate-300 flex flex-col justify-start items-start gap-8">
-                <div class="self-stretch h-36 p-2.5 inline-flex justify-start items-center gap-4">
-                    <img class="w-36 self-stretch relative rounded-[10px]" src="{{ item.picture.url }}" alt="{{ item.title }}">
-                    <div class="flex-1 inline-flex flex-col justify-start items-start gap-4">
-                        <div class="self-stretch flex flex-col justify-start items-start gap-2">
-                            <div class="self-stretch justify-start text-slate-600 text-base font-bold font-['IBM_Plex_Sans_Thai'] underline">
-                                <a href="{% url 'HomeBless:property-detail' item.id %}" class="text-slate-600 hover:text-blue-600 transition-colors duration-300">
-                                    {{ item.title }}
-                                </a>
-                            </div>
-                            <div class="self-stretch justify-start text-[#2DAB6F] text-base font-bold font-['IBM_Plex_Sans_Thai']">
-                                {{ item.price|intcomma }} บาท
-                            </div>
-                        </div>
-                        <div class="self-stretch inline-flex justify-start items-center flex-wrap content-center">
-                            <div class="px-2.5 flex justify-start items-center gap-1.5">
-                                <img src="{% static 'property-listing/floor.svg' %}" alt="Floor">
-                                <div class="justify-start text-gray-600 text-xs font-normal font-['IBM_Plex_Sans_Thai']">
-                                    {{ item.floor }} ชั้น
-                                </div>
-                            </div>
-                            <div class="px-2.5 border-l border-r border-gray-600 flex justify-start items-center gap-1.5">
-                                <img src="{% static 'property-listing/bedroom.svg' %}" alt="Bedroom">
-                                <div class="justify-start text-gray-600 text-xs font-normal font-['IBM_Plex_Sans_Thai']">
-                                    {{ item.bedrooms }} ห้องนอน
-                                </div>
-                            </div>
-                            <div class="px-2.5 flex justify-start items-center gap-1.5">
-                                <img src="{% static 'property-listing/bathroom.svg' %}" alt="Bathroom">
-                                <div class="justify-start text-gray-600 text-xs font-normal font-['IBM_Plex_Sans_Thai']">
-                                    {{ item.bathrooms }} ห้องน้ำ
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <form method="POST" action="{% url 'HomeBless:wishlist' %}">
-                        {% csrf_token %}
-                        <input type="hidden" name="property_id" value="{{ item.id }}">
-                        
-                        <button class="w-14 p-2.5 border-b border-blue-700 inline-flex flex-col justify-center items-center hover:bg-blue-100 hover:border-blue-900 transition duration-300 ease-in-out">
-                            <div class="self-stretch text-center justify-start text-blue-700 text-base font-bold font-['IBM_Plex_Sans_Thai']">ลบ</div>
-                        </button>
-                    </form>
+    <div class="pt-[178px] pb-[90px]">
+        <div class="w-full h-auto px-[30px] py-5 border-b border-[#d0d8ef] justify-center items-center gap-[30px] inline-flex fixed top-[92px] left-0 bg-white z-[1] w-full h-auto px-[30px] py-5 border-b border-[#d0d8ef] fixed">
+            <div class="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex w-full">
+                <div class="self-stretch p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#a6abc6] justify-start items-center gap-2.5 inline-flex w-full">
+                    <img src="{% static 'property-listing/search.svg' %}" alt="Search" class="w-5 h-5">
+                    <input type="text" placeholder="คีย์เวิร์ด, สถานที่สำคัญ, จังหวัดฯลฯ"
+                           class="grow shrink basis-0 h-[26px] bg-transparent text-[#333] text-base font-normal font-['IBM Plex Sans Thai'] outline-none">
                 </div>
             </div>
         </div>
-        {% endfor %}
-    
-        {% else %}
-            
-        <div class="self-stretch text-center text-gray-500 text-xl font-['IBM_Plex_Sans_Thai'] py-5">
-            ไม่มีบ้านรายการในรายการโปรด
-        </div>
-            
-        {% endif %}
+        <div class="w-full p-7 inline-flex flex-col justify-start items-start gap-4">
+            <div class="self-stretch inline-flex justify-start items-center gap-4">
+                <div class="flex-1 justify-start text-blue-700 text-3xl font-bold font-['IBM_Plex_Sans_Thai']">
+                    บ้านที่อยากได้
+                </div>
+            </div>
+            {% if wishlist_details %}
+                <div class="self-stretch inline-flex justify-start items-center">
+                    <div class="flex-1 p-2.5 border-b border-slate-300 inline-flex flex-col justify-start items-start">
+                        <div class="self-stretch justify-start text-gray-600 text-base font-bold font-['IBM_Plex_Sans_Thai']">
+                            บ้าน
+                        </div>
+                    </div>
+                    <div class="p-2.5 border-b border-slate-300 inline-flex flex-col justify-start items-start">
+                        <div class="self-stretch justify-start text-gray-600 text-base font-bold font-['IBM_Plex_Sans_Thai']">
+                            ตัวเลือก
+                        </div>
+                    </div>
+                </div>
 
+                {% for item in wishlist_details %}
+                    <div class="self-stretch flex flex-col justify-start items-start gap-2">
+                        <div class="self-stretch py-5 border-b border-slate-300 flex flex-col justify-start items-start gap-8">
+                            <div class="self-stretch h-36 p-2.5 inline-flex justify-start items-center gap-4">
+                                {% if item.picture %}
+                                    <img class="w-36 self-stretch relative rounded-[10px]"
+                                         src="{{ item.picture.image.url }}" alt="{{ item.title }}">
+                                {% else %}
+                                    <img class="w-36 self-stretch relative rounded-[10px]"
+                                         src="https://placehold.co/142x121" alt="No image available">
+                                {% endif %}
+                                <div class="flex-1 inline-flex flex-col justify-start items-start gap-4">
+                                    <div class="self-stretch flex flex-col justify-start items-start gap-2">
+                                        <div class="self-stretch justify-start text-slate-600 text-base font-bold font-['IBM_Plex_Sans_Thai'] underline">
+                                            <a href="{% url 'HomeBless:property-detail' item.id %}"
+                                               class="text-slate-600 hover:text-blue-600 transition-colors duration-300">
+                                                {{ item.title }}
+                                            </a>
+                                        </div>
+                                        <div class="self-stretch justify-start text-[#2DAB6F] text-base font-bold font-['IBM_Plex_Sans_Thai']">
+                                            {{ item.price|intcomma }} บาท
+                                        </div>
+                                    </div>
+                                    <div class="self-stretch inline-flex justify-start items-center flex-wrap content-center">
+                                        <div class="px-2.5 flex justify-start items-center gap-1.5">
+                                            <img src="{% static 'property-listing/floor.svg' %}" alt="Floor">
+                                            <div class="justify-start text-gray-600 text-xs font-normal font-['IBM_Plex_Sans_Thai']">
+                                                {{ item.floor }} ชั้น
+                                            </div>
+                                        </div>
+                                        <div class="px-2.5 border-l border-r border-gray-600 flex justify-start items-center gap-1.5">
+                                            <img src="{% static 'property-listing/bedroom.svg' %}" alt="Bedroom">
+                                            <div class="justify-start text-gray-600 text-xs font-normal font-['IBM_Plex_Sans_Thai']">
+                                                {{ item.bedrooms }} ห้องนอน
+                                            </div>
+                                        </div>
+                                        <div class="px-2.5 flex justify-start items-center gap-1.5">
+                                            <img src="{% static 'property-listing/bathroom.svg' %}" alt="Bathroom">
+                                            <div class="justify-start text-gray-600 text-xs font-normal font-['IBM_Plex_Sans_Thai']">
+                                                {{ item.bathrooms }} ห้องน้ำ
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <form method="POST" action="{% url 'HomeBless:wishlist' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="property_id" value="{{ item.id }}">
+
+                                    <button class="w-14 p-2.5 border-b border-blue-700 inline-flex flex-col justify-center items-center hover:bg-blue-100 hover:border-blue-900 transition duration-300 ease-in-out">
+                                        <div class="self-stretch text-center justify-start text-blue-700 text-base font-bold font-['IBM_Plex_Sans_Thai']">
+                                            ลบ
+                                        </div>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            {% else %}
+
+                <div class="self-stretch text-center text-gray-500 text-xl font-['IBM_Plex_Sans_Thai'] py-5">
+                    ไม่มีบ้านรายการในรายการโปรด
+                </div>
+
+            {% endif %}
+
+        </div>
     </div>
-</div>
 {% endblock %}

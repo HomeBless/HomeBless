@@ -9,11 +9,17 @@ class PropertyManage(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['properties'] = Property.objects.filter(user=self.request.user)
+        user_properties = Property.objects.filter(user=self.request.user)
+        context['properties'] = user_properties
         context['property_types'] = PropertyType.objects.all()
+
+        # Get main images for current user's properties
         main_images = PropertyImage.objects.filter(
-            property__user=self.request.user,
-            is_main=True)
+            property__in=user_properties,
+            is_main=True
+        )
+
+        # Convert to dict: {property_id: image}
         cover_images = {img.property_id: img for img in main_images}
         context['cover_images'] = cover_images
 
