@@ -3,903 +3,716 @@
 {% load humanize %}
 
 {% block content %}
-<div class="pt-[178px] pb-[60px]">
-  <!-- search bar -->
-  <div class="w-full h-[86px] px-[30px] py-5 border-b border-[#d0d8ef] justify-center items-center gap-[30px] inline-flex fixed top-[92px] left-0 bg-white">
-      <div class="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
-          <div class="self-stretch p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#a6abc6] justify-start items-center gap-2.5 inline-flex">
-              <div data-svg-wrapper class="relative">
-                <svg width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <g clip-path="url(#clip0_15_267)">
-                    <path d="M13.9435 12.7837C15.0934 11.2147 15.6084 9.2693 15.3855 7.33683C15.1626 5.40437 14.2183 3.62731 12.7415 2.36119C11.2647 1.09506 9.36423 0.433248 7.4204 0.508147C5.47657 0.583046 3.63269 1.38914 2.25766 2.76515C0.882636 4.14116 0.0778665 5.98561 0.00435809 7.9295C-0.0691503 9.87338 0.594024 11.7733 1.8612 13.2493C3.12838 14.7252 4.90612 15.6682 6.83874 15.8897C8.77137 16.1112 10.7164 15.5948 12.2846 14.4438H12.2834C12.3182 14.4913 12.357 14.5369 12.3998 14.5804L16.9717 19.1523C17.1943 19.3751 17.4964 19.5003 17.8114 19.5005C18.1264 19.5006 18.4286 19.3755 18.6514 19.1529C18.8742 18.9302 18.9994 18.6281 18.9996 18.3131C18.9997 17.9981 18.8746 17.696 18.652 17.4732L14.0801 12.9013C14.0377 12.8583 13.992 12.8198 13.9435 12.7837ZM14.2499 8.21897C14.2499 9.07666 14.081 9.92596 13.7527 10.7184C13.4245 11.5108 12.9434 12.2308 12.3369 12.8373C11.7305 13.4437 11.0105 13.9248 10.2181 14.2531C9.42565 14.5813 8.57635 14.7502 7.71866 14.7502C6.86096 14.7502 6.01166 14.5813 5.21926 14.2531C4.42685 13.9248 3.70685 13.4437 3.10037 12.8373C2.49388 12.2308 2.01279 11.5108 1.68457 10.7184C1.35634 9.92596 1.18741 9.07666 1.18741 8.21897C1.18741 6.48677 1.87552 4.82552 3.10037 3.60068C4.32521 2.37583 5.98646 1.68772 7.71866 1.68772C9.45085 1.68772 11.1121 2.37583 12.3369 3.60068C13.5618 4.82552 14.2499 6.48677 14.2499 8.21897Z" fill="#A6ABC6"/>
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_15_267">
-                        <rect width="19" height="19" fill="white" transform="translate(0 0.5)"/>
-                    </clipPath>
-                  </defs>
-                </svg>
-              </div>
-              <div class="grow shrink basis-0 h-[26px] justify-between items-center flex">
-                  <div class="text-[#a6abc6] text-base font-normal font-['IBM Plex Sans Thai']">คีย์เวิร์ด, สถานที่สำคัญ, จังหวัด ฯลฯ</div>
-              </div>
-          </div>
-      </div>
-      <div class="px-8 border-l border-r border-[#d0d8ef] justify-start items-center gap-4 flex">
-          <div class="relative">
-              <select class="h-[46px] px-2.5 bg-[#faf9f6] rounded-[10px] border border-[#2162d0] text-[#2162d0] text-base font-normal font-['IBM Plex Sans Thai'] appearance-none pr-8">
-                  <option selected disabled>ช่วงราคา</option>
-                  <option value="not-defined">ไม่กำหนด</option>
-                  <option value="below500k">ต่ำกว่า 500,000</option>
-                  <option value="500k-2m">500,000-2,000,000</option>
-                  <option value="2m-5m">2,000,000-5,000,000</option>
-                  <option value="5m-8m">5,000,000-8,000,000</option>
-                  <option value="5m-8m">8,000,000-10,000,000</option>
-                  <option value="morethan10m">มากกว่า 10,000,000</option>
-              </select>
-              <div class="absolute top-1/2 right-3 -translate-y-1/2 pointer-events-none">
-                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M4.52932 6.9625L1.53182 3.53625C1.17807 3.13313 1.46557 2.5 2.00245 2.5H7.99745C8.1176 2.4999 8.23523 2.53443 8.33627 2.59946C8.4373 2.6645 8.51744 2.75727 8.5671 2.86668C8.61676 2.97609 8.63383 3.0975 8.61627 3.21636C8.5987 3.33522 8.54725 3.4465 8.46807 3.53688L5.47057 6.96188C5.41191 7.02901 5.33956 7.08281 5.25839 7.11968C5.17722 7.15654 5.0891 7.17561 4.99995 7.17561C4.91079 7.17561 4.82267 7.15654 4.7415 7.11968C4.66033 7.08281 4.58798 7.02901 4.52932 6.96188V6.9625Z" fill="#2162D0"/>
-                  </svg>
-              </div>
-          </div>
-          <div class="relative">
-              <select class="h-[46px] px-2.5 bg-[#faf9f6] rounded-[10px] border border-[#2162d0] text-[#2162d0] text-base font-normal font-['IBM Plex Sans Thai'] appearance-none pr-8">
-                  <option selected disabled>ประกาศ</option>
-                  <option value="all">ทั้งหมด</option>
-                  <option value="sell">ขาย</option>
-                  <option value="rent">ให้เช่า</option>
-                  <option value="other">อื่นๆ</option>
-              </select>
-              <div class="absolute top-1/2 right-3 -translate-y-1/2 pointer-events-none">
-                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M4.52932 6.9625L1.53182 3.53625C1.17807 3.13313 1.46557 2.5 2.00245 2.5H7.99745C8.1176 2.4999 8.23523 2.53443 8.33627 2.59946C8.4373 2.6645 8.51744 2.75727 8.5671 2.86668C8.61676 2.97609 8.63383 3.0975 8.61627 3.21636C8.5987 3.33522 8.54725 3.4465 8.46807 3.53688L5.47057 6.96188C5.41191 7.02901 5.33956 7.08281 5.25839 7.11968C5.17722 7.15654 5.0891 7.17561 4.99995 7.17561C4.91079 7.17561 4.82267 7.15654 4.7415 7.11968C4.66033 7.08281 4.58798 7.02901 4.52932 6.96188V6.9625Z" fill="#2162D0"/>
-                  </svg>
-              </div>
-          </div>
-          <div class="h-[46px] p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#2162d0] justify-start items-center gap-2.5 flex">
-              <div class="justify-start items-center gap-0.5 flex">
-                  <div class="text-[#2162d0] text-base font-normal font-['IBM Plex Sans Thai']">กรองเพิ่มเติม</div>
-                  <div data-svg-wrapper class="relative">
-                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M4.52932 6.9625L1.53182 3.53625C1.17807 3.13313 1.46557 2.5 2.00245 2.5H7.99745C8.1176 2.4999 8.23523 2.53443 8.33627 2.59946C8.4373 2.6645 8.51744 2.75727 8.5671 2.86668C8.61676 2.97609 8.63383 3.0975 8.61627 3.21636C8.5987 3.33522 8.54725 3.4465 8.46807 3.53688L5.47057 6.96188C5.41191 7.02901 5.33956 7.08281 5.25839 7.11968C5.17722 7.15654 5.0891 7.17561 4.99995 7.17561C4.91079 7.17561 4.82267 7.15654 4.7415 7.11968C4.66033 7.08281 4.58798 7.02901 4.52932 6.96188V6.9625Z" fill="#2162D0"/>
-                  </svg>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <button class="p-2.5 bg-[#2162d0] rounded-[10px] justify-center items-center gap-2.5 flex">
-          <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">ค้นหาเลย!</div>
-      </button>
-  </div>
-  <!-- info -->
-  <div class="flex flex-col items-start gap-6 w-full h-auto p-8 flex-shrink-0 pb-10">
-    <!-- properties detail -->
-    <div class="flex flex-col items-center gap-[88px] self-stretch">
-      <div class="flex flex-col items-start gap-[24px] self-stretch">
-        <!-- images -->
-        <div class="flex items-center gap-[16px] self-stretch">
-          <div class="h-[503px] flex-[1_0_0] justify-center items-center bg-cover bg-center" style="background-image: url('{{ property.main_image }}');"></div>
-          <div class="flex flex-col w-[498px] h-[503px] items-start gap-[16px]">
-            <div class="flex items-center gap-[16px] flex-[1_0_0] self-stretch">
-                {% for image in property.extra_images.all|slice:":2" %}
-                    <div class="flex-[1_0_0] self-stretch bg-cover bg-center bg-no-repeat"
-                         style="background-image: url('{{ image.image.url }}');"></div>
-                {% endfor %}
-            </div>
-            <div class="flex items-end gap-[16px] flex-[1_0_0] self-stretch">
-                {% for image in property.images.all|slice:"2:4" %}
-                    <div class="flex-[1_0_0] self-stretch bg-cover bg-center bg-no-repeat"
-                         style="background-image: url('{{ image.image.url }}');"></div>
-                {% endfor %}
-            </div>
-          </div>
-        </div>
-        </div>
-        <!-- description -->
-        <div class="flex flex-col items-start gap-[16px] self-stretch">
-          <!-- status -->
-          <div class="flex items-center gap-[16px]">
-            <div class="flex p-1.5 justify-center items-center gap-1.5 rounded-[10px] bg-green-300/30">
-              <p class="text-[#2DAB6F] text-base font-normal leading-normal">
-                ขาย
-              </p>
-            </div>
-          </div>
-          <!-- Title -->
-          <div class="line-clamp-2 overflow-hidden text-[#444F85] font-bold text-[32px]">
-              {{ property.title }}
-          </div>
-          <!-- Location pin -->
-          <div class="flex p-2 px-3 justify-center items-center gap-1.5 rounded-md bg-[#2162D0]">
-            <div class="flex items-center gap-2">
-              <div class="h-[14px] w-[13px]">
-                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" fill="none">
-                  <g clip-path="url(#clip0_35_196)">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.51875 9.8C2.55659 9.74566 2.60566 9.70156 2.66207 9.67119C2.71848 9.64081 2.78068 9.625 2.84375 9.625H4.875C4.98274 9.625 5.08608 9.67109 5.16226 9.75314C5.23845 9.83519 5.28125 9.94647 5.28125 10.0625C5.28125 10.1785 5.23845 10.2898 5.16226 10.3719C5.08608 10.4539 4.98274 10.5 4.875 10.5H3.04688L1.21875 13.125H11.7812L9.95312 10.5H8.125C8.01726 10.5 7.91392 10.4539 7.83774 10.3719C7.76155 10.2898 7.71875 10.1785 7.71875 10.0625C7.71875 9.94647 7.76155 9.83519 7.83774 9.75314C7.91392 9.67109 8.01726 9.625 8.125 9.625H10.1562C10.2193 9.625 10.2815 9.64081 10.3379 9.67119C10.3943 9.70156 10.4434 9.74566 10.4812 9.8L12.9187 13.3C12.964 13.365 12.9916 13.4423 12.9984 13.5232C13.0051 13.6041 12.9909 13.6855 12.9571 13.7582C12.9234 13.8308 12.8715 13.8919 12.8073 13.9347C12.7432 13.9774 12.6692 14 12.5938 14H0.40625C0.330805 14 0.25685 13.9774 0.192672 13.9347C0.128494 13.8919 0.0766294 13.8308 0.0428891 13.7582C0.00914891 13.6855 -0.00513371 13.6041 0.00164172 13.5232C0.00841715 13.4423 0.0359829 13.365 0.0812502 13.3L2.51875 9.8Z" fill="#FAF9F6"/>
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M3.25 3.49998C3.25006 2.82643 3.43058 2.1672 3.76991 1.6014C4.10924 1.0356 4.59297 0.587256 5.16303 0.310174C5.7331 0.0330922 6.3653 -0.0609609 6.98378 0.0393004C7.60225 0.139562 8.18073 0.429879 8.64979 0.875415C9.11885 1.32095 9.45857 1.90278 9.6282 2.55109C9.79782 3.1994 9.79013 3.88665 9.60607 4.53037C9.422 5.17409 9.06936 5.74694 8.59047 6.18019C8.11158 6.61343 7.52679 6.88866 6.90625 6.97286V11.8125C6.90625 11.9285 6.86345 12.0398 6.78726 12.1218C6.71108 12.2039 6.60774 12.25 6.5 12.25C6.39226 12.25 6.28893 12.2039 6.21274 12.1218C6.13655 12.0398 6.09375 11.9285 6.09375 11.8125V6.97373C5.30803 6.86713 4.5855 6.45524 4.06186 5.81544C3.53823 5.17564 3.24953 4.35283 3.25 3.49998Z" fill="#FAF9F6"/>
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_35_196">
-                      <rect width="13" height="14" fill="white"/>
-                    </clipPath>
-                  </defs>
-                </svg>
-              </div>
-              <div class="text-[#FAF9F6] font-bold text-[16px]">
-              {{ property.location }}
-              </div>
-            </div>
-          </div>
-          <!-- Price -->
-          <div class="flex flex-col items-start gap-[-10px] self-stretch">
-            <div class="text-[#575B6F] font-bold text-[16px] self-stretch">
-                ราคา
-            </div>
-            <div class="text-[#2DAB6F] font-bold text-[48px] self-stretch uppercase">{{ property.price|intcomma }} บาท</div>
-          </div>
-          <!-- Features -->
-          <div class="flex items-start gap-[16px] self-stretch">
-            <div class="flex p-2.5 flex-col justify-center items-center gap-1.5 flex-1 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6]">
-              <div class="flex items-center gap-[8px]">
-                <div class="h-[20px] w-[20px]">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
-                    <g clip-path="url(#clip0_35_29)">
-                      <path d="M1.58325 0C1.25173 0 0.933789 0.131696 0.699368 0.366117C0.464948 0.600537 0.333252 0.918479 0.333252 1.25L0.333252 18.75C0.333252 19.0815 0.464948 19.3995 0.699368 19.6339C0.933789 19.8683 1.25173 20 1.58325 20H7.83325V18.75H2.83325V17.5H7.83325V16.25H5.33325V15H7.83325V13.75H2.83325V12.5H7.83325V11.25H5.33325V10H7.83325V8.75H2.83325V7.5H7.83325V2.5H9.08325V7.5H10.3333V5H11.5833V7.5H12.8333V2.5H14.0833V7.5H15.3333V5H16.5833V7.5H17.8333V2.5H19.0833V7.5H20.3333V1.25C20.3333 0.918479 20.2016 0.600537 19.9671 0.366117C19.7327 0.131696 19.4148 0 19.0833 0L1.58325 0Z" fill="#444F85"/>
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_35_29">
-                        <rect width="20" height="20" fill="white" transform="translate(0.333252)"/>
-                      </clipPath>
-                    </defs>
-                  </svg>
-                </div>
-                <div class="text-[#444F85] font-bold text-[22px]">
-                  พื้นที่ใช้สอย
-                </div>
-              </div>
-              <div class="text-center text-[#575B6F] font-medium text-[22px]">{{ property.area }}ตร.ว.</div>
-              <div class="text-center text-[#575B6F] font-normal text-[16px]">
-                  ({{ property.price_per_area|floatformat:2|intcomma }} บาท/ตร.ว)
-              </div>
-            </div>
-            <div class="flex p-2.5 flex-col justify-center items-center gap-1.5 flex-1 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6]">
-              <div class="flex items-center gap-[8px]">
-                <div class="h-[20px] w-[24px]">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="21" viewBox="0 0 24 21" fill="none">
-                    <path d="M24 14.9V20.5H12.8V13.3H5.6V6.1H0V0.5H11.2V7.7H18.4V14.9H24Z" fill="#444F85"/>
-                  </svg>
-                </div>
-                <div class="text-[#444F85] font-bold text-[22px]">
-                  จำนวนชั้น
-                </div>
-              </div>
-              <div class="text-center text-[#575B6F] font-medium text-[22px]">
-                  {{ property.floors }} ชั้น
-              </div>
-            </div>
-            <div class="flex p-2.5 flex-col justify-center items-center gap-1.5 flex-1 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6]">
-              <div class="flex items-center gap-[8px]">
-                <div class="h-[20px] w-[22px]">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="23" height="21" viewBox="0 0 23 21" fill="none">
-                    <path d="M20.4665 10.5V1.61111C20.4665 1.31643 20.3506 1.03381 20.1443 0.825437C19.938 0.617063 19.6582 0.5 19.3665 0.5C19.0748 0.5 18.795 0.617063 18.5887 0.825437C18.3824 1.03381 18.2665 1.31643 18.2665 1.61111V3.83333H5.0665V1.61111C5.0665 1.31643 4.95061 1.03381 4.74432 0.825437C4.53803 0.617063 4.25824 0.5 3.9665 0.5C3.67477 0.5 3.39498 0.617063 3.18869 0.825437C2.9824 1.03381 2.8665 1.31643 2.8665 1.61111V10.5C2.28303 10.5 1.72345 10.7341 1.31087 11.1509C0.898289 11.5676 0.666504 12.1329 0.666504 12.7222V19.3889C0.666504 19.6836 0.782396 19.9662 0.988686 20.1746C1.19498 20.3829 1.47477 20.5 1.7665 20.5C2.05824 20.5 2.33803 20.3829 2.54432 20.1746C2.75061 19.9662 2.8665 19.6836 2.8665 19.3889V17.1667H20.4665V19.3889C20.4665 19.6836 20.5824 19.9662 20.7887 20.1746C20.995 20.3829 21.2748 20.5 21.5665 20.5C21.8582 20.5 22.138 20.3829 22.3443 20.1746C22.5506 19.9662 22.6665 19.6836 22.6665 19.3889V12.7222C22.6665 12.1329 22.4347 11.5676 22.0221 11.1509C21.6096 10.7341 21.05 10.5 20.4665 10.5ZM10.5665 10.5H5.0665V9.38889C5.0665 9.0942 5.1824 8.81159 5.38869 8.60322C5.59498 8.39484 5.87477 8.27778 6.1665 8.27778H9.4665C9.75824 8.27778 10.038 8.39484 10.2443 8.60322C10.4506 8.81159 10.5665 9.0942 10.5665 9.38889V10.5ZM18.2665 10.5H12.7665V9.38889C12.7665 9.0942 12.8824 8.81159 13.0887 8.60322C13.295 8.39484 13.5748 8.27778 13.8665 8.27778H17.1665C17.4582 8.27778 17.738 8.39484 17.9443 8.60322C18.1506 8.81159 18.2665 9.0942 18.2665 9.38889V10.5Z" fill="#444F85"/>
-                  </svg>
-                </div>
-                <div class="text-[#444F85] font-bold text-[22px]">
-                  ห้องนอน
-                </div>
-              </div>
-              <div class="text-center text-[#575B6F] font-medium text-[22px]">
-                  {{ property.bedrooms }} ห้องนอน
-              </div>
-            </div>
-            <div class="flex p-2.5 flex-col justify-center items-center gap-1.5 flex-1 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6]">
-              <div class="flex items-center gap-[8px]">
-                <div class="h-[24px] w-[17px]">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="25" viewBox="0 0 18 25" fill="none">
-                    <path d="M17.8333 2.3V23.9C17.8333 24.0591 17.7715 24.2117 17.6616 24.3243C17.5516 24.4368 17.4025 24.5 17.247 24.5C17.0916 24.5 16.9425 24.4368 16.8325 24.3243C16.7226 24.2117 16.6608 24.0591 16.6608 23.9V2.3C16.6608 2.14087 16.5991 1.98826 16.4891 1.87574C16.3792 1.76321 16.2301 1.7 16.0746 1.7H7.28153C7.12606 1.7 6.97695 1.76321 6.86702 1.87574C6.75708 1.98826 6.69532 2.14087 6.69532 2.3V5.9C7.05785 5.9011 7.41116 6.01704 7.70673 6.23191C8.0023 6.44677 8.22564 6.75001 8.34608 7.1H3.87215C3.99259 6.75001 4.21593 6.44677 4.5115 6.23191C4.80707 6.01704 5.16038 5.9011 5.52291 5.9V2.3C5.52337 1.82276 5.70881 1.3652 6.03851 1.02773C6.36821 0.690272 6.81526 0.500477 7.28153 0.5H16.0746C16.5409 0.500477 16.9879 0.690272 17.3176 1.02773C17.6474 1.3652 17.8328 1.82276 17.8333 2.3ZM6.10911 15.5C5.95364 15.5 5.80454 15.5632 5.6946 15.6757C5.58467 15.7883 5.52291 15.9409 5.52291 16.1V18.5C5.52291 18.6591 5.58467 18.8117 5.6946 18.9243C5.80454 19.0368 5.95364 19.1 6.10911 19.1C6.26459 19.1 6.41369 19.0368 6.52363 18.9243C6.63356 18.8117 6.69532 18.6591 6.69532 18.5V16.1C6.69532 15.9409 6.63356 15.7883 6.52363 15.6757C6.41369 15.5632 6.26459 15.5 6.10911 15.5ZM2.59187 16.1C2.4364 16.1 2.2873 16.1632 2.17736 16.2757C2.06743 16.3883 2.00567 16.5409 2.00567 16.7V17.3C2.00567 17.4591 2.06743 17.6117 2.17736 17.7243C2.2873 17.8368 2.4364 17.9 2.59187 17.9C2.74734 17.9 2.89645 17.8368 3.00638 17.7243C3.11632 17.6117 3.17808 17.4591 3.17808 17.3V16.7C3.17808 16.5409 3.11632 16.3883 3.00638 16.2757C2.89645 16.1632 2.74734 16.1 2.59187 16.1ZM8.45394 8.3H3.76429C2.98721 8.30095 2.24223 8.61733 1.69276 9.17973C1.14329 9.74213 0.834183 10.5046 0.833252 11.3V13.7C0.833252 13.8591 0.895013 14.0117 1.00495 14.1243C1.11488 14.2368 1.26399 14.3 1.41946 14.3H10.7988C10.9542 14.3 11.1033 14.2368 11.2133 14.1243C11.3232 14.0117 11.385 13.8591 11.385 13.7V11.3C11.384 10.5046 11.0749 9.74213 10.5255 9.17973C9.976 8.61733 9.23102 8.30095 8.45394 8.3ZM2.59187 19.1C2.4364 19.1 2.2873 19.1632 2.17736 19.2757C2.06743 19.3883 2.00567 19.5409 2.00567 19.7V20.9C2.00567 21.0591 2.06743 21.2117 2.17736 21.3243C2.2873 21.4368 2.4364 21.5 2.59187 21.5C2.74734 21.5 2.89645 21.4368 3.00638 21.3243C3.11632 21.2117 3.17808 21.0591 3.17808 20.9V19.7C3.17808 19.5409 3.11632 19.3883 3.00638 19.2757C2.89645 19.1632 2.74734 19.1 2.59187 19.1ZM9.62636 15.5C9.47088 15.5 9.32178 15.5632 9.21184 15.6757C9.10191 15.7883 9.04015 15.9409 9.04015 16.1V17.3C9.04015 17.4591 9.10191 17.6117 9.21184 17.7243C9.32178 17.8368 9.47088 17.9 9.62636 17.9C9.78183 17.9 9.93093 17.8368 10.0409 17.7243C10.1508 17.6117 10.2126 17.4591 10.2126 17.3V16.1C10.2126 15.9409 10.1508 15.7883 10.0409 15.6757C9.93093 15.5632 9.78183 15.5 9.62636 15.5ZM9.62636 19.1C9.47088 19.1 9.32178 19.1632 9.21184 19.2757C9.10191 19.3883 9.04015 19.5409 9.04015 19.7V20.9C9.04015 21.0591 9.10191 21.2117 9.21184 21.3243C9.32178 21.4368 9.47088 21.5 9.62636 21.5C9.78183 21.5 9.93093 21.4368 10.0409 21.3243C10.1508 21.2117 10.2126 21.0591 10.2126 20.9V19.7C10.2126 19.5409 10.1508 19.3883 10.0409 19.2757C9.93093 19.1632 9.78183 19.1 9.62636 19.1ZM6.10911 20.3C5.95364 20.3 5.80454 20.3632 5.6946 20.4757C5.58467 20.5883 5.52291 20.7409 5.52291 20.9V22.1C5.52291 22.2591 5.58467 22.4117 5.6946 22.5243C5.80454 22.6368 5.95364 22.7 6.10911 22.7C6.26459 22.7 6.41369 22.6368 6.52363 22.5243C6.63356 22.4117 6.69532 22.2591 6.69532 22.1V20.9C6.69532 20.7409 6.63356 20.5883 6.52363 20.4757C6.41369 20.3632 6.26459 20.3 6.10911 20.3Z" fill="#444F85"/>
-                  </svg>
-                </div>
-                <div class="text-[#444F85] font-bold text-[22px]">
-                  ห้องน้ำ
-                </div>
-              </div>
-              <div class="text-center text-[#575B6F] font-medium text-[22px]">
-                {{ property.bathrooms }} ห้องน้ำ
-              </div>
-            </div>
-            <div class="flex p-2.5 flex-col justify-center items-center gap-1.5 flex-1 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6]">
-              <div class="flex items-center gap-[8px]">
-                <div class="h-[18px] w-[20px]">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="19" viewBox="0 0 20 19" fill="none">
-                    <path d="M17.6889 1.63625C17.575 1.30441 17.3619 1.01671 17.0792 0.813093C16.7964 0.609476 16.4581 0.500047 16.1111 0.5H3.88889C3.16111 0.5 2.53889 0.9725 2.31111 1.63625L0 8.375V17.375C0 17.9937 0.5 18.5 1.11111 18.5H2.22222C2.51691 18.5 2.79952 18.3815 3.0079 18.1705C3.21627 17.9595 3.33333 17.6734 3.33333 17.375V16.25H16.6667V17.375C16.6667 17.9937 17.1667 18.5 17.7778 18.5H18.8889C19.1836 18.5 19.4662 18.3815 19.6746 18.1705C19.8829 17.9595 20 17.6734 20 17.375V8.375L17.6889 1.63625ZM3.88889 12.875C2.96667 12.875 2.22222 12.1213 2.22222 11.1875C2.22222 10.2537 2.96667 9.5 3.88889 9.5C4.81111 9.5 5.55556 10.2537 5.55556 11.1875C5.55556 12.1213 4.81111 12.875 3.88889 12.875ZM16.1111 12.875C15.1889 12.875 14.4444 12.1213 14.4444 11.1875C14.4444 10.2537 15.1889 9.5 16.1111 9.5C17.0333 9.5 17.7778 10.2537 17.7778 11.1875C17.7778 12.1213 17.0333 12.875 16.1111 12.875ZM2.22222 7.25L3.88889 2.1875H16.1111L17.7778 7.25H2.22222Z" fill="#444F85"/>
-                  </svg>
-                </div>
-                <div class="text-[#444F85] font-bold text-[22px]">
-                  ที่จอดรถ
-                </div>
-              </div>
-              <div class="text-center text-[#575B6F] font-medium text-[22px]">
-                {{ property.garages }} คัน
-              </div>
-            </div>
-            <div class="flex p-2.5 flex-col justify-center items-center gap-1.5 flex-1 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6]">
-              <div class="flex items-center gap-[8px]">
-                <div class="h-[18px] w-[18px]">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
-                    <g clip-path="url(#clip0_35_70)">
-                      <path d="M4.66675 1.0625C4.66675 0.913316 4.60748 0.770242 4.502 0.664752C4.39651 0.559263 4.25343 0.5 4.10425 0.5C3.95506 0.5 3.81199 0.559263 3.7065 0.664752C3.60101 0.770242 3.54175 0.913316 3.54175 1.0625V1.625H2.41675C1.82001 1.625 1.24771 1.86205 0.825758 2.28401C0.403801 2.70597 0.166748 3.27826 0.166748 3.875L0.166748 16.25C0.166748 16.8467 0.403801 17.419 0.825758 17.841C1.24771 18.2629 1.82001 18.5 2.41675 18.5H15.9167C16.5135 18.5 17.0858 18.2629 17.5077 17.841C17.9297 17.419 18.1667 16.8467 18.1667 16.25V3.875C18.1667 3.27826 17.9297 2.70597 17.5077 2.28401C17.0858 1.86205 16.5135 1.625 15.9167 1.625H14.7917V1.0625C14.7917 0.913316 14.7325 0.770242 14.627 0.664752C14.5215 0.559263 14.3784 0.5 14.2292 0.5C14.0801 0.5 13.937 0.559263 13.8315 0.664752C13.726 0.770242 13.6667 0.913316 13.6667 1.0625V1.625H4.66675V1.0625ZM3.02987 3.875H15.3036C15.6411 3.875 15.9167 4.127 15.9167 4.4375V5.5625C15.9167 5.873 15.6422 6.125 15.3025 6.125H3.02987C2.69237 6.125 2.41675 5.873 2.41675 5.5625V4.4375C2.41675 4.127 2.69125 3.875 3.02987 3.875Z" fill="#444F85"/>
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_35_70">
-                        <rect width="18" height="18" fill="white" transform="translate(0.166748 0.5)"/>
-                      </clipPath>
-                    </defs>
-                  </svg>
-                </div>
-                <div class="text-[#444F85] font-bold text-[22px]">
-                  ปีที่สร้างเสร็จ
-                </div>
-              </div>
-              <div class="text-center text-[#575B6F] font-medium text-[22px]">
-                2020
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Additional Info -->
-        <div class="flex justify-between items-start self-stretch">
-          <!-- Tags Tabs -->
-          <div class="flex flex-col items-start gap-[24px] flex-[1_0_0]">
-            <!-- Navigation -->
-            <div class="flex items-center gap-[16px] self-stretch">
-              <button class="tab-info-btn flex p-2.5 px-5 justify-center items-center gap-1.5 border-b-2 border-[#2162D0]" data-tab="details">
-                <div class="text-[#2162D0] font-normal text-[16px]">
-                  รายละเอียดเพิ่มเติม
-                </div>
-              </button>
-              <button class="tab-info-btn flex p-2.5 px-5 justify-center items-center gap-1.5" data-tab="messages">
-                <div class="text-[#2162D0] font-normal text-[16px]">
-                  ข้อความจากเจ้าของ/นายหน้า
-                </div>
-              </button>
-              <button class="tab-info-btn flex p-2.5 px-5 justify-center items-center gap-1.5" data-tab="location">
-                <div class="text-[#2162D0] font-normal text-[16px]">
-                  ทำเลที่ตั้งและการเดินทาง
-                </div>
-              </button>
-            </div>
-            <!-- Tabs Content for 'Details' -->
-            <div class="tab-content flex flex-col items-start gap-[16px] self-stretch" data-tab-content="details">
-              <!-- Content -->
-              <div class="flex flex-col items-start gap-[8px] self-stretch">
-                <div class="text-[#575B6F] font-bold text-[16px] self-stretch">
-                  ลักษณะบ้าน
-                </div>
-                <!-- tags -->
-                <div class="flex flex-wrap items-center content-center gap-[8px] self-stretch">
-                  <div class="flex p-0.5 px-2.5 justify-center items-center gap-2.5 rounded-md border border-[#575B6F] bg-[#FAF9F6]">
-                    <div class="text-[#575B6F] font-normal text-[16px]">
-                      บ้านเดี่ยว
-                    </div>
-                  </div>
-                  <div class="flex p-0.5 px-2.5 justify-center items-center gap-2.5 rounded-md border border-[#575B6F] bg-[#FAF9F6]">
-                    <div class="text-[#575B6F] font-normal text-[16px]">
-                      บ้านพร้อมที่ดิน
-                    </div>
-                  </div>
-                  <div class="flex p-0.5 px-2.5 justify-center items-center gap-2.5 rounded-md border border-[#575B6F] bg-[#FAF9F6]">
-                    <div class="text-[#575B6F] font-normal text-[16px]">
-                      บ้านมือสอง
-                    </div>
-                  </div>
-                  <div class="flex p-0.5 px-2.5 justify-center items-center gap-2.5 rounded-md border border-[#575B6F] bg-[#FAF9F6]">
-                    <div class="text-[#575B6F] font-normal text-[16px]">
-                      บ้านพร้อมเฟอร์นิเจอร์
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="flex flex-col items-start gap-[8px] self-stretch">
-                <div class="text-[#575B6F] font-bold text-[16px] self-stretch">
-                  การตกแต่ง
-                </div>
-                <!-- tags -->
-                <div class="flex flex-wrap items-center content-center gap-[8px] self-stretch">
-                  <div class="flex p-0.5 px-2.5 justify-center items-center gap-2.5 rounded-md border border-[#575B6F] bg-[#FAF9F6]">
-                    <div class="text-[#575B6F] font-normal text-[16px]">
-                      ตกแต่งพร้อมเข้าอยู่
-                    </div>
-                  </div>
-                  <div class="flex p-0.5 px-2.5 justify-center items-center gap-2.5 rounded-md border border-[#575B6F] bg-[#FAF9F6]">
-                    <div class="text-[#575B6F] font-normal text-[16px]">
-                      เฟอร์นิเจอร์บิวท์อิน
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- วัสดุ -->
-              <div class="flex flex-col items-start gap-[8px] self-stretch">
-                <div class="flex pl-4 flex-col items-start gap-2 self-stretch">
-                  <div class="text-[#575B6F] font-normal text-[16px] self-stretch">
-                    วัสดุปูพื้น
-                  </div>
-                  <div class="flex items-center content-center gap-2 self-stretch flex-wrap">
-                    <div class="flex p-0.5 px-2.5 justify-center items-center gap-2.5 rounded-md border border-[#575B6F] bg-[#FAF9F6]">
-                      <div class="text-[#575B6F] font-normal text-[16px]">
-                        กระเบื้อง
-                      </div>
-                    </div>
-                    <div class="flex p-0.5 px-2.5 justify-center items-center gap-2.5 rounded-md border border-[#575B6F] bg-[#FAF9F6]">
-                      <div class="text-[#575B6F] font-normal text-[16px]">
-                        พื้นไม้จริง
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="flex pl-4 flex-col items-start gap-2 self-stretch">
-                  <div class="text-[#575B6F] font-normal text-[16px] self-stretch">
-                    ผนัง
-                  </div>
-                  <div class="flex items-center content-center gap-2 self-stretch flex-wrap">
-                    <div class="flex p-0.5 px-2.5 justify-center items-center gap-2.5 rounded-md border border-[#575B6F] bg-[#FAF9F6]">
-                      <div class="text-[#575B6F] font-normal text-[16px]">
-                        ผนังวอลล์เปเปอร์
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="flex pl-4 flex-col items-start gap-2 self-stretch">
-                  <div class="text-[#575B6F] font-normal text-[16px] self-stretch">
-                    เพดาน
-                  </div>
-                  <div class="flex items-center content-center gap-2 self-stretch flex-wrap">
-                    <div class="flex p-0.5 px-2.5 justify-center items-center gap-2.5 rounded-md border border-[#575B6F] bg-[#FAF9F6]">
-                      <div class="text-[#575B6F] font-normal text-[16px]">
-                        ฝ้าหลุมพร้อมไฟซ่อน
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Amenities-->
-              <div class="flex flex-col items-start gap-[8px] self-stretch">
-                <div class="text-[#575B6F] font-bold text-[16px] self-stretch">
-                  สิ่งอำนวยความสะดวกในบ้าน
-                </div>
-                <!-- tags -->
-                <div class="flex flex-wrap items-center content-center gap-[8px] self-stretch">
-                  <div class="flex p-0.5 px-2.5 justify-center items-center gap-2.5 rounded-md border border-[#575B6F] bg-[#FAF9F6]">
-                    <div class="text-[#575B6F] font-normal text-[16px]">
-                      สระว่ายน้ำส่วนตัว
-                    </div>
-                  </div>
-                  <div class="flex p-0.5 px-2.5 justify-center items-center gap-2.5 rounded-md border border-[#575B6F] bg-[#FAF9F6]">
-                    <div class="text-[#575B6F] font-normal text-[16px]">
-                      ห้องแม่บ้าน
-                    </div>
-                  </div>
-                  <div class="flex p-0.5 px-2.5 justify-center items-center gap-2.5 rounded-md border border-[#575B6F] bg-[#FAF9F6]">
-                    <div class="text-[#575B6F] font-normal text-[16px]">
-                      ครัวไทย
-                    </div>
-                  </div>
-                  <div class="flex p-0.5 px-2.5 justify-center items-center gap-2.5 rounded-md border border-[#575B6F] bg-[#FAF9F6]">
-                    <div class="text-[#575B6F] font-normal text-[16px]">
-                      ครัวฝรั่ง
-                    </div>
-                  </div>
-                  <div class="flex p-0.5 px-2.5 justify-center items-center gap-2.5 rounded-md border border-[#575B6F] bg-[#FAF9F6]">
-                    <div class="text-[#575B6F] font-normal text-[16px]">
-                      ห้องเก็บของ
-                    </div>
-                  </div>
-                  <div class="flex p-0.5 px-2.5 justify-center items-center gap-2.5 rounded-md border border-[#575B6F] bg-[#FAF9F6]">
-                    <div class="text-[#575B6F] font-normal text-[16px]">
-                      กล้องวงจรปิด
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Tabs Content for 'Messages' -->
-            <div class="tab-content hidden flex flex-col items-start gap-[16px] self-stretch" data-tab-content="messages">
-              <!-- Content -->
-              <div class="flex items-center gap-[10px] self-stretch px-[20px] pb-[20px]">
-                <div class="w-[483px] text-[#575B6F] font-normal text-[16px]">
-                  <p><strong>บ้านเดี่ยว ปลูกเอง ทำเลดี สวยมาก พร้อมตกแต่ง</strong></p>
-                  <ul>
-                    <li>3 นอน 4 น้ำ</li>
-                    <li>1 ห้องแม่บ้าน</li>
-                    <li>เรือนเล็ก มี 1 shower, 1 toilet</li>
-                  </ul>
-                  <p><strong>ขนาดเนื้อที่</strong>: 459 ตารางวา</p>
-                  <p><strong>ราคาขาย</strong>: 39,900,000 ล้านบาท (ราคาต่อรองได้)</p>
-                  <p><strong>ค่าโอน</strong>: 50 : 50</p>
-                  <br>
-                  <p><strong>สนใจติดต่อ</strong></p>
-                  <p>📞 <strong>Tel</strong>: <a class="text-[#2162D0] underline" href="#">คลิกเพื่อดูเบอร์โทรติดต่อ</a></p>
-                  <p>📩 <strong>LineID</strong>: @Livablehome (Please fill @)</p>
-                  <br>
-                  <p><em>*รบกวนแคปหน้าจอหรือส่ง link คอนโดที่สนใจ ส่งทางไลน์ได้เลยครับ*</em></p>
-                </div>
-              </div>
-            </div>
-            <!-- Tabs Content for 'Location' -->
-            <div class="tab-content hidden flex flex-col items-start gap-[16px] self-stretch" data-tab-content="location">
-              <!-- Content -->
-              <div class="flex items-center gap-[10px] self-stretch px-[20px] pb-[20px]">
-                <!-- Map + Address -->
-                <div class="flex items-start gap-[24px] self-stretch">
-                  <!-- Address -->
-                  <div class="flex flex-col items-start gap-[17px] flex-[1_0_0]">
-                    <div class="flex flex-col items-start gap-[8px] self-stretch">
-                      <div class="text-[#2162D0] font-medium text-[22px]">
-                        ทำเลที่ตั้ง
-                      </div>
-                      <div class="flex flex-col items-start gap-[16px] self-stretch">
-                        <div class="flex flex-col items-start gap-[8px] self-stretch">
-                          <div class="text-[#575B6F] font-bold text-[16px] self-stretch">
-                            โครงการ
-                          </div>
-                          <div class="flex justify-between items-center self-stretch">
-                            <div class="flex justify-center items-center content-center gap-2 flex-[1_0_0] flex-wrap">
-                              <div class="text-[#575B6F] font-normal text-[16px] flex-[1_0_0]">
-                                นิชดา ธานี
-                              </div>
-                            </div>
-                            <div class="flex items-center gap-[5px]">
-                              <a class="text-[#2162D0] font-normal text-[16px]" href="#">
-                                ค้นหาบ้านในโครงการเดียวกัน
-                              </a>
-                              <div class="w-[7.5px] h-[13px]">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="14" viewBox="0 0 8 14" fill="none">
-                                  <path fill-rule="evenodd" clip-rule="evenodd" d="M0.716621 0.24897C0.76597 0.199497 0.824594 0.160245 0.889136 0.133463C0.953677 0.106681 1.02287 0.0928955 1.09275 0.0928955C1.16262 0.0928955 1.23182 0.106681 1.29636 0.133463C1.3609 0.160245 1.41952 0.199497 1.46887 0.24897L7.84387 6.62397C7.89334 6.67332 7.9326 6.73194 7.95938 6.79648C7.98616 6.86103 7.99995 6.93022 7.99995 7.00009C7.99995 7.06997 7.98616 7.13916 7.95938 7.20371C7.9326 7.26825 7.89334 7.32687 7.84387 7.37622L1.46887 13.7512C1.36912 13.851 1.23382 13.907 1.09275 13.907C0.951672 13.907 0.816376 13.851 0.716621 13.7512C0.616867 13.6515 0.560825 13.5162 0.560825 13.3751C0.560825 13.234 0.616867 13.0987 0.716621 12.999L6.71656 7.00009L0.716621 1.00122C0.667148 0.951872 0.627896 0.893248 0.601114 0.828706C0.574332 0.764164 0.560547 0.694973 0.560547 0.625095C0.560547 0.555217 0.574332 0.486026 0.601114 0.421485C0.627896 0.356943 0.667148 0.298319 0.716621 0.24897Z" fill="#2162D0"/>
-                                </svg>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="flex flex-col items-start gap-[8px] self-stretch">
-                          <div class="text-[#575B6F] font-bold text-[16px] self-stretch">
-                            ที่อยู่
-                          </div>
-                          <div class="text-[#575B6F] font-normal text-[16px] self-stretch">
-                            แจ้งวัฒนะ เมืองทอง งามวงศ์วาน เลียบคลองประปา แคราย ปากเกร็ด
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <button class="flex w-full items-center justify-center gap-2 px-4 py-2 border border-gray-300 bg-offWhite rounded-md hover:bg-gray-100">
-                      <div class="w-[21px] h-[21px]">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="22" viewBox="0 0 21 22" fill="none">
-                          <g clip-path="url(#clip0_37_771)">
-                            <path d="M18.5312 10.325V19.2522L15.7257 18.7329L14.4888 17.2492L9.27734 11.4556L13.7019 8.31177C15.9183 11.2372 15.9882 10.5241 15.9882 10.5241C15.9882 10.5241 17.083 8.8896 18.4875 10.2941L18.5312 10.325Z" fill="#CCCCCC"/>
-                            <path d="M7.82186 9.65076L17.0221 21.4918C16.9681 21.4972 16.9139 21.4999 16.8597 21.5H1.81836L7.82186 9.65076Z" fill="#518EF8"/>
-                            <path d="M13.702 8.31175L0.0183105 19.8285V4.65853C0.0183105 3.73519 0.76701 2.98706 1.68978 2.98706H11.6684C11.2399 3.72354 12.8287 4.19624 12.8287 5.1097C12.8287 6.02903 13.2683 7.57179 13.702 8.31175Z" fill="#28B446"/>
-                            <path d="M18.5313 19.2522V19.8285C18.5313 20.6966 17.8694 21.4103 17.0223 21.4918L9.32349 13.8943L11.1871 12.0057L15.4883 16.2499L15.7258 16.4845L18.5313 19.2522Z" fill="#F2F2F2"/>
-                            <path d="M13.2281 9.93722L11.1869 12.0057L9.32336 13.8943L1.81845 21.5H1.68978C0.76701 21.5 0.0183105 20.7513 0.0183105 19.8286L11.6772 8.01367C11.8955 8.38745 13.397 8.009 13.702 8.31173L14.2627 9.03246C14.5363 9.3242 12.9929 9.62751 13.2281 9.93722Z" fill="#FFD837"/>
-                            <path d="M4.3847 9.84229C2.91602 9.84229 1.72119 8.64746 1.72119 7.17877C1.72119 5.71008 2.91602 4.51526 4.3847 4.51526C5.09567 4.51526 5.76435 4.79244 6.26773 5.29579L5.65016 5.91324C5.31186 5.57486 4.86241 5.38852 4.3847 5.38852C3.39754 5.38852 2.5945 6.19161 2.5945 7.17873C2.5945 8.16585 3.39758 8.96894 4.3847 8.96894C5.22126 8.96894 5.9257 8.39218 6.12106 7.61534H4.3847V6.74208H7.04822V7.17873C7.04818 8.64746 5.85339 9.84229 4.3847 9.84229Z" fill="#575B6F"/>
-                            <path d="M11.6685 2.98711C12.533 1.50021 14.1439 0.5 15.9883 0.5C18.7461 0.5 20.9817 2.7356 20.9817 5.49341C20.9817 6.18505 20.8408 6.84348 20.587 7.44255C20.3342 8.03706 19.9686 8.57698 19.5105 9.03248C19.1321 9.43476 18.7927 9.85977 18.4876 10.2941C16.489 13.1415 15.9883 16.3925 15.9883 16.3925C15.9883 16.3925 15.4445 12.8627 13.2281 9.9372C12.9929 9.62749 12.7391 9.32414 12.4655 9.03248H12.4661C12.1599 8.72863 11.8947 8.38613 11.6772 8.01365C11.2435 7.27369 10.9949 6.41265 10.9949 5.49337C10.9949 4.57995 11.24 3.72354 11.6685 2.98711Z" fill="#F14336"/>
-                            <path d="M15.9883 2.83569C17.4559 2.83569 18.6453 4.02584 18.6453 5.49342C18.6453 6.961 17.4559 8.15046 15.9883 8.15046C14.5207 8.15046 13.3306 6.961 13.3306 5.49342C13.3306 4.02584 14.5208 2.83569 15.9883 2.83569Z" fill="#7E2D25"/>
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_37_771">
-                              <rect width="21" height="21" fill="white" transform="translate(0 0.5)"/>
-                            </clipPath>
-                          </defs>
-                        </svg>
-                      </div>
-                      <div class="text-[#444F85] font-normal text-[16px]">
-                        ดูใน Google map
-                      </div>
-                    </button>
-                  </div>
-                  <!-- Map -->
-                  <div class="flex w-[377px] flex-col justify-between items-start self-stretch">
-                    <div class="flex flex-col items-center flex-1 self-stretch rounded-lg border border-gray-300 bg-[url('{% static "map.png" %}')] bg-lightgray bg-cover bg-center">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- NearBy Places -->
-              <div class="flex items-center gap-[10px] self-stretch px-[20px] pb-[20px]">
-                <div class="flex flex-col items-start gap-[8px] self-stretch">
-                  <div class="text-[#2162D0] font-medium text-[22px] self-stretch">
-                    สถานที่ใกล้เคียง
-                  </div>
-                  <!-- Navigations -->
-                  <div class="flex items-center gap-[16px] self-stretch">
-                    <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 border-b-2 border-[#575B6F] hover:bg-gray-100">
-                      <div class="text-[#575B6F] font-normal text-[16px]">
-                        ทั้งหมด
-                      </div>
-                    </button>
-                    <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100">
-                      <div class="text-[#575B6F] font-normal text-[16px]">
-                        โรงเรียน/มหาวิทยาลัย
-                      </div>
-                    </button>
-                    <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100">
-                      <div class="text-[#575B6F] font-normal text-[16px]">
-                        สนามบิน
-                      </div>
-                    </button>
-                    <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100">
-                      <div class="text-[#575B6F] font-normal text-[16px]">
-                        ห้างสรรพสินค้า
-                      </div>
-                    </button>
-                    <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100">
-                      <div class="text-[#575B6F] font-normal text-[16px]">
-                        สวนสาธารณะ
-                      </div>
-                    </button>
-                    <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100">
-                      <div class="text-[#575B6F] font-normal text-[16px]">
-                        ขนส่งสาธารณะ
-                      </div>
-                    </button>
-                  </div>
-                  <!-- Table List -->
-                  <div class="flex items-center px-5 gap-2 self-stretch">
-                    <table class="w-full border-collapse">
-                      <thead>
-                          <tr>
-                              <th class="text-left font-bold text-[16px] border-b border-[#575B6F] p-2">สถานที่</th>
-                              <th class="text-left font-bold text-[16px] border-b border-[#575B6F] p-2 bg-indigo-100">ระยะทาง</th>
-                              <th class="text-left font-bold text-[16px] border-b border-[#575B6F] p-2">ค้นหาในละแวก</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <tr>
-                              <td class="p-2 flex items-center">
-                                  <span class="w-[24px] h-[24px] mr-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                      <g clip-path="url(#clip0_37_699)">
-                                        <path d="M5.00003 13.18V15.99C5.00003 16.72 5.40003 17.4 6.04003 17.75L11.04 20.48C11.64 20.81 12.36 20.81 12.96 20.48L17.96 17.75C18.6 17.4 19 16.72 19 15.99V13.18L12.96 16.48C12.36 16.81 11.64 16.81 11.04 16.48L5.00003 13.18ZM11.04 3.52003L2.61003 8.12003C1.92003 8.50003 1.92003 9.50003 2.61003 9.88003L11.04 14.48C11.64 14.81 12.36 14.81 12.96 14.48L21 10.09V16C21 16.55 21.45 17 22 17C22.55 17 23 16.55 23 16V9.59003C23 9.22003 22.8 8.89003 22.48 8.71003L12.96 3.52003C12.36 3.20003 11.64 3.20003 11.04 3.52003Z" fill="#575B6F"/>
-                                      </g>
-                                      <defs>
-                                        <clipPath id="clip0_37_699">
-                                          <rect width="24" height="24" fill="white"/>
-                                        </clipPath>
-                                      </defs>
-                                    </svg>
-                                  </span>
-                                  สถาบันการจัดการปัญญาภิวัฒน์
-                              </td>
-                              <td class="p-2 bg-indigo-100">
-                                0.5 กม.
-                              </td>
-                              <td class="p-2 text-[#2162D0]">
-                               <a href=" ">ค้นหา ></a>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td class="p-2 flex items-center">
-                                  <span class="w-[24px] h-[24px] mr-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                      <path d="M5.84615 15.9375C4.74606 15.9375 3.84615 16.8514 3.84615 17.9688C3.84615 19.086 4.74606 20 5.84615 20C6.94625 20 7.8462 19.086 7.8462 17.9688C7.84615 16.8514 6.9462 15.9375 5.84615 15.9375ZM0 0V2.03125H2L5.60014 9.43758L4.09495 11.9256C3.94505 12.1795 3.84495 12.535 3.84495 12.8906C3.84495 14.2505 4.75962 14.9219 6 14.9219H17.6923V12.9688H6.24486C6.09495 12.9688 5.99486 12.8671 5.99486 12.7149C5.99486 12.6643 6.10096 12.461 6.10096 12.461L7.1001 10.8594H14.5498C15.2999 10.8594 15.9502 10.4533 16.2998 9.79319L19.8999 3.50414C19.9594 3.38398 20 3.19916 20 2.99638C20 2.43749 19.5498 2.03129 19 2.03129H4.20019L3.25 0H0ZM15.6923 15.9375C14.5922 15.9375 13.6923 16.8514 13.6923 17.9688C13.6923 19.086 14.5922 20 15.6923 20C16.7924 20 17.6923 19.086 17.6923 17.9687C17.6923 16.8514 16.7924 15.9375 15.6923 15.9375Z" fill="#575B6F"/>
-                                    </svg>
-                                  </span>
-                                  เซ็นทรัลพลาซ่า แจ้งวัฒนะ
-                              </td>
-                              <td class="p-2 bg-indigo-100">
-                                0.7 กม.
-                              </td>
-                              <td class="p-2 text-[#2162D0]">
-                               <a href=" ">ค้นหา ></a>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td class="p-2 flex items-center">
-                                  <span class="w-[24px] h-[24px] mr-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                      <g clip-path="url(#clip0_37_699)">
-                                        <path d="M5.00003 13.18V15.99C5.00003 16.72 5.40003 17.4 6.04003 17.75L11.04 20.48C11.64 20.81 12.36 20.81 12.96 20.48L17.96 17.75C18.6 17.4 19 16.72 19 15.99V13.18L12.96 16.48C12.36 16.81 11.64 16.81 11.04 16.48L5.00003 13.18ZM11.04 3.52003L2.61003 8.12003C1.92003 8.50003 1.92003 9.50003 2.61003 9.88003L11.04 14.48C11.64 14.81 12.36 14.81 12.96 14.48L21 10.09V16C21 16.55 21.45 17 22 17C22.55 17 23 16.55 23 16V9.59003C23 9.22003 22.8 8.89003 22.48 8.71003L12.96 3.52003C12.36 3.20003 11.64 3.20003 11.04 3.52003Z" fill="#575B6F"/>
-                                      </g>
-                                      <defs>
-                                        <clipPath id="clip0_37_699">
-                                          <rect width="24" height="24" fill="white"/>
-                                        </clipPath>
-                                      </defs>
-                                    </svg>
-                                  </span>
-                                  มหาวิทยาลัยหอการค้าไทย
-                              </td>
-                              <td class="p-2 bg-indigo-100">
-                                1.5 กม.
-                              </td>
-                              <td class="p-2 text-[#2162D0]">
-                               <a href=" ">ค้นหา ></a>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td class="p-2 flex items-center">
-                                  <span class="w-[24px] h-[24px] mr-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                      <path d="M5.84615 15.9375C4.74606 15.9375 3.84615 16.8514 3.84615 17.9688C3.84615 19.086 4.74606 20 5.84615 20C6.94625 20 7.8462 19.086 7.8462 17.9688C7.84615 16.8514 6.9462 15.9375 5.84615 15.9375ZM0 0V2.03125H2L5.60014 9.43758L4.09495 11.9256C3.94505 12.1795 3.84495 12.535 3.84495 12.8906C3.84495 14.2505 4.75962 14.9219 6 14.9219H17.6923V12.9688H6.24486C6.09495 12.9688 5.99486 12.8671 5.99486 12.7149C5.99486 12.6643 6.10096 12.461 6.10096 12.461L7.1001 10.8594H14.5498C15.2999 10.8594 15.9502 10.4533 16.2998 9.79319L19.8999 3.50414C19.9594 3.38398 20 3.19916 20 2.99638C20 2.43749 19.5498 2.03129 19 2.03129H4.20019L3.25 0H0ZM15.6923 15.9375C14.5922 15.9375 13.6923 16.8514 13.6923 17.9688C13.6923 19.086 14.5922 20 15.6923 20C16.7924 20 17.6923 19.086 17.6923 17.9687C17.6923 16.8514 16.7924 15.9375 15.6923 15.9375Z" fill="#575B6F"/>
-                                    </svg>
-                                  </span>
-                                  สยามพารากอน
-                              </td>
-                              <td class="p-2 bg-indigo-100">
-                                1.8 กม.
-                              </td>
-                              <td class="p-2 text-[#2162D0]">
-                               <a href=" ">ค้นหา ></a>
-                              </td>
-                          </tr>
-                      </tbody>
-                  </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Contact&Compare Frame -->
-          <div class="flex w-[358px] flex-col justify-center items-start gap-8">
-            <!-- Contact Frame -->
-            <div class="flex flex-col items-start gap-6 self-stretch">
-              <div class="flex justify-center items-center gap-2.5 self-stretch border-b border-[#575B6F]">
-                <div class="text-[#575B6F] font-medium text-[22px] flex-[1_0_0]">
-                  ช่องทางการติดต่อ
-                </div>
-              </div>
-              <!-- Profile -->
-              <div class="flex flex-col items-center gap-[16px] self-stretch">
-                <div class="flex items-center gap-[16px] self-stretch">
-                  <!-- profile pic -->
-                  <div class="w-[55px] h-[55px] rounded-[237px] bg-[url('{% static "profilePic.jpeg" %}')] bg-[lightgray_-1.876px_-12.399px] bg-[length:176.056%_227.066%] bg-no-repeat">
-                  </div>
-                  <!-- profile name -->
-                  <div class="flex w-[92px] flex-col items-start gap-0.75">
-                    <div class="text-[#2162D0] font-bold text-[16px] self-stretch">
-                      คริสตีน่า แซ่ลี้
-                    </div>
-                    <div class="flex items-center gap-[16px]">
-                      <div class="flex p-0.5 px-1.5 justify-center items-center gap-1.5 rounded-lg bg-[rgba(86,223,150,0.30)]">
-                        <div class="text-[#2DAB6F] font-medium text-[12px] self-stretch">
-                          นายหน้า
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- Contact detail -->
-                <div class="flex flex-col items-start gap-[8px] self-stretch">
-                  <!-- Methods -->
-                  <div class="flex flex-col items-start gap-[10px] self-stretch">
-                    <button class="flex p-2 items-center gap-2 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6]">
-                      <div class="w-[18px] h-[18px]">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                          <g clip-path="url(#clip0_35_119)">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M2.12067 0.574918C2.31751 0.378368 2.55388 0.225896 2.81411 0.127607C3.07434 0.0293176 3.35249 -0.0125448 3.63012 0.00479393C3.90776 0.0221327 4.17853 0.0982766 4.42451 0.22818C4.67049 0.358083 4.88605 0.538779 5.05692 0.758293L7.07629 3.35254C7.44642 3.82842 7.57692 4.44829 7.43067 5.03329L6.81529 7.49704C6.7837 7.62466 6.78553 7.75827 6.8206 7.88498C6.85568 8.01169 6.92282 8.12721 7.01554 8.22042L9.77967 10.9845C9.87298 11.0775 9.9887 11.1447 10.1156 11.1798C10.2425 11.2149 10.3764 11.2166 10.5042 11.1848L12.9668 10.5694C13.2555 10.4977 13.5567 10.4923 13.8479 10.5536C14.139 10.615 14.4124 10.7416 14.6475 10.9238L17.2418 12.942C18.1744 13.6677 18.2599 15.0458 17.4252 15.8794L16.2619 17.0427C15.4294 17.8752 14.1852 18.2408 13.0253 17.8324C10.056 16.7891 7.3604 15.0894 5.13904 12.8599C2.90971 10.6389 1.21004 7.94363 0.166542 4.97479C-0.240708 3.81604 0.124917 2.57067 0.957417 1.73817L2.12067 0.574918Z" fill="#2162D0"/>
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_35_119">
-                              <rect width="18" height="18" fill="white"/>
-                            </clipPath>
-                          </defs>
-                        </svg>
-                      </div>
-                      <div class="text-[#444F85] font-medium text-[16px]">
-                        โทรหาเจ้าของ/นายหน้า
-                      </div>
-                    </button>
-                    <button class="flex p-2 items-center gap-2 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6]">
-                      <div class="w-[20px] h-[20px]">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                          <g clip-path="url(#clip0_35_93)">
-                            <path d="M20 10C20 4.47715 15.5228 0 10 0C4.47715 0 0 4.47715 0 10C0 15.5228 4.47715 20 10 20C15.5228 20 20 15.5228 20 10Z" fill="#00B900"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M16.6666 9.50064C16.6666 6.51752 13.676 4.09058 9.99984 4.09058C6.32417 4.09058 3.33325 6.51752 3.33325 9.50064C3.33325 12.175 5.70496 14.4147 8.90871 14.8382C9.12583 14.885 9.42129 14.9814 9.49604 15.1669C9.56329 15.3355 9.54004 15.5996 9.51754 15.7698C9.51754 15.7698 9.43933 16.2402 9.42246 16.3404L9.41988 16.3553C9.38821 16.5357 9.30838 16.9912 9.99984 16.6998C10.7115 16.4 13.8393 14.4391 15.2379 12.8292C16.2041 11.7697 16.6666 10.6946 16.6666 9.50064ZM8.64538 8.0591H8.17775C8.10604 8.0591 8.04775 8.11723 8.04775 8.18868V11.0936C8.04775 11.1651 8.10604 11.2232 8.17775 11.2232H8.64538C8.71704 11.2232 8.77521 11.1651 8.77521 11.0936V8.18868C8.77521 8.11723 8.71704 8.0591 8.64538 8.0591ZM11.3964 8.0591H11.864C11.9358 8.0591 11.9939 8.11723 11.9939 8.18868V11.0936C11.9939 11.1651 11.9358 11.2232 11.864 11.2232H11.3964C11.3849 11.2232 11.3738 11.2215 11.3632 11.2187C11.3625 11.2186 11.3619 11.2183 11.3613 11.2183L11.3559 11.2166L11.3524 11.2154C11.3512 11.215 11.3499 11.2145 11.3486 11.214L11.3448 11.2124L11.3422 11.2113C11.3402 11.2104 11.338 11.2094 11.3361 11.2082L11.3336 11.207L11.3324 11.2063C11.3297 11.2048 11.327 11.2031 11.3243 11.2014L11.3238 11.201L11.323 11.2004C11.3106 11.192 11.2993 11.1814 11.2901 11.1684L9.95725 9.36827V11.0936C9.95725 11.1651 9.89909 11.2232 9.82725 11.2232H9.35975C9.28808 11.2232 9.22979 11.1651 9.22979 11.0936V8.18868C9.22979 8.11723 9.28808 8.0591 9.35975 8.0591H9.82725L9.82954 8.05923L9.83188 8.05935L9.83404 8.05943C9.83554 8.05948 9.83704 8.05956 9.8385 8.05973L9.84217 8.0601C9.84325 8.06023 9.84434 8.06039 9.84542 8.0606C9.84721 8.06073 9.84913 8.06102 9.85092 8.06127L9.85417 8.06198L9.85834 8.06293L9.86046 8.06352L9.86279 8.06418C9.86546 8.06485 9.86804 8.06573 9.87058 8.06664L9.87479 8.06814C9.87738 8.06906 9.87979 8.07018 9.88221 8.07135L9.88313 8.07173L9.88475 8.07252L9.88629 8.07327C9.88859 8.07443 9.89092 8.07581 9.89321 8.07723C9.89463 8.07785 9.89588 8.07864 9.89717 8.07952C9.89859 8.08039 9.89996 8.08135 9.90133 8.08231L9.90396 8.08414L9.90488 8.08485L9.90554 8.08535C9.90613 8.08581 9.90671 8.08627 9.90725 8.08681C9.90971 8.0886 9.912 8.09052 9.91417 8.09256C9.91504 8.09335 9.91583 8.09398 9.91658 8.09473C9.91929 8.09731 9.92184 8.09985 9.92438 8.10281L9.92529 8.10356C9.92888 8.10777 9.93229 8.1121 9.93538 8.11673L11.2665 9.91448V8.18868C11.2665 8.11723 11.3247 8.0591 11.3964 8.0591ZM7.51817 10.4958H6.24754V8.18885C6.24754 8.11718 6.18942 8.05902 6.11784 8.05902H5.65009C5.57838 8.05902 5.52025 8.11718 5.52025 8.18885V11.0933C5.52025 11.1281 5.53417 11.16 5.55654 11.1832C5.55704 11.1839 5.55754 11.1845 5.55834 11.1851L5.56025 11.1869C5.58363 11.2094 5.61509 11.2232 5.64996 11.2232H7.51817C7.58984 11.2232 7.64775 11.165 7.64775 11.0933V10.6256C7.64775 10.5539 7.58984 10.4958 7.51817 10.4958ZM14.576 8.6566C14.576 8.72843 14.5181 8.78643 14.4464 8.78643H13.1759V9.27735H14.4464C14.5181 9.27735 14.576 9.3356 14.576 9.40731V9.87493C14.576 9.94664 14.5181 10.0048 14.4464 10.0048H13.1759V10.4958H14.4464C14.5181 10.4958 14.576 10.5541 14.576 10.6256V11.0934C14.576 11.1649 14.5181 11.2232 14.4464 11.2232H12.5783C12.5436 11.2232 12.5118 11.2093 12.4885 11.1869C12.4878 11.1864 12.4871 11.1858 12.4866 11.1851C12.4859 11.1846 12.4853 11.1839 12.4848 11.1832C12.4624 11.16 12.4485 11.1284 12.4485 11.0935V8.18898C12.4485 8.15423 12.4623 8.12264 12.4845 8.09939C12.4852 8.09864 12.4858 8.09785 12.4866 8.0971C12.487 8.0966 12.4876 8.09618 12.4881 8.09568C12.5115 8.07306 12.543 8.05902 12.5781 8.05902H14.4464C14.5181 8.05902 14.576 8.11727 14.576 8.18898V8.6566Z" fill="white"/>
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_35_93">
-                              <rect width="20" height="20" fill="white"/>
-                            </clipPath>
-                          </defs>
-                        </svg>
-                      </div>
-                      <div class="text-[#444F85] font-medium text-[16px]">
-                        เพิ่มเพื่อนในไลน์
-                      </div>
-                    </button>
-                    <button class="flex p-2 items-center gap-2 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6]">
-                      <div class="w-[20px] h-[16px]">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="16" viewBox="0 0 21 16" fill="none">
-                          <path d="M10.7276 10.3671L1.05908 4.21416C0.559228 3.8836 0.209191 3.36996 0.0843421 2.78384C-0.0405064 2.19772 0.0698214 1.58602 0.391567 1.08045C0.713314 0.574876 1.22074 0.215886 1.80458 0.0807783C2.38842 -0.0543289 3.00196 0.045255 3.5131 0.358086L10.6064 4.87184L16.9753 0.413553C17.4722 0.0768352 18.0816 -0.0509125 18.6719 0.0579014C19.2622 0.166715 19.786 0.503357 20.1301 0.995117C20.4743 1.48688 20.6112 2.09429 20.5113 2.68615C20.4114 3.27802 20.0827 3.80684 19.5962 4.15839L10.7276 10.3671Z" fill="#EA4435"/>
-                          <path d="M19.0477 16H16.0001V2.28571C16.0001 1.67951 16.2409 1.09812 16.6696 0.66947C17.0982 0.240815 17.6796 0 18.2858 0C18.892 0 19.4734 0.240815 19.9021 0.66947C20.3307 1.09812 20.5715 1.67951 20.5715 2.28571V14.4762C20.5715 14.8803 20.411 15.2679 20.1252 15.5537C19.8394 15.8395 19.4519 16 19.0477 16Z" fill="#00AC47"/>
-                          <path d="M20.5379 1.95472C20.5312 1.909 20.5317 1.8623 20.5222 1.81666C20.5076 1.74672 20.4804 1.68211 20.4595 1.6146C20.4392 1.53734 20.4149 1.46122 20.3865 1.38656C20.3713 1.35037 20.3478 1.3186 20.3305 1.2834C20.2831 1.18184 20.2282 1.08392 20.1664 0.990449C20.1359 0.946182 20.0978 0.908468 20.0641 0.866563C20.0063 0.790402 19.9439 0.717907 19.8771 0.649496C19.8264 0.600201 19.7687 0.558982 19.7136 0.514563C19.655 0.464366 19.594 0.417145 19.5307 0.373077C19.4703 0.33361 19.4042 0.30321 19.3402 0.269534C19.2729 0.23441 19.2069 0.196163 19.1368 0.168125C19.0691 0.140849 18.9969 0.123477 18.9261 0.102677C18.8553 0.0818772 18.7849 0.0569628 18.7122 0.0434771C18.6222 0.0290119 18.5313 0.0198534 18.4402 0.0160487C18.3824 0.0120106 18.3251 0.00187716 18.267 0.00233431C18.1592 0.00547559 18.0518 0.0162967 17.9456 0.0347153C17.9027 0.0411153 17.8595 0.0405819 17.8169 0.04942C17.6731 0.0933479 17.5298 0.138556 17.3868 0.185039C17.3476 0.201801 17.3132 0.226715 17.2752 0.245611C16.8883 0.42615 16.5619 0.714885 16.3356 1.07692C16.1093 1.43895 15.9927 1.85879 15.9998 2.28569V6.67578L19.596 4.15822C19.9492 3.92121 20.2261 3.58693 20.3932 3.19584C20.5603 2.80474 20.6107 2.37374 20.5379 1.95472Z" fill="#FFBA00"/>
-                          <path d="M2.28571 0C2.89192 0 3.4733 0.240816 3.90196 0.66947C4.33061 1.09812 4.57143 1.67951 4.57143 2.28571V16H1.52381C1.11967 16 0.732083 15.8395 0.446313 15.5537C0.160544 15.2679 0 14.8803 0 14.4762V2.28571C0 1.67951 0.240816 1.09812 0.66947 0.66947C1.09812 0.240816 1.67951 0 2.28571 0Z" fill="#4285F4"/>
-                          <path d="M0.0336018 1.95476C0.0403065 1.90905 0.0397733 1.86234 0.0492971 1.8167C0.0639257 1.74676 0.0911256 1.68215 0.112002 1.61465C0.132239 1.53741 0.156605 1.46131 0.184992 1.38668C0.20023 1.35049 0.223697 1.31872 0.241068 1.28352C0.288444 1.18192 0.343299 1.08397 0.405183 0.990494C0.435659 0.946227 0.473754 0.908513 0.50743 0.866608C0.565196 0.790448 0.62764 0.717953 0.694402 0.649541C0.745068 0.600246 0.802821 0.559027 0.857983 0.514608C0.91651 0.464392 0.97754 0.41717 1.04084 0.373122C1.10126 0.333655 1.16739 0.303255 1.23132 0.269579C1.29738 0.232214 1.36527 0.19819 1.43474 0.167636C1.50255 0.14036 1.57478 0.122989 1.64549 0.102189C1.71619 0.0813889 1.78667 0.0564745 1.85935 0.0429888C1.94941 0.0285274 2.04023 0.019369 2.13135 0.0155604C2.18926 0.0115223 2.24648 0.00138888 2.30454 0.00184603C2.41232 0.00498344 2.51974 0.0158046 2.62598 0.034227C2.66888 0.040627 2.71208 0.0400936 2.75474 0.0489317C2.82849 0.0677235 2.90123 0.0903059 2.97265 0.116589C3.04447 0.135679 3.11529 0.158362 3.18484 0.184551C3.224 0.201313 3.25836 0.226227 3.29646 0.245122C3.39522 0.291522 3.4905 0.344995 3.58156 0.405122C3.88681 0.614714 4.13645 0.895454 4.30894 1.2231C4.48142 1.55075 4.57157 1.91546 4.57158 2.28573V6.67583L0.975392 4.15842C0.622308 3.92134 0.345462 3.58706 0.178326 3.19599C0.0111908 2.80491 -0.0390766 2.3738 0.0336018 1.95476Z" fill="#C52528"/>
-                        </svg>
-                      </div>
-                      <div class="text-[#444F85] font-medium text-[16px]">
-                        อีเมลล์
-                      </div>
-                    </button>
-                  </div>
-                  <!-- Form -->
-                  <div class="flex p-2.5 justify-center items-center gap-2.5 self-stretch rounded-lg bg-[#2162D0]">
-                    <div class="text-[#FAF9F6] text-center text-[16px] font-normal leading-normal flex-[1_0_0]">
-                      กรอกข้อมูลเบื้องต้น เช่น ชื่อ, เบอร์โทร, ความสนใจ เมื่อเริ่มการสนทนา
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Compare Frame -->
-            <div class="flex flex-col items-start gap-[8px] self-stretch">
-              <div class="flex content-center items-center gap-[10px] self-stretch border-b border-[#575B6F]">
-                <div class="text-[#575B6F] text-[22px] font-medium leading-normal flex-[1_0_0]">
-                  เปรียบเทียบ
-                </div>
-              </div>
-              <button class="flex p-2.5 justify-center items-start gap-2 self-stretch rounded-md bg-[#2DAB6F]">
-                <div class="w-[25px] h-[25px]">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
-                    <path d="M22.8781 6.67428V7.71594C22.8781 7.99221 22.7684 8.25716 22.573 8.45251C22.3777 8.64786 22.1127 8.75761 21.8364 8.75761H17.1489C17.0108 8.75761 16.8783 8.81248 16.7807 8.91016C16.683 9.00783 16.6281 9.14031 16.6281 9.27844V11.4332C16.6281 11.5981 16.5793 11.7592 16.4877 11.8963C16.3961 12.0334 16.266 12.1402 16.1137 12.2033C15.9614 12.2664 15.7938 12.2829 15.6321 12.2507C15.4704 12.2185 15.3219 12.1391 15.2054 12.0225L10.9673 7.78438C10.8899 7.707 10.8285 7.61513 10.7866 7.51402C10.7447 7.41292 10.7232 7.30455 10.7232 7.19511C10.7232 7.08567 10.7447 6.97731 10.7866 6.8762C10.8285 6.77509 10.8899 6.68322 10.9673 6.60584L15.2054 2.36761C15.3219 2.25102 15.4705 2.17161 15.6321 2.13944C15.7938 2.10726 15.9614 2.12377 16.1137 2.18686C16.266 2.24995 16.3962 2.3568 16.4877 2.49389C16.5793 2.63097 16.6282 2.79213 16.6281 2.95699V5.11178C16.6281 5.24991 16.683 5.38239 16.7807 5.48006C16.8783 5.57774 17.0108 5.63261 17.1489 5.63261H21.8364C22.1127 5.63261 22.3777 5.74236 22.573 5.93771C22.7684 6.13306 22.8781 6.39801 22.8781 6.67428ZM9.79478 12.9775C9.67824 12.8609 9.52974 12.7815 9.36807 12.7493C9.2064 12.7172 9.03881 12.7337 8.88652 12.7967C8.73422 12.8598 8.60405 12.9666 8.51248 13.1037C8.42091 13.2408 8.37204 13.4019 8.37207 13.5668V15.7216C8.37207 15.8597 8.3172 15.9922 8.21952 16.0899C8.12185 16.1875 7.98937 16.2424 7.85124 16.2424H3.16374C2.88747 16.2424 2.62252 16.3521 2.42717 16.5475C2.23182 16.7428 2.12207 17.0078 2.12207 17.2841V18.3257C2.12207 18.602 2.23182 18.867 2.42717 19.0623C2.62252 19.2577 2.88747 19.3674 3.16374 19.3674H7.85124C7.98937 19.3674 8.12185 19.4223 8.21952 19.5199C8.3172 19.6176 8.37207 19.7501 8.37207 19.8882V22.043C8.37202 22.2079 8.42087 22.369 8.51244 22.5061C8.604 22.6432 8.73417 22.7501 8.88647 22.8132C9.03877 22.8762 9.20636 22.8927 9.36805 22.8606C9.52973 22.8284 9.67823 22.749 9.79478 22.6324L14.0329 18.3942C14.1103 18.3168 14.1717 18.2249 14.2136 18.1238C14.2554 18.0227 14.277 17.9143 14.277 17.8049C14.277 17.6955 14.2554 17.5871 14.2136 17.486C14.1717 17.3849 14.1103 17.293 14.0329 17.2156L9.79478 12.9775Z" fill="#FAF9F6"/>
-                  </svg>
-                </div>
-                <div class="text-[#FAF9F6] text-[16px] font-bold leading-normal">
-                    เปรียบเทียบระแวกนี้
-                </div>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Similar Properties -->
-      <div class="flex flex-col items-center gap-[3px] self-stretch">
-        <div class="text-[#2162D0] text-[32px] font-bold leading-normal self-stretch">
-          แนะนำบ้านอื่นที่คล้ายกัน
-        </div>
-        <!-- list -->
-        <div class="flex flex-wrap justify-start gap-[24px] self-stretch">
-              <!-- for loop card -->
-                {% for related in related_properties %}
-                <div class="h-auto p-5 rounded-[10px] border border-[#d0d8ef] flex-col justify-start items-start gap-4 inline-flex">
-                <img src="{{ related.main_image }}" class="w-full h-[222px] rounded-md object-cover">
-                    <div data-svg-wrapper>
-                    {% comment %}<svg width="451" height="222" viewBox="0 0 451 222" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <rect width="299" height="222" fill="url(#pattern0_17_726)"/>
-                    <g clip-path="url(#clip0_17_726)">
-                    <path d="M31.5 122C28.45 122 25.5249 120.788 23.3683 118.632C21.2116 116.475 20 113.55 20 110.5C20 107.45 21.2116 104.525 23.3683 102.368C25.5249 100.212 28.45 99 31.5 99C34.55 99 37.4751 100.212 39.6317 102.368C41.7884 104.525 43 107.45 43 110.5C43 113.55 41.7884 116.475 39.6317 118.632C37.4751 120.788 34.55 122 31.5 122ZM36.5313 111.219C36.7219 111.219 36.9047 111.143 37.0395 111.008C37.1743 110.873 37.25 110.691 37.25 110.5C37.25 110.309 37.1743 110.127 37.0395 109.992C36.9047 109.857 36.7219 109.781 36.5313 109.781L28.2038 109.781L31.2901 106.696C31.357 106.63 31.41 106.55 31.4461 106.463C31.4823 106.376 31.5009 106.282 31.5009 106.187C31.5009 106.093 31.4823 105.999 31.4461 105.912C31.41 105.825 31.357 105.745 31.2901 105.679C31.2233 105.612 31.144 105.559 31.0567 105.523C30.9693 105.486 30.8758 105.468 30.7813 105.468C30.6867 105.468 30.5932 105.486 30.5059 105.523C30.4185 105.559 30.3392 105.612 30.2724 105.679L25.9599 109.991C25.8929 110.058 25.8398 110.137 25.8036 110.225C25.7674 110.312 25.7487 110.405 25.7487 110.5C25.7487 110.595 25.7674 110.688 25.8036 110.775C25.8398 110.863 25.8929 110.942 25.9599 111.009L30.2724 115.321C30.3392 115.388 30.4185 115.441 30.5058 115.477C30.5932 115.514 30.6867 115.532 30.7813 115.532C30.8758 115.532 30.9693 115.514 31.0567 115.477C31.144 115.441 31.2233 115.388 31.2901 115.321C31.357 115.255 31.41 115.175 31.4461 115.088C31.4823 115.001 31.5009 114.907 31.5009 114.812C31.5009 114.718 31.4823 114.624 31.4461 114.537C31.41 114.45 31.357 114.37 31.2901 114.304L28.2038 111.219L36.5313 111.219Z" fill="#FAF9F6"/>
-                    </g>
-                    <g clip-path="url(#clip1_17_726)">
-                    <path d="M267.5 99C270.55 99 273.475 100.212 275.632 102.368C277.788 104.525 279 107.45 279 110.5C279 113.55 277.788 116.475 275.632 118.632C273.475 120.788 270.55 122 267.5 122C264.45 122 261.525 120.788 259.368 118.632C257.212 116.475 256 113.55 256 110.5C256 107.45 257.212 104.525 259.368 102.368C261.525 100.212 264.45 99 267.5 99ZM262.469 109.781C262.278 109.781 262.095 109.857 261.961 109.992C261.826 110.127 261.75 110.309 261.75 110.5C261.75 110.691 261.826 110.873 261.961 111.008C262.095 111.143 262.278 111.219 262.469 111.219H270.796L267.71 114.304C267.643 114.37 267.59 114.45 267.554 114.537C267.518 114.624 267.499 114.718 267.499 114.812C267.499 114.907 267.518 115.001 267.554 115.088C267.59 115.175 267.643 115.255 267.71 115.321C267.777 115.388 267.856 115.441 267.943 115.477C268.031 115.514 268.124 115.532 268.219 115.532C268.313 115.532 268.407 115.514 268.494 115.477C268.581 115.441 268.661 115.388 268.728 115.321L273.04 111.009C273.107 110.942 273.16 110.863 273.196 110.775C273.233 110.688 273.251 110.595 273.251 110.5C273.251 110.405 273.233 110.312 273.196 110.225C273.16 110.137 273.107 110.058 273.04 109.991L268.728 105.679C268.661 105.612 268.581 105.559 268.494 105.523C268.407 105.486 268.313 105.468 268.219 105.468C268.124 105.468 268.031 105.486 267.943 105.523C267.856 105.559 267.777 105.612 267.71 105.679C267.643 105.745 267.59 105.825 267.554 105.912C267.518 105.999 267.499 106.093 267.499 106.188C267.499 106.282 267.518 106.376 267.554 106.463C267.59 106.55 267.643 106.63 267.71 106.696L270.796 109.781H262.469Z" fill="#FAF9F6"/>
-                    </g>{% endcomment %}
 
-                    <div class="self-stretch h-[249px] flex-col justify-start items-start gap-4 flex">
-                        <div class="self-stretch h-[180px] flex-col justify-start items-start gap-4 flex">
-                            <div class="self-stretch justify-between items-center inline-flex">
-                                <div class="w-[371px] text-[#444f85] text-base font-bold font-['IBM Plex Sans Thai']">{{ related.title }}</div>
-                                <div data-svg-wrapper>
-                                <svg width="25" height="34" viewBox="0 0 25 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M0.25 32.4684V4.62463C0.25 3.53062 0.684597 2.48141 1.45818 1.70782C2.23177 0.934231 3.28098 0.499634 4.375 0.499634L20.875 0.499634C21.969 0.499634 23.0182 0.934231 23.7918 1.70782C24.5654 2.48141 25 3.53062 25 4.62463V32.4684C25.0001 32.6475 24.9536 32.8235 24.8651 32.9791C24.7765 33.1348 24.6489 33.2647 24.4949 33.3561C24.3409 33.4474 24.1657 33.4971 23.9867 33.5002C23.8076 33.5033 23.6309 33.4598 23.4738 33.3738L12.625 27.4544L1.77625 33.3738C1.61915 33.4598 1.44237 33.5033 1.26332 33.5002C1.08426 33.4971 0.909107 33.4474 0.755089 33.3561C0.601072 33.2647 0.473502 33.1348 0.384938 32.9791C0.296374 32.8235 0.249869 32.6475 0.25 32.4684ZM13.6562 9.78088C13.6562 9.50738 13.5476 9.24508 13.3542 9.05168C13.1608 8.85828 12.8985 8.74963 12.625 8.74963C12.3515 8.74963 12.0892 8.85828 11.8958 9.05168C11.7024 9.24508 11.5938 9.50738 11.5938 9.78088V12.8746H8.5C8.2265 12.8746 7.96419 12.9833 7.7708 13.1767C7.5774 13.3701 7.46875 13.6324 7.46875 13.9059C7.46875 14.1794 7.5774 14.4417 7.7708 14.6351C7.96419 14.8285 8.2265 14.9371 8.5 14.9371H11.5938V18.0309C11.5938 18.3044 11.7024 18.5667 11.8958 18.7601C12.0892 18.9535 12.3515 19.0621 12.625 19.0621C12.8985 19.0621 13.1608 18.9535 13.3542 18.7601C13.5476 18.5667 13.6562 18.3044 13.6562 18.0309V14.9371H16.75C17.0235 14.9371 17.2858 14.8285 17.4792 14.6351C17.6726 14.4417 17.7812 14.1794 17.7812 13.9059C17.7812 13.6324 17.6726 13.3701 17.4792 13.1767C17.2858 12.9833 17.0235 12.8746 16.75 12.8746H13.6562V9.78088Z" fill="#2162D0"/>
-                                </svg>
-                                </div>
+    <div class="pt-[178px] pb-[60px]">
+        <!-- search bar -->
+        {% include "components/search_bar.html" %}
+        <!-- info -->
+        <div class="flex flex-col items-start gap-6 w-full h-auto p-8 flex-shrink-0 pb-10">
+            <!-- properties detail -->
+            <div class="flex flex-col items-center gap-[88px] self-stretch">
+                <div class="flex flex-col items-start gap-[24px] self-stretch">
+                    <!-- images -->
+                    <div class="flex items-center gap-[16px] self-stretch">
+                        <div class="h-[503px] flex-[1_0_0] justify-center items-center bg-cover bg-center"
+                             style="background-image: url('{{ property.main_image }}');"></div>
+                        <div class="flex flex-col w-[498px] h-[503px] items-start gap-[16px]">
+                            <div class="flex items-center gap-[16px] flex-[1_0_0] self-stretch">
+                                {% for image in property.extra_images.all|slice:":2" %}
+                                    <div class="flex-[1_0_0] self-stretch bg-cover bg-center bg-no-repeat"
+                                         style="background-image: url('{{ image.image.url }}');"></div>
+                                {% endfor %}
                             </div>
-                            <div class="px-[9px] py-2 bg-[#2162d0] rounded-md justify-center items-center gap-1.5 inline-flex">
-                                <div data-svg-wrapper class="relative">
-                                <svg width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <g clip-path="url(#clip0_17_741)">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M2.51875 9.8C2.55659 9.74566 2.60566 9.70156 2.66207 9.67119C2.71848 9.64081 2.78068 9.625 2.84375 9.625H4.875C4.98274 9.625 5.08608 9.67109 5.16226 9.75314C5.23845 9.83519 5.28125 9.94647 5.28125 10.0625C5.28125 10.1785 5.23845 10.2898 5.16226 10.3719C5.08608 10.4539 4.98274 10.5 4.875 10.5H3.04688L1.21875 13.125H11.7812L9.95312 10.5H8.125C8.01726 10.5 7.91392 10.4539 7.83774 10.3719C7.76155 10.2898 7.71875 10.1785 7.71875 10.0625C7.71875 9.94647 7.76155 9.83519 7.83774 9.75314C7.91392 9.67109 8.01726 9.625 8.125 9.625H10.1562C10.2193 9.625 10.2815 9.64081 10.3379 9.67119C10.3943 9.70156 10.4434 9.74566 10.4812 9.8L12.9187 13.3C12.964 13.365 12.9916 13.4423 12.9984 13.5232C13.0051 13.6041 12.9909 13.6855 12.9571 13.7582C12.9234 13.8308 12.8715 13.8919 12.8073 13.9347C12.7432 13.9774 12.6692 14 12.5938 14H0.40625C0.330805 14 0.25685 13.9774 0.192672 13.9347C0.128494 13.8919 0.0766294 13.8308 0.0428891 13.7582C0.00914891 13.6855 -0.00513371 13.6041 0.00164172 13.5232C0.00841715 13.4423 0.0359829 13.365 0.0812502 13.3L2.51875 9.8Z" fill="#FAF9F6"/>
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M3.25 3.50001C3.25006 2.82646 3.43058 2.16723 3.76991 1.60143C4.10924 1.03563 4.59297 0.587287 5.16303 0.310205C5.7331 0.0331227 6.3653 -0.0609304 6.98378 0.0393309C7.60225 0.139592 8.18073 0.429909 8.64979 0.875446C9.11885 1.32098 9.45857 1.90281 9.6282 2.55112C9.79782 3.19943 9.79013 3.88668 9.60607 4.5304C9.422 5.17412 9.06936 5.74697 8.59047 6.18022C8.11158 6.61346 7.52679 6.88869 6.90625 6.97289V11.8125C6.90625 11.9285 6.86345 12.0398 6.78726 12.1219C6.71108 12.2039 6.60774 12.25 6.5 12.25C6.39226 12.25 6.28893 12.2039 6.21274 12.1219C6.13655 12.0398 6.09375 11.9285 6.09375 11.8125V6.97376C5.30803 6.86716 4.5855 6.45527 4.06186 5.81547C3.53823 5.17567 3.24953 4.35286 3.25 3.50001Z" fill="#FAF9F6"/>
-                                </g>
-                                <defs>
-                                <clipPath id="clip0_17_741">
-                                <rect width="13" height="14" fill="white"/>
-                                </clipPath>
-                                </defs>
-                                </svg>
-                                </div>
-                                <div class="text-[#faf9f6] text-xs font-normal font-['IBM Plex Sans Thai'] max-w-[150px] truncate overflow-hidden whitespace-nowrap">
-                                    {{ related.location }}
-                                </div>
-                            </div>
-                            <div class="self-stretch justify-start items-center inline-flex">
-                                <div class="px-2.5 border-r border-[#575b6f] justify-start items-center gap-1.5 flex">
-                                    <div data-svg-wrapper class="relative">
-                                    <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <g clip-path="url(#clip0_17_747)">
-                                    <path d="M0.9375 0.5C0.68886 0.5 0.450403 0.598772 0.274587 0.774587C0.0987721 0.950403 0 1.18886 0 1.4375L0 14.5625C0 14.8111 0.0987721 15.0496 0.274587 15.2254C0.450403 15.4012 0.68886 15.5 0.9375 15.5H5.625V14.5625H1.875V13.625H5.625V12.6875H3.75V11.75H5.625V10.8125H1.875V9.875H5.625V8.9375H3.75V8H5.625V7.0625H1.875V6.125H5.625V2.375H6.5625V6.125H7.5V4.25H8.4375V6.125H9.375V2.375H10.3125V6.125H11.25V4.25H12.1875V6.125H13.125V2.375H14.0625V6.125H15V1.4375C15 1.18886 14.9012 0.950403 14.7254 0.774587C14.5496 0.598772 14.3111 0.5 14.0625 0.5H0.9375Z" fill="#575B6F"/>
-                                    </g>
-                                    <defs>
-                                    <clipPath id="clip0_17_747">
-                                    <rect width="15" height="15" fill="white" transform="translate(0 0.5)"/>
-                                    </clipPath>
-                                    </defs>
-                                    </svg>
-                                    </div>
-                                    <div class="text-[#575b6f] text-xs font-normal font-['IBM Plex Sans Thai']">{{ related.area }} ตร.ว.</div>
-                                </div>
-                                <div class="px-2.5 justify-start items-center gap-1.5 flex">
-                                    <div data-svg-wrapper>
-                                    <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M18 11.3V15.5H9.6V10.1H4.2V4.7H0V0.5H8.4V5.9H13.8V11.3H18Z" fill="#575B6F"/>
-                                    </svg>
-                                    </div>
-                                    <div class="text-[#575b6f] text-xs font-normal font-['IBM Plex Sans Thai']">{{ related.floors }} ชั้น</div>
-                                </div>
-                                <div class="px-2.5 border-l border-r border-[#575b6f] justify-start items-center gap-1.5 flex">
-                                    <div data-svg-wrapper>
-                                    <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M15 8V1.33333C15 1.11232 14.9122 0.900358 14.7559 0.744078C14.5996 0.587797 14.3877 0.5 14.1667 0.5C13.9457 0.5 13.7337 0.587797 13.5774 0.744078C13.4211 0.900358 13.3333 1.11232 13.3333 1.33333V3H3.33333V1.33333C3.33333 1.11232 3.24554 0.900358 3.08926 0.744078C2.93298 0.587797 2.72101 0.5 2.5 0.5C2.27899 0.5 2.06702 0.587797 1.91074 0.744078C1.75446 0.900358 1.66667 1.11232 1.66667 1.33333V8C1.22464 8 0.800716 8.17559 0.488155 8.48816C0.175595 8.80072 0 9.22464 0 9.66667V14.6667C0 14.8877 0.0877973 15.0996 0.244078 15.2559C0.400358 15.4122 0.61232 15.5 0.833333 15.5C1.05435 15.5 1.26631 15.4122 1.42259 15.2559C1.57887 15.0996 1.66667 14.8877 1.66667 14.6667V13H15V14.6667C15 14.8877 15.0878 15.0996 15.2441 15.2559C15.4004 15.4122 15.6123 15.5 15.8333 15.5C16.0543 15.5 16.2663 15.4122 16.4226 15.2559C16.5789 15.0996 16.6667 14.8877 16.6667 14.6667V9.66667C16.6667 9.22464 16.4911 8.80072 16.1785 8.48816C15.8659 8.17559 15.442 8 15 8ZM7.5 8H3.33333V7.16667C3.33333 6.94565 3.42113 6.73369 3.57741 6.57741C3.73369 6.42113 3.94565 6.33333 4.16667 6.33333H6.66667C6.88768 6.33333 7.09964 6.42113 7.25592 6.57741C7.4122 6.73369 7.5 6.94565 7.5 7.16667V8ZM13.3333 8H9.16667V7.16667C9.16667 6.94565 9.25446 6.73369 9.41074 6.57741C9.56702 6.42113 9.77899 6.33333 10 6.33333H12.5C12.721 6.33333 12.933 6.42113 13.0893 6.57741C13.2455 6.73369 13.3333 6.94565 13.3333 7.16667V8Z" fill="#575B6F"/>
-                                    </svg>
-                                    </div>
-                                    <div class="text-[#575b6f] text-xs font-normal font-['IBM Plex Sans Thai']">{{ related.bedrooms }} ห้องนอน</div>
-                                </div>
-                                <div class="px-2.5 justify-start items-center gap-1.5 flex">
-                                    <div data-svg-wrapper>
-                                    <svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M11.5416 1.625V15.125C11.5416 15.2245 11.5021 15.3198 11.4318 15.3902C11.3615 15.4605 11.2661 15.5 11.1666 15.5C11.0672 15.5 10.9718 15.4605 10.9015 15.3902C10.8311 15.3198 10.7916 15.2245 10.7916 15.125V1.625C10.7916 1.52554 10.7521 1.43016 10.6818 1.35984C10.6115 1.28951 10.5161 1.25 10.4166 1.25H4.79163C4.69217 1.25 4.59679 1.28951 4.52646 1.35984C4.45613 1.43016 4.41663 1.52554 4.41663 1.625V3.875C4.64854 3.87569 4.87455 3.94815 5.06363 4.08244C5.25271 4.21673 5.39558 4.40626 5.47263 4.625H2.61063C2.68767 4.40626 2.83054 4.21673 3.01962 4.08244C3.2087 3.94815 3.43471 3.87569 3.66663 3.875V1.625C3.66692 1.32672 3.78555 1.04075 3.99646 0.829834C4.20737 0.61892 4.49335 0.500298 4.79163 0.5H10.4166C10.7149 0.500298 11.0009 0.61892 11.2118 0.829834C11.4227 1.04075 11.5413 1.32672 11.5416 1.625ZM4.04163 9.875C3.94217 9.875 3.84679 9.91451 3.77646 9.98483C3.70613 10.0552 3.66663 10.1505 3.66663 10.25V11.75C3.66663 11.8495 3.70613 11.9448 3.77646 12.0152C3.84679 12.0855 3.94217 12.125 4.04163 12.125C4.14108 12.125 4.23647 12.0855 4.30679 12.0152C4.37712 11.9448 4.41663 11.8495 4.41663 11.75V10.25C4.41663 10.1505 4.37712 10.0552 4.30679 9.98483C4.23647 9.91451 4.14108 9.875 4.04163 9.875ZM1.79163 10.25C1.69217 10.25 1.59679 10.2895 1.52646 10.3598C1.45613 10.4302 1.41663 10.5255 1.41663 10.625V11C1.41663 11.0995 1.45613 11.1948 1.52646 11.2652C1.59679 11.3355 1.69217 11.375 1.79163 11.375C1.89108 11.375 1.98647 11.3355 2.05679 11.2652C2.12712 11.1948 2.16663 11.0995 2.16663 11V10.625C2.16663 10.5255 2.12712 10.4302 2.05679 10.3598C1.98647 10.2895 1.89108 10.25 1.79163 10.25ZM5.54163 5.375H2.54163C2.04453 5.3756 1.56796 5.57333 1.21646 5.92483C0.864956 6.27633 0.667221 6.7529 0.666626 7.25V8.75C0.666626 8.84946 0.706135 8.94484 0.776461 9.01517C0.846787 9.08549 0.94217 9.125 1.04163 9.125H7.04163C7.14108 9.125 7.23646 9.08549 7.30679 9.01517C7.37712 8.94484 7.41663 8.84946 7.41663 8.75V7.25C7.41603 6.7529 7.2183 6.27633 6.86679 5.92483C6.51529 5.57333 6.03872 5.3756 5.54163 5.375ZM1.79163 12.125C1.69217 12.125 1.59679 12.1645 1.52646 12.2348C1.45613 12.3052 1.41663 12.4005 1.41663 12.5V13.25C1.41663 13.3495 1.45613 13.4448 1.52646 13.5152C1.59679 13.5855 1.69217 13.625 1.79163 13.625C1.89108 13.625 1.98647 13.5855 2.05679 13.5152C2.12712 13.4448 2.16663 13.3495 2.16663 13.25V12.5C2.16663 12.4005 2.12712 12.3052 2.05679 12.2348C1.98647 12.1645 1.89108 12.125 1.79163 12.125ZM6.29163 9.875C6.19217 9.875 6.09679 9.91451 6.02646 9.98483C5.95613 10.0552 5.91663 10.1505 5.91663 10.25V11C5.91663 11.0995 5.95613 11.1948 6.02646 11.2652C6.09679 11.3355 6.19217 11.375 6.29163 11.375C6.39108 11.375 6.48646 11.3355 6.55679 11.2652C6.62712 11.1948 6.66663 11.0995 6.66663 11V10.25C6.66663 10.1505 6.62712 10.0552 6.55679 9.98483C6.48646 9.91451 6.39108 9.875 6.29163 9.875ZM6.29163 12.125C6.19217 12.125 6.09679 12.1645 6.02646 12.2348C5.95613 12.3052 5.91663 12.4005 5.91663 12.5V13.25C5.91663 13.3495 5.95613 13.4448 6.02646 13.5152C6.09679 13.5855 6.19217 13.625 6.29163 13.625C6.39108 13.625 6.48646 13.5855 6.55679 13.5152C6.62712 13.4448 6.66663 13.3495 6.66663 13.25V12.5C6.66663 12.4005 6.62712 12.3052 6.55679 12.2348C6.48646 12.1645 6.39108 12.125 6.29163 12.125ZM4.04163 12.875C3.94217 12.875 3.84679 12.9145 3.77646 12.9848C3.70613 13.0552 3.66663 13.1505 3.66663 13.25V14C3.66663 14.0995 3.70613 14.1948 3.77646 14.2652C3.84679 14.3355 3.94217 14.375 4.04163 14.375C4.14108 14.375 4.23647 14.3355 4.30679 14.2652C4.37712 14.1948 4.41663 14.0995 4.41663 14V13.25C4.41663 13.1505 4.37712 13.0552 4.30679 12.9848C4.23647 12.9145 4.14108 12.875 4.04163 12.875Z" fill="#575B6F"/>
-                                    </svg>
-                                    </div>
-                                    <div class="text-[#575b6f] text-xs font-normal font-['IBM Plex Sans Thai']">{{ related.bathrooms }} ห้องน้ำ</div>
-                                </div>
-                            </div>
-                            <div class="justify-start items-center gap-2 inline-flex">
-                                <div class="px-2 py-0.5 bg-[#faf9f6] rounded-md border border-[#d0d8ef] justify-center items-center gap-1.5 flex">
-                                    <div class="text-[#575b6f] text-xs font-normal font-['IBM Plex Sans Thai']">เลี้ยงสัตว์ได้</div>
-                                </div>
-                                <div class="px-2 py-0.5 bg-[#faf9f6] rounded-md border border-[#d0d8ef] justify-center items-center gap-1.5 flex">
-                                    <div class="text-[#575b6f] text-xs font-normal font-['IBM Plex Sans Thai']">ใกล้อีสวิวล์</div>
-                                </div>
+                            <div class="flex items-end gap-[16px] flex-[1_0_0] self-stretch">
+                                {% for image in property.images.all|slice:"2:4" %}
+                                    <div class="flex-[1_0_0] self-stretch bg-cover bg-center bg-no-repeat"
+                                         style="background-image: url('{{ image.image.url }}');"></div>
+                                {% endfor %}
                             </div>
                         </div>
-                        <div class="self-stretch justify-start items-center gap-2 inline-flex">
-                            <div class="grow shrink basis-0 text-[#2DAB6F] text-[32px] font-bold font-['IBM Plex Sans Thai']">
-                                {{ related.price|intcomma }}</div>
-                            <div class="text-[#2DAB6F] text-[32px] font-bold font-['IBM Plex Sans Thai']">
-                                บาท{% if related.transaction_type == "rent" %}/ด.{% endif %}
-                            </div>
-                        </div>
-                    </div>
-                    </svg>
                     </div>
                 </div>
-                {% endfor %}
+                <!-- description -->
+                <div class="flex flex-col items-start gap-[16px] self-stretch">
+                    <!-- status -->
+                    <div class="flex items-center gap-[16px]">
+                        <div class="flex p-1.5 justify-center items-center gap-1.5 rounded-[10px] bg-green-300/30">
+                            <p class="text-[#2DAB6F] text-base font-normal leading-normal">
+                                {% if selling_type == "For Sell" %}
+                                    ขาย
+                                {% elif selling_type == "For Rent" %}
+                                    เช่า
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Title -->
+                    <div class="self-stretch inline-flex justify-start items-start gap-4">
+                        <div class="flex-1 justify-start text-slate-600 text-3xl font-bold font-['IBM_Plex_Sans_Thai']">
+                            {{ property.title }}
+                        </div>
+                        {% if user_is_authenticated %}
+                        <form method="POST" action="{% url 'HomeBless:property-detail' pk=property.pk %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="bookmark_property" value="{{ property.id }}">
+                            <button onclick="toggleBookmark(this)" class="relative p-2 rounded-full transition-transform duration-200 hover:scale-110 focus:outline-none">
+                                <span class="absolute inset-0 rounded-full bg-blue-500 opacity-0 scale-50 transition-all duration-300 ease-out group-hover:opacity-20"></span>
+                                <img id="bookmark-icon" 
+                                     src="{% if wishlist_bool %}{% static 'property-detail/booked.svg' %}{% else %}{% static 'property-detail/bookmark.svg' %}{% endif %}" 
+                                     alt="Bookmark" 
+                                     class="w-15 h-15 relative z-10">
+                            </button>
+                        </form>
+                        {% endif %}
+                    </div>
+                    <!-- Location pin -->
+                    <div class="flex p-2 px-3 justify-center items-center gap-1.5 rounded-md bg-[#2162D0]">
+                        <div class="flex items-center gap-2">
+                            <div class="h-[14px] w-[13px]">
+                                <img id="bookmark-icon" src="{% static 'property-detail/location_pin.svg' %}" alt="Bookmark">
+                            </div>
+                            <div class="text-[#FAF9F6] font-bold text-[16px]">
+                                {{ property.location }}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Price -->
+                    <div class="flex flex-col items-start gap-[-10px] self-stretch">
+                        <div class="text-[#575B6F] font-bold text-[16px] self-stretch">
+                            ราคา
+                        </div>
+                        <div class="text-[#2DAB6F] font-bold text-[48px] self-stretch uppercase">{{ property.price|intcomma }}
+                            บาท
+                        </div>
+                    </div>
+                </div>
+            
+                <!-- Property Info Card-->
+                {% include "components/card.html" %}
+            
+                <!-- Additional Info -->
+                <div class="flex justify-between items-start self-stretch">
+                    <!-- Tags Tabs -->
+                    <div class="flex flex-col items-start gap-[24px] flex-[1_0_0]">
+                        <!-- Navigation -->
+                        <div class="flex items-center gap-[16px] self-stretch">
+                            <button class="tab-info-btn flex p-2.5 px-5 justify-center items-center gap-1.5 border-b-2 border-[#2162D0]"
+                                    data-tab="details">
+                                <div class="text-[#2162D0] font-normal text-[16px]">
+                                    รายละเอียดเพิ่มเติม
+                                </div>
+                            </button>
+                            <button class="tab-info-btn flex p-2.5 px-5 justify-center items-center gap-1.5"
+                                    data-tab="messages">
+                                <div class="text-[#2162D0] font-normal text-[16px]">
+                                    ข้อความจากเจ้าของ/นายหน้า
+                                </div>
+                            </button>
+                            <button class="tab-info-btn flex p-2.5 px-5 justify-center items-center gap-1.5"
+                                    data-tab="location">
+                                <div class="text-[#2162D0] font-normal text-[16px]">
+                                    ทำเลที่ตั้งและการเดินทาง
+                                </div>
+                            </button>
+                        </div>
+                        <!-- Tabs Content for 'Details' -->
+                        <div class="tab-content flex flex-col items-start gap-[16px] self-stretch"
+                             data-tab-content="details">
+                        
+                            <!-- Tag -->
+                            {% include "components/tag.html" %}
+                            
+                            <!-- Message -->
+                            {% include "components/message.html" %}
+                            
+                        <!-- Tabs Content for 'Location' -->
+                        <div class="tab-content hidden flex flex-col items-start gap-[16px] self-stretch"
+                             data-tab-content="location">
+                            <!-- Content -->
+                            <div class="flex items-center gap-[10px] self-stretch px-[20px] pb-[20px]">
+                                <!-- Map + Address -->
+                                <div class="flex items-start gap-[24px] self-stretch">
+                                    <!-- Address -->
+                                    <div class="flex flex-col items-start gap-[17px] flex-[1_0_0]">
+                                        <div class="flex flex-col items-start gap-[8px] self-stretch">
+                                            <div class="text-[#2162D0] font-medium text-[22px]">
+                                                ทำเลที่ตั้ง
+                                            </div>
+                                            <div class="flex flex-col items-start gap-[16px] self-stretch">
+                                                <div class="flex flex-col items-start gap-[8px] self-stretch">
+                                                    <div class="text-[#575B6F] font-bold text-[16px] self-stretch">
+                                                        โครงการ
+                                                    </div>
+                                                    <div class="flex justify-between items-center self-stretch">
+                                                        <div class="flex justify-center items-center content-center gap-2 flex-[1_0_0] flex-wrap">
+                                                            <div class="text-[#575B6F] font-normal text-[16px] flex-[1_0_0]">
+                                                                นิชดา ธานี
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex items-center gap-[5px]">
+                                                            <a class="text-[#2162D0] font-normal text-[16px]" href="#">
+                                                                ค้นหาบ้านในโครงการเดียวกัน
+                                                            </a>
+                                                            <div class="w-[7.5px] h-[13px]">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="8"
+                                                                     height="14" viewBox="0 0 8 14" fill="none">
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                          d="M0.716621 0.24897C0.76597 0.199497 0.824594 0.160245 0.889136 0.133463C0.953677 0.106681 1.02287 0.0928955 1.09275 0.0928955C1.16262 0.0928955 1.23182 0.106681 1.29636 0.133463C1.3609 0.160245 1.41952 0.199497 1.46887 0.24897L7.84387 6.62397C7.89334 6.67332 7.9326 6.73194 7.95938 6.79648C7.98616 6.86103 7.99995 6.93022 7.99995 7.00009C7.99995 7.06997 7.98616 7.13916 7.95938 7.20371C7.9326 7.26825 7.89334 7.32687 7.84387 7.37622L1.46887 13.7512C1.36912 13.851 1.23382 13.907 1.09275 13.907C0.951672 13.907 0.816376 13.851 0.716621 13.7512C0.616867 13.6515 0.560825 13.5162 0.560825 13.3751C0.560825 13.234 0.616867 13.0987 0.716621 12.999L6.71656 7.00009L0.716621 1.00122C0.667148 0.951872 0.627896 0.893248 0.601114 0.828706C0.574332 0.764164 0.560547 0.694973 0.560547 0.625095C0.560547 0.555217 0.574332 0.486026 0.601114 0.421485C0.627896 0.356943 0.667148 0.298319 0.716621 0.24897Z"
+                                                                          fill="#2162D0"/>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="flex flex-col items-start gap-[8px] self-stretch">
+                                                    <div class="text-[#575B6F] font-bold text-[16px] self-stretch">
+                                                        ที่อยู่
+                                                    </div>
+                                                    <div class="text-[#575B6F] font-normal text-[16px] self-stretch">
+                                                        แจ้งวัฒนะ เมืองทอง งามวงศ์วาน เลียบคลองประปา แคราย ปากเกร็ด
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="flex w-full items-center justify-center gap-2 px-4 py-2 border border-gray-300 bg-offWhite rounded-md hover:bg-gray-100">
+                                            <div class="w-[21px] h-[21px]">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="22"
+                                                     viewBox="0 0 21 22" fill="none">
+                                                    <g clip-path="url(#clip0_37_771)">
+                                                        <path d="M18.5312 10.325V19.2522L15.7257 18.7329L14.4888 17.2492L9.27734 11.4556L13.7019 8.31177C15.9183 11.2372 15.9882 10.5241 15.9882 10.5241C15.9882 10.5241 17.083 8.8896 18.4875 10.2941L18.5312 10.325Z"
+                                                              fill="#CCCCCC"/>
+                                                        <path d="M7.82186 9.65076L17.0221 21.4918C16.9681 21.4972 16.9139 21.4999 16.8597 21.5H1.81836L7.82186 9.65076Z"
+                                                              fill="#518EF8"/>
+                                                        <path d="M13.702 8.31175L0.0183105 19.8285V4.65853C0.0183105 3.73519 0.76701 2.98706 1.68978 2.98706H11.6684C11.2399 3.72354 12.8287 4.19624 12.8287 5.1097C12.8287 6.02903 13.2683 7.57179 13.702 8.31175Z"
+                                                              fill="#28B446"/>
+                                                        <path d="M18.5313 19.2522V19.8285C18.5313 20.6966 17.8694 21.4103 17.0223 21.4918L9.32349 13.8943L11.1871 12.0057L15.4883 16.2499L15.7258 16.4845L18.5313 19.2522Z"
+                                                              fill="#F2F2F2"/>
+                                                        <path d="M13.2281 9.93722L11.1869 12.0057L9.32336 13.8943L1.81845 21.5H1.68978C0.76701 21.5 0.0183105 20.7513 0.0183105 19.8286L11.6772 8.01367C11.8955 8.38745 13.397 8.009 13.702 8.31173L14.2627 9.03246C14.5363 9.3242 12.9929 9.62751 13.2281 9.93722Z"
+                                                              fill="#FFD837"/>
+                                                        <path d="M4.3847 9.84229C2.91602 9.84229 1.72119 8.64746 1.72119 7.17877C1.72119 5.71008 2.91602 4.51526 4.3847 4.51526C5.09567 4.51526 5.76435 4.79244 6.26773 5.29579L5.65016 5.91324C5.31186 5.57486 4.86241 5.38852 4.3847 5.38852C3.39754 5.38852 2.5945 6.19161 2.5945 7.17873C2.5945 8.16585 3.39758 8.96894 4.3847 8.96894C5.22126 8.96894 5.9257 8.39218 6.12106 7.61534H4.3847V6.74208H7.04822V7.17873C7.04818 8.64746 5.85339 9.84229 4.3847 9.84229Z"
+                                                              fill="#575B6F"/>
+                                                        <path d="M11.6685 2.98711C12.533 1.50021 14.1439 0.5 15.9883 0.5C18.7461 0.5 20.9817 2.7356 20.9817 5.49341C20.9817 6.18505 20.8408 6.84348 20.587 7.44255C20.3342 8.03706 19.9686 8.57698 19.5105 9.03248C19.1321 9.43476 18.7927 9.85977 18.4876 10.2941C16.489 13.1415 15.9883 16.3925 15.9883 16.3925C15.9883 16.3925 15.4445 12.8627 13.2281 9.9372C12.9929 9.62749 12.7391 9.32414 12.4655 9.03248H12.4661C12.1599 8.72863 11.8947 8.38613 11.6772 8.01365C11.2435 7.27369 10.9949 6.41265 10.9949 5.49337C10.9949 4.57995 11.24 3.72354 11.6685 2.98711Z"
+                                                              fill="#F14336"/>
+                                                        <path d="M15.9883 2.83569C17.4559 2.83569 18.6453 4.02584 18.6453 5.49342C18.6453 6.961 17.4559 8.15046 15.9883 8.15046C14.5207 8.15046 13.3306 6.961 13.3306 5.49342C13.3306 4.02584 14.5208 2.83569 15.9883 2.83569Z"
+                                                              fill="#7E2D25"/>
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_37_771">
+                                                            <rect width="21" height="21" fill="white"
+                                                                  transform="translate(0 0.5)"/>
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                            </div>
+                                            <div class="text-[#444F85] font-normal text-[16px]">
+                                                ดูใน Google map
+                                            </div>
+                                        </button>
+                                    </div>
+                                    <!-- Map -->
+                                    <div class="flex w-[377px] flex-col justify-between items-start self-stretch">
+                                        <div class="flex flex-col items-center flex-1 self-stretch rounded-lg border border-gray-300 bg-[url('{% static "map.png" %}')] bg-lightgray bg-cover bg-center">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- NearBy Places -->
+                            <div class="flex items-center gap-[10px] self-stretch px-[20px] pb-[20px]">
+                                <div class="flex flex-col items-start gap-[8px] self-stretch">
+                                    <div class="text-[#2162D0] font-medium text-[22px] self-stretch">
+                                        สถานที่ใกล้เคียง
+                                    </div>
+                                    <!-- Navigations -->
+                                    <div class="flex items-center gap-[16px] self-stretch">
+                                        <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 border-b-2 border-[#575B6F] hover:bg-gray-100">
+                                            <div class="text-[#575B6F] font-normal text-[16px]">
+                                                ทั้งหมด
+                                            </div>
+                                        </button>
+                                        <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100">
+                                            <div class="text-[#575B6F] font-normal text-[16px]">
+                                                โรงเรียน/มหาวิทยาลัย
+                                            </div>
+                                        </button>
+                                        <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100">
+                                            <div class="text-[#575B6F] font-normal text-[16px]">
+                                                สนามบิน
+                                            </div>
+                                        </button>
+                                        <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100">
+                                            <div class="text-[#575B6F] font-normal text-[16px]">
+                                                ห้างสรรพสินค้า
+                                            </div>
+                                        </button>
+                                        <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100">
+                                            <div class="text-[#575B6F] font-normal text-[16px]">
+                                                สวนสาธารณะ
+                                            </div>
+                                        </button>
+                                        <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100">
+                                            <div class="text-[#575B6F] font-normal text-[16px]">
+                                                ขนส่งสาธารณะ
+                                            </div>
+                                        </button>
+                                    </div>
+                                    <!-- Table List -->
+                                    <div class="flex items-center px-5 gap-2 self-stretch">
+                                        <table class="w-full border-collapse">
+                                            <thead>
+                                            <tr>
+                                                <th class="text-left font-bold text-[16px] border-b border-[#575B6F] p-2">
+                                                    สถานที่
+                                                </th>
+                                                <th class="text-left font-bold text-[16px] border-b border-[#575B6F] p-2 bg-indigo-100">
+                                                    ระยะทาง
+                                                </th>
+                                                <th class="text-left font-bold text-[16px] border-b border-[#575B6F] p-2">
+                                                    ค้นหาในละแวก
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td class="p-2 flex items-center">
+                                                    <span class="w-[24px] h-[24px] mr-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" 
+                                                             fill="none">
+                                                            <g clip-path="url(#clip0_37_699)">
+                                                                <path d="M5.00003 13.18V15.99C5.00003 16.72 5.40003 17.4 6.04003 17.75L11.04 20.48C11.64 20.81 12.36 20.81 12.96 20.48L17.96 17.75C18.6 17.4 19 16.72 19 15.99V13.18L12.96 16.48C12.36 16.81 11.64 16.81 11.04 16.48L5.00003 13.18ZM11.04 3.52003L2.61003 8.12003C1.92003 8.50003 1.92003 9.50003 2.61003 9.88003L11.04 14.48C11.64 14.81 12.36 14.81 12.96 14.48L21 10.09V16C21 16.55 21.45 17 22 17C22.55 17 23 16.55 23 16V9.59003C23 9.22003 22.8 8.89003 22.48 8.71003L12.96 3.52003C12.36 3.20003 11.64 3.20003 11.04 3.52003Z" 
+                                                                      fill="#575B6F"/>
+                                                            </g>
+                                                            <defs>
+                                                                <clipPath id="clip0_37_699">
+                                                                    <rect width="24" height="24" fill="white"/>
+                                                                </clipPath>
+                                                            </defs>
+                                                        </svg>
+                                                    </span>
+                                                    สถาบันการจัดการปัญญาภิวัฒน์
+                                                </td>
+                                                <td class="p-2 bg-indigo-100">
+                                                    0.5 กม.
+                                                </td>
+                                                <td class="p-2 text-[#2162D0]">
+                                                    <a href=" ">ค้นหา ></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p-2 flex items-center">
+                                                    <span class="w-[24px] h-[24px] mr-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" 
+                                                             fill="none">
+                                                            <path d="M5.84615 15.9375C4.74606 15.9375 3.84615 16.8514 3.84615 17.9688C3.84615 19.086 4.74606 20 5.84615 20C6.94625 20 7.8462 19.086 7.8462 17.9688C7.84615 16.8514 6.9462 15.9375 5.84615 15.9375ZM0 0V2.03125H2L5.60014 9.43758L4.09495 11.9256C3.94505 12.1795 3.84495 12.535 3.84495 12.8906C3.84495 14.2505 4.75962 14.9219 6 14.9219H17.6923V12.9688H6.24486C6.09495 12.9688 5.99486 12.8671 5.99486 12.7149C5.99486 12.6643 6.10096 12.461 6.10096 12.461L7.1001 10.8594H14.5498C15.2999 10.8594 15.9502 10.4533 16.2998 9.79319L19.8999 3.50414C19.9594 3.38398 20 3.19916 20 2.99638C20 2.43749 19.5498 2.03129 19 2.03129H4.20019L3.25 0H0ZM15.6923 15.9375C14.5922 15.9375 13.6923 16.8514 13.6923 17.9688C13.6923 19.086 14.5922 20 15.6923 20C16.7924 20 17.6923 19.086 17.6923 17.9687C17.6923 16.8514 16.7924 15.9375 15.6923 15.9375Z" 
+                                                                  fill="#575B6F"/>
+                                                        </svg>
+                                                    </span>
+                                                    เซ็นทรัลพลาซ่า แจ้งวัฒนะ
+                                                </td>
+                                                <td class="p-2 bg-indigo-100">
+                                                    0.7 กม.
+                                                </td>
+                                                <td class="p-2 text-[#2162D0]">
+                                                    <a href=" ">ค้นหา ></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p-2 flex items-center">
+                                                    <span class="w-[24px] h-[24px] mr-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                         viewBox="0 0 24 24"
+                                                         fill="none">
+                                                            <g clip-path="url(#clip0_37_699)">
+                                                                <path d="M5.00003 13.18V15.99C5.00003 16.72 5.40003 17.4 6.04003 17.75L11.04 20.48C11.64 20.81 12.36 20.81 12.96 20.48L17.96 17.75C18.6 17.4 19 16.72 19 15.99V13.18L12.96 16.48C12.36 16.81 11.64 16.81 11.04 16.48L5.00003 13.18ZM11.04 3.52003L2.61003 8.12003C1.92003 8.50003 1.92003 9.50003 2.61003 9.88003L11.04 14.48C11.64 14.81 12.36 14.81 12.96 14.48L21 10.09V16C21 16.55 21.45 17 22 17C22.55 17 23 16.55 23 16V9.59003C23 9.22003 22.8 8.89003 22.48 8.71003L12.96 3.52003C12.36 3.20003 11.64 3.20003 11.04 3.52003Z"
+                                                              fill="#575B6F"/>
+                                                            </g>
+                                                            <defs>
+                                                                <clipPath id="clip0_37_699">
+                                                                    <rect width="24" height="24" fill="white"/>
+                                                                </clipPath>
+                                                            </defs>
+                                                        </svg>
+                                                    </span>
+                                                    มหาวิทยาลัยหอการค้าไทย
+                                                </td>
+                                                <td class="p-2 bg-indigo-100">
+                                                    1.5 กม.
+                                                </td>
+                                                <td class="p-2 text-[#2162D0]">
+                                                    <a href=" ">ค้นหา ></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p-2 flex items-center">
+                                                    <span class="w-[24px] h-[24px] mr-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" 
+                                                             fill="none">
+                                                            <path d="M5.84615 15.9375C4.74606 15.9375 3.84615 16.8514 3.84615 17.9688C3.84615 19.086 4.74606 20 5.84615 20C6.94625 20 7.8462 19.086 7.8462 17.9688C7.84615 16.8514 6.9462 15.9375 5.84615 15.9375ZM0 0V2.03125H2L5.60014 9.43758L4.09495 11.9256C3.94505 12.1795 3.84495 12.535 3.84495 12.8906C3.84495 14.2505 4.75962 14.9219 6 14.9219H17.6923V12.9688H6.24486C6.09495 12.9688 5.99486 12.8671 5.99486 12.7149C5.99486 12.6643 6.10096 12.461 6.10096 12.461L7.1001 10.8594H14.5498C15.2999 10.8594 15.9502 10.4533 16.2998 9.79319L19.8999 3.50414C19.9594 3.38398 20 3.19916 20 2.99638C20 2.43749 19.5498 2.03129 19 2.03129H4.20019L3.25 0H0ZM15.6923 15.9375C14.5922 15.9375 13.6923 16.8514 13.6923 17.9688C13.6923 19.086 14.5922 20 15.6923 20C16.7924 20 17.6923 19.086 17.6923 17.9687C17.6923 16.8514 16.7924 15.9375 15.6923 15.9375Z" 
+                                                                  fill="#575B6F"/>
+                                                        </svg>
+                                                    </span>
+                                                    สยามพารากอน
+                                                </td>
+                                                <td class="p-2 bg-indigo-100">
+                                                    1.8 กม.
+                                                </td>
+                                                <td class="p-2 text-[#2162D0]">
+                                                    <a href=" ">ค้นหา ></a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Contact&Compare Frame -->
+                    <div class="flex w-[358px] flex-col justify-center items-start gap-8">
+                        <!-- Contact Frame -->
+                        <div class="flex flex-col items-start gap-6 self-stretch">
+                            <div class="flex justify-center items-center gap-2.5 self-stretch border-b border-[#575B6F]">
+                                <div class="text-[#575B6F] font-medium text-[22px] flex-[1_0_0]">
+                                    ช่องทางการติดต่อ
+                                </div>
+                            </div>
+                            <!-- Profile -->
+                            <div class="flex flex-col items-center gap-[16px] self-stretch">
+                                <div class="flex items-center gap-[16px] self-stretch">
+                                    <!-- profile pic -->
+                                    <div class="w-[55px] h-[55px] rounded-[237px] bg-[url('{% static "profilePic.jpeg" %}')] bg-[lightgray_-1.876px_-12.399px] bg-[length:176.056%_227.066%] bg-no-repeat">
+                                    </div>
+                                    <!-- profile name -->
+                                    <div class="flex w-[92px] flex-col items-start gap-0.75">
+                                        <div class="text-[#2162D0] font-bold text-[16px] self-stretch">
+                                            {{ seller_name }}
+                                        </div>
+                                        <div class="flex items-center gap-[16px]">
+                                            <div class="flex p-0.5 px-1.5 justify-center items-center gap-1.5 rounded-lg bg-[rgba(86,223,150,0.30)]">
+                                                <div class="text-[#2DAB6F] font-medium text-[12px] self-stretch">
+                                                    {{ seller_status }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Contact detail -->
+                                <div class="flex flex-col items-start gap-[8px] self-stretch">
+                                    <!-- Methods -->
+                                    <div class="flex flex-col items-start gap-[10px] self-stretch">
+                                        <!-- Tel Button -->
+                                        {% if seller_phone %}
+                                        <button name="tel" onclick="flipCard(this, 'tel-info')" class="flip-card flex p-2 items-center gap-2 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6] transition-transform duration-300">
+                                            <div class="flip-card-inner">
+                                                <div class="flip-card-front flex items-center gap-2">
+                                                    <div class="w-[18px] h-[18px]">
+                                                        <img src="{% static 'property-detail/phone.svg' %}" alt="Phone">
+                                                    </div>
+                                                    <div class="text-[#444F85] font-medium text-[16px]">
+                                                        โทรหาเจ้าของ/นายหน้า
+                                                    </div>
+                                                </div>
+                                                <div class="flip-card-back flex items-center gap-2 hidden" id="tel-info">
+                                                    <div class="w-[18px] h-[18px]">
+                                                        <img src="{% static 'property-detail/phone.svg' %}" alt="Phone">
+                                                    </div>
+                                                    <div class="text-[#444F85] font-medium text-[16px]">
+                                                        {{ seller_phone }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </button>
+                                        {% endif %}
+                                    
+                                        <!-- Line Button -->
+                                        {% if seller_line_id %}
+                                        <button name="line" onclick="flipCard(this, 'line-info')" class="flip-card flex p-2 items-center gap-2 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6] transition-transform duration-300">
+                                            <div class="flip-card-inner">
+                                                <div class="flip-card-front flex items-center gap-2">
+                                                    <div class="w-[20px] h-[20px]">
+                                                        <img src="{% static 'property-detail/line.svg' %}" alt="Line">
+                                                    </div>
+                                                    <div class="text-[#444F85] font-medium text-[16px]">
+                                                        เพิ่มเพื่อนในไลน์
+                                                    </div>
+                                                </div>
+                                                <div class="flip-card-back flex items-center gap-2 hidden" id="line-info">
+                                                    <div class="w-[20px] h-[20px]">
+                                                        <img src="{% static 'property-detail/line.svg' %}" alt="Line">
+                                                    </div>
+                                                    <div class="text-[#444F85] font-medium text-[16px]">
+                                                        {{ seller_line_id }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </button>
+                                        {% endif %}
+                                    
+                                        <!-- Mail Button -->
+                                        {% if seller_email %}
+                                        <button name="mail" onclick="flipCard(this, 'mail-info')" class="flip-card flex p-2 items-center gap-2 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6] transition-transform duration-300">
+                                            <div class="flip-card-inner">
+                                                <div class="flip-card-front flex items-center gap-2">
+                                                    <div class="w-[20px] h-[16px]">
+                                                        <img src="{% static 'property-detail/mail.svg' %}" alt="Mail">
+                                                    </div>
+                                                    <div class="text-[#444F85] font-medium text-[16px]">
+                                                        อีเมล
+                                                    </div>
+                                                </div>
+                                                <div class="flip-card-back flex items-center gap-2 hidden" id="mail-info">
+                                                    <div class="w-[20px] h-[16px]">
+                                                        <img src="{% static 'property-detail/mail.svg' %}" alt="Mail">
+                                                    </div>
+                                                    <div class="text-[#444F85] font-medium text-[16px]">
+                                                        {{ seller_email }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </button>
+                                        {% endif %}
+                                    </div>
+                                    <!-- Form -->
+                                    <div class="flex p-2.5 justify-center items-center gap-2.5 self-stretch rounded-lg bg-[#2162D0]">
+                                        <div class="text-[#FAF9F6] text-center text-[16px] font-normal leading-normal flex-[1_0_0]">
+                                            แจ้งข้อมูลเบื้องต้น เช่น ชื่อ, เบอร์โทร, ความสนใจ เมื่อเริ่มการสนทนา
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Compare Frame -->
+                        <div class="flex flex-col items-start gap-[8px] self-stretch">
+                            <div class="flex content-center items-center gap-[10px] self-stretch border-b border-[#575B6F]">
+                                <div class="text-[#575B6F] text-[22px] font-medium leading-normal flex-[1_0_0]">
+                                    เปรียบเทียบ
+                                </div>
+                            </div>
+                            <button class="flex p-2.5 justify-center items-start gap-2 self-stretch rounded-md bg-[#2DAB6F] hover:bg-[#24975e] active:ring-2 active:ring-[#1e7c4d] transition duration-200 ease-in-out">
+                                <div class="w-[25px] h-[25px]">
+                                    <img src="{% static 'property-detail/compare.svg' %}" alt="Compare">
+                                </div>
+                                <div class="text-[#FAF9F6] text-[16px] font-bold leading-normal">
+                                    เปรียบเทียบระแวกนี้
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Similar Properties -->
+            <div class="flex flex-col items-center gap-[3px] self-stretch">
+                <div class="text-[#2162D0] text-[32px] font-bold leading-normal self-stretch">
+                    แนะนำบ้านอื่นที่คล้ายกัน
+                </div>
+                <!-- list -->
+                <div class="flex flex-wrap justify-start gap-[24px] self-stretch">
+                    <!-- for loop card -->
+                    {% for related in related_properties %}
+                        <div class="h-auto p-5 rounded-[10px] border border-[#d0d8ef] flex-col justify-start items-start gap-4 inline-flex">
+                            <img src="{{ related.main_image }}" class="w-full h-[222px] rounded-md object-cover">
+                                <div class="self-stretch h-[249px] flex-col justify-start items-start gap-4 flex">
+                                    <div class="self-stretch h-[180px] flex-col justify-start items-start gap-4 flex">
+                                        <div class="self-stretch justify-between items-center inline-flex">
+                                            <div class="w-[371px] text-[#444f85] text-base font-bold font-['IBM Plex Sans Thai']">{{ related.title }}</div>
+                                            <div data-svg-wrapper>
+                                                <svg width="25" height="34" viewBox="0 0 25 34" fill="none"
+                                                     xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                          d="M0.25 32.4684V4.62463C0.25 3.53062 0.684597 2.48141 1.45818 1.70782C2.23177 0.934231 3.28098 0.499634 4.375 0.499634L20.875 0.499634C21.969 0.499634 23.0182 0.934231 23.7918 1.70782C24.5654 2.48141 25 3.53062 25 4.62463V32.4684C25.0001 32.6475 24.9536 32.8235 24.8651 32.9791C24.7765 33.1348 24.6489 33.2647 24.4949 33.3561C24.3409 33.4474 24.1657 33.4971 23.9867 33.5002C23.8076 33.5033 23.6309 33.4598 23.4738 33.3738L12.625 27.4544L1.77625 33.3738C1.61915 33.4598 1.44237 33.5033 1.26332 33.5002C1.08426 33.4971 0.909107 33.4474 0.755089 33.3561C0.601072 33.2647 0.473502 33.1348 0.384938 32.9791C0.296374 32.8235 0.249869 32.6475 0.25 32.4684ZM13.6562 9.78088C13.6562 9.50738 13.5476 9.24508 13.3542 9.05168C13.1608 8.85828 12.8985 8.74963 12.625 8.74963C12.3515 8.74963 12.0892 8.85828 11.8958 9.05168C11.7024 9.24508 11.5938 9.50738 11.5938 9.78088V12.8746H8.5C8.2265 12.8746 7.96419 12.9833 7.7708 13.1767C7.5774 13.3701 7.46875 13.6324 7.46875 13.9059C7.46875 14.1794 7.5774 14.4417 7.7708 14.6351C7.96419 14.8285 8.2265 14.9371 8.5 14.9371H11.5938V18.0309C11.5938 18.3044 11.7024 18.5667 11.8958 18.7601C12.0892 18.9535 12.3515 19.0621 12.625 19.0621C12.8985 19.0621 13.1608 18.9535 13.3542 18.7601C13.5476 18.5667 13.6562 18.3044 13.6562 18.0309V14.9371H16.75C17.0235 14.9371 17.2858 14.8285 17.4792 14.6351C17.6726 14.4417 17.7812 14.1794 17.7812 13.9059C17.7812 13.6324 17.6726 13.3701 17.4792 13.1767C17.2858 12.9833 17.0235 12.8746 16.75 12.8746H13.6562V9.78088Z"
+                                                          fill="#2162D0"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="px-[9px] py-2 bg-[#2162d0] rounded-md justify-center items-center gap-1.5 inline-flex">
+                                            <div data-svg-wrapper class="relative">
+                                                <svg width="13" height="14" viewBox="0 0 13 14" fill="none"
+                                                     xmlns="http://www.w3.org/2000/svg">
+                                                    <g clip-path="url(#clip0_17_741)">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                              d="M2.51875 9.8C2.55659 9.74566 2.60566 9.70156 2.66207 9.67119C2.71848 9.64081 2.78068 9.625 2.84375 9.625H4.875C4.98274 9.625 5.08608 9.67109 5.16226 9.75314C5.23845 9.83519 5.28125 9.94647 5.28125 10.0625C5.28125 10.1785 5.23845 10.2898 5.16226 10.3719C5.08608 10.4539 4.98274 10.5 4.875 10.5H3.04688L1.21875 13.125H11.7812L9.95312 10.5H8.125C8.01726 10.5 7.91392 10.4539 7.83774 10.3719C7.76155 10.2898 7.71875 10.1785 7.71875 10.0625C7.71875 9.94647 7.76155 9.83519 7.83774 9.75314C7.91392 9.67109 8.01726 9.625 8.125 9.625H10.1562C10.2193 9.625 10.2815 9.64081 10.3379 9.67119C10.3943 9.70156 10.4434 9.74566 10.4812 9.8L12.9187 13.3C12.964 13.365 12.9916 13.4423 12.9984 13.5232C13.0051 13.6041 12.9909 13.6855 12.9571 13.7582C12.9234 13.8308 12.8715 13.8919 12.8073 13.9347C12.7432 13.9774 12.6692 14 12.5938 14H0.40625C0.330805 14 0.25685 13.9774 0.192672 13.9347C0.128494 13.8919 0.0766294 13.8308 0.0428891 13.7582C0.00914891 13.6855 -0.00513371 13.6041 0.00164172 13.5232C0.00841715 13.4423 0.0359829 13.365 0.0812502 13.3L2.51875 9.8Z"
+                                                              fill="#FAF9F6"/>
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                              d="M3.25 3.50001C3.25006 2.82646 3.43058 2.16723 3.76991 1.60143C4.10924 1.03563 4.59297 0.587287 5.16303 0.310205C5.7331 0.0331227 6.3653 -0.0609304 6.98378 0.0393309C7.60225 0.139592 8.18073 0.429909 8.64979 0.875446C9.11885 1.32098 9.45857 1.90281 9.6282 2.55112C9.79782 3.19943 9.79013 3.88668 9.60607 4.5304C9.422 5.17412 9.06936 5.74697 8.59047 6.18022C8.11158 6.61346 7.52679 6.88869 6.90625 6.97289V11.8125C6.90625 11.9285 6.86345 12.0398 6.78726 12.1219C6.71108 12.2039 6.60774 12.25 6.5 12.25C6.39226 12.25 6.28893 12.2039 6.21274 12.1219C6.13655 12.0398 6.09375 11.9285 6.09375 11.8125V6.97376C5.30803 6.86716 4.5855 6.45527 4.06186 5.81547C3.53823 5.17567 3.24953 4.35286 3.25 3.50001Z"
+                                                              fill="#FAF9F6"/>
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_17_741">
+                                                            <rect width="13" height="14" fill="white"/>
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                            </div>
+                                            <div class="text-[#faf9f6] text-xs font-normal font-['IBM Plex Sans Thai'] max-w-[150px] truncate overflow-hidden whitespace-nowrap">
+                                                {{ related.location }}
+                                            </div>
+                                        </div>
+                                        <div class="self-stretch justify-start items-center inline-flex">
+                                            <div class="px-2.5 border-r border-[#575b6f] justify-start items-center gap-1.5 flex">
+                                                <div data-svg-wrapper class="relative">
+                                                    <svg width="15" height="16" viewBox="0 0 15 16" fill="none"
+                                                         xmlns="http://www.w3.org/2000/svg">
+                                                        <g clip-path="url(#clip0_17_747)">
+                                                            <path d="M0.9375 0.5C0.68886 0.5 0.450403 0.598772 0.274587 0.774587C0.0987721 0.950403 0 1.18886 0 1.4375L0 14.5625C0 14.8111 0.0987721 15.0496 0.274587 15.2254C0.450403 15.4012 0.68886 15.5 0.9375 15.5H5.625V14.5625H1.875V13.625H5.625V12.6875H3.75V11.75H5.625V10.8125H1.875V9.875H5.625V8.9375H3.75V8H5.625V7.0625H1.875V6.125H5.625V2.375H6.5625V6.125H7.5V4.25H8.4375V6.125H9.375V2.375H10.3125V6.125H11.25V4.25H12.1875V6.125H13.125V2.375H14.0625V6.125H15V1.4375C15 1.18886 14.9012 0.950403 14.7254 0.774587C14.5496 0.598772 14.3111 0.5 14.0625 0.5H0.9375Z"
+                                                                  fill="#575B6F"/>
+                                                        </g>
+                                                        <defs>
+                                                            <clipPath id="clip0_17_747">
+                                                                <rect width="15" height="15" fill="white"
+                                                                      transform="translate(0 0.5)"/>
+                                                            </clipPath>
+                                                        </defs>
+                                                    </svg>
+                                                </div>
+                                                <div class="text-[#575b6f] text-xs font-normal font-['IBM Plex Sans Thai']">{{ related.area }}
+                                                    ตร.ว.
+                                                </div>
+                                            </div>
+                                            <div class="px-2.5 justify-start items-center gap-1.5 flex">
+                                                <div data-svg-wrapper>
+                                                    <svg width="18" height="16" viewBox="0 0 18 16" fill="none"
+                                                         xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M18 11.3V15.5H9.6V10.1H4.2V4.7H0V0.5H8.4V5.9H13.8V11.3H18Z"
+                                                              fill="#575B6F"/>
+                                                    </svg>
+                                                </div>
+                                                <div class="text-[#575b6f] text-xs font-normal font-['IBM Plex Sans Thai']">{{ related.floors }}
+                                                    ชั้น
+                                                </div>
+                                            </div>
+                                            <div class="px-2.5 border-l border-r border-[#575b6f] justify-start items-center gap-1.5 flex">
+                                                <div data-svg-wrapper>
+                                                    <svg width="17" height="16" viewBox="0 0 17 16" fill="none"
+                                                         xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M15 8V1.33333C15 1.11232 14.9122 0.900358 14.7559 0.744078C14.5996 0.587797 14.3877 0.5 14.1667 0.5C13.9457 0.5 13.7337 0.587797 13.5774 0.744078C13.4211 0.900358 13.3333 1.11232 13.3333 1.33333V3H3.33333V1.33333C3.33333 1.11232 3.24554 0.900358 3.08926 0.744078C2.93298 0.587797 2.72101 0.5 2.5 0.5C2.27899 0.5 2.06702 0.587797 1.91074 0.744078C1.75446 0.900358 1.66667 1.11232 1.66667 1.33333V8C1.22464 8 0.800716 8.17559 0.488155 8.48816C0.175595 8.80072 0 9.22464 0 9.66667V14.6667C0 14.8877 0.0877973 15.0996 0.244078 15.2559C0.400358 15.4122 0.61232 15.5 0.833333 15.5C1.05435 15.5 1.26631 15.4122 1.42259 15.2559C1.57887 15.0996 1.66667 14.8877 1.66667 14.6667V13H15V14.6667C15 14.8877 15.0878 15.0996 15.2441 15.2559C15.4004 15.4122 15.6123 15.5 15.8333 15.5C16.0543 15.5 16.2663 15.4122 16.4226 15.2559C16.5789 15.0996 16.6667 14.8877 16.6667 14.6667V9.66667C16.6667 9.22464 16.4911 8.80072 16.1785 8.48816C15.8659 8.17559 15.442 8 15 8ZM7.5 8H3.33333V7.16667C3.33333 6.94565 3.42113 6.73369 3.57741 6.57741C3.73369 6.42113 3.94565 6.33333 4.16667 6.33333H6.66667C6.88768 6.33333 7.09964 6.42113 7.25592 6.57741C7.4122 6.73369 7.5 6.94565 7.5 7.16667V8ZM13.3333 8H9.16667V7.16667C9.16667 6.94565 9.25446 6.73369 9.41074 6.57741C9.56702 6.42113 9.77899 6.33333 10 6.33333H12.5C12.721 6.33333 12.933 6.42113 13.0893 6.57741C13.2455 6.73369 13.3333 6.94565 13.3333 7.16667V8Z"
+                                                              fill="#575B6F"/>
+                                                    </svg>
+                                                </div>
+                                                <div class="text-[#575b6f] text-xs font-normal font-['IBM Plex Sans Thai']">{{ related.bedrooms }}
+                                                    ห้องนอน
+                                                </div>
+                                            </div>
+                                            <div class="px-2.5 justify-start items-center gap-1.5 flex">
+                                                <div data-svg-wrapper>
+                                                    <svg width="12" height="16" viewBox="0 0 12 16" fill="none"
+                                                         xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M11.5416 1.625V15.125C11.5416 15.2245 11.5021 15.3198 11.4318 15.3902C11.3615 15.4605 11.2661 15.5 11.1666 15.5C11.0672 15.5 10.9718 15.4605 10.9015 15.3902C10.8311 15.3198 10.7916 15.2245 10.7916 15.125V1.625C10.7916 1.52554 10.7521 1.43016 10.6818 1.35984C10.6115 1.28951 10.5161 1.25 10.4166 1.25H4.79163C4.69217 1.25 4.59679 1.28951 4.52646 1.35984C4.45613 1.43016 4.41663 1.52554 4.41663 1.625V3.875C4.64854 3.87569 4.87455 3.94815 5.06363 4.08244C5.25271 4.21673 5.39558 4.40626 5.47263 4.625H2.61063C2.68767 4.40626 2.83054 4.21673 3.01962 4.08244C3.2087 3.94815 3.43471 3.87569 3.66663 3.875V1.625C3.66692 1.32672 3.78555 1.04075 3.99646 0.829834C4.20737 0.61892 4.49335 0.500298 4.79163 0.5H10.4166C10.7149 0.500298 11.0009 0.61892 11.2118 0.829834C11.4227 1.04075 11.5413 1.32672 11.5416 1.625ZM4.04163 9.875C3.94217 9.875 3.84679 9.91451 3.77646 9.98483C3.70613 10.0552 3.66663 10.1505 3.66663 10.25V11.75C3.66663 11.8495 3.70613 11.9448 3.77646 12.0152C3.84679 12.0855 3.94217 12.125 4.04163 12.125C4.14108 12.125 4.23647 12.0855 4.30679 12.0152C4.37712 11.9448 4.41663 11.8495 4.41663 11.75V10.25C4.41663 10.1505 4.37712 10.0552 4.30679 9.98483C4.23647 9.91451 4.14108 9.875 4.04163 9.875ZM1.79163 10.25C1.69217 10.25 1.59679 10.2895 1.52646 10.3598C1.45613 10.4302 1.41663 10.5255 1.41663 10.625V11C1.41663 11.0995 1.45613 11.1948 1.52646 11.2652C1.59679 11.3355 1.69217 11.375 1.79163 11.375C1.89108 11.375 1.98647 11.3355 2.05679 11.2652C2.12712 11.1948 2.16663 11.0995 2.16663 11V10.625C2.16663 10.5255 2.12712 10.4302 2.05679 10.3598C1.98647 10.2895 1.89108 10.25 1.79163 10.25ZM5.54163 5.375H2.54163C2.04453 5.3756 1.56796 5.57333 1.21646 5.92483C0.864956 6.27633 0.667221 6.7529 0.666626 7.25V8.75C0.666626 8.84946 0.706135 8.94484 0.776461 9.01517C0.846787 9.08549 0.94217 9.125 1.04163 9.125H7.04163C7.14108 9.125 7.23646 9.08549 7.30679 9.01517C7.37712 8.94484 7.41663 8.84946 7.41663 8.75V7.25C7.41603 6.7529 7.2183 6.27633 6.86679 5.92483C6.51529 5.57333 6.03872 5.3756 5.54163 5.375ZM1.79163 12.125C1.69217 12.125 1.59679 12.1645 1.52646 12.2348C1.45613 12.3052 1.41663 12.4005 1.41663 12.5V13.25C1.41663 13.3495 1.45613 13.4448 1.52646 13.5152C1.59679 13.5855 1.69217 13.625 1.79163 13.625C1.89108 13.625 1.98647 13.5855 2.05679 13.5152C2.12712 13.4448 2.16663 13.3495 2.16663 13.25V12.5C2.16663 12.4005 2.12712 12.3052 2.05679 12.2348C1.98647 12.1645 1.89108 12.125 1.79163 12.125ZM6.29163 9.875C6.19217 9.875 6.09679 9.91451 6.02646 9.98483C5.95613 10.0552 5.91663 10.1505 5.91663 10.25V11C5.91663 11.0995 5.95613 11.1948 6.02646 11.2652C6.09679 11.3355 6.19217 11.375 6.29163 11.375C6.39108 11.375 6.48646 11.3355 6.55679 11.2652C6.62712 11.1948 6.66663 11.0995 6.66663 11V10.25C6.66663 10.1505 6.62712 10.0552 6.55679 9.98483C6.48646 9.91451 6.39108 9.875 6.29163 9.875ZM6.29163 12.125C6.19217 12.125 6.09679 12.1645 6.02646 12.2348C5.95613 12.3052 5.91663 12.4005 5.91663 12.5V13.25C5.91663 13.3495 5.95613 13.4448 6.02646 13.5152C6.09679 13.5855 6.19217 13.625 6.29163 13.625C6.39108 13.625 6.48646 13.5855 6.55679 13.5152C6.62712 13.4448 6.66663 13.3495 6.66663 13.25V12.5C6.66663 12.4005 6.62712 12.3052 6.55679 12.2348C6.48646 12.1645 6.39108 12.125 6.29163 12.125ZM4.04163 12.875C3.94217 12.875 3.84679 12.9145 3.77646 12.9848C3.70613 13.0552 3.66663 13.1505 3.66663 13.25V14C3.66663 14.0995 3.70613 14.1948 3.77646 14.2652C3.84679 14.3355 3.94217 14.375 4.04163 14.375C4.14108 14.375 4.23647 14.3355 4.30679 14.2652C4.37712 14.1948 4.41663 14.0995 4.41663 14V13.25C4.41663 13.1505 4.37712 13.0552 4.30679 12.9848C4.23647 12.9145 4.14108 12.875 4.04163 12.875Z"
+                                                              fill="#575B6F"/>
+                                                    </svg>
+                                                </div>
+                                                <div class="text-[#575b6f] text-xs font-normal font-['IBM Plex Sans Thai']">{{ related.bathrooms }}
+                                                    ห้องน้ำ
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="justify-start items-center gap-2 inline-flex">
+                                            <div class="px-2 py-0.5 bg-[#faf9f6] rounded-md border border-[#d0d8ef] justify-center items-center gap-1.5 flex">
+                                                <div class="text-[#575b6f] text-xs font-normal font-['IBM Plex Sans Thai']">
+                                                    เลี้ยงสัตว์ได้
+                                                </div>
+                                            </div>
+                                            <div class="px-2 py-0.5 bg-[#faf9f6] rounded-md border border-[#d0d8ef] justify-center items-center gap-1.5 flex">
+                                                <div class="text-[#575b6f] text-xs font-normal font-['IBM Plex Sans Thai']">
+                                                    ใกล้อีสวิวล์
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="self-stretch justify-start items-center gap-2 inline-flex">
+                                        <div class="grow shrink basis-0 text-[#2DAB6F] text-[32px] font-bold font-['IBM Plex Sans Thai']">
+                                            {{ related.price|intcomma }}</div>
+                                        <div class="text-[#2DAB6F] text-[32px] font-bold font-['IBM Plex Sans Thai']">
+                                            บาท{% if related.transaction_type == "rent" %}/ด.{% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                </svg>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
-<script>
-document.querySelectorAll(".tab-info-btn").forEach(button => {
-  button.addEventListener("click", function() {
-      // Remove active styles from all buttons
-      document.querySelectorAll(".tab-info-btn").forEach(btn => {
-          btn.classList.remove("border-b-2", "border-[#2162d0]");
-      });
+    <script>
+        document.querySelectorAll(".tab-info-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                // Remove active styles from all buttons
+                document.querySelectorAll(".tab-info-btn").forEach(btn => {
+                    btn.classList.remove("border-b-2", "border-[#2162d0]");
+                });
 
-      // Add active style to clicked button
-      this.classList.add("border-b-2", "border-[#2162d0]");
+                // Add active style to clicked button
+                this.classList.add("border-b-2", "border-[#2162d0]");
 
-      // Get the selected tab
-      let selectedTab = this.getAttribute("data-tab");
+                // Get the selected tab
+                let selectedTab = this.getAttribute("data-tab");
 
-      // Hide all tab contents
-      document.querySelectorAll(".tab-content").forEach(content => {
-          content.classList.add("hidden");
-      });
+                // Hide all tab contents
+                document.querySelectorAll(".tab-content").forEach(content => {
+                    content.classList.add("hidden");
+                });
 
-      // Show the selected tab content
-      document.querySelector(`[data-tab-content="${selectedTab}"]`).classList.remove("hidden");
-  });
-});
-
-document.querySelectorAll(".tab-nearby-btn").forEach(button => {
-    button.addEventListener("click", function() {
-        document.querySelectorAll(".tab-nearby-btn").forEach(btn => {
-            btn.classList.remove("border-b-2", "border-[#575B6F]");
+                // Show the selected tab content
+                document.querySelector(`[data-tab-content="${selectedTab}"]`).classList.remove("hidden");
+            });
         });
-        this.classList.add("border-b-2", "border-[#575B6F]");
-    });
-});
 
-</script>
+        document.querySelectorAll(".tab-nearby-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                document.querySelectorAll(".tab-nearby-btn").forEach(btn => {
+                    btn.classList.remove("border-b-2", "border-[#575B6F]");
+                });
+                this.classList.add("border-b-2", "border-[#575B6F]");
+            });
+        });
+        
+    function flipCard(button, infoId) {
+        const info = document.getElementById(infoId);
+        const front = button.querySelector('.flip-card-front');
+        
+        if (info.classList.contains('hidden')) {
+            // Flip to show info
+            front.classList.add('hidden');
+            info.classList.remove('hidden');
+        } else {
+            // Flip to show front
+            front.classList.remove('hidden');
+            info.classList.add('hidden');
+        }
+    }
+        
+    function toggleBookmark(button) {
+        const icon = button.querySelector('#bookmark-icon');
+        const ring = button.querySelector('span');
+        const isBooked = icon.src.includes('booked.svg');
+        
+        // Toggle the image source
+        icon.src = isBooked ? "{% static 'property-detail/bookmark.svg' %}" : "{% static 'property-detail/booked.svg' %}";
+    
+        // Add animation
+        ring.classList.add('ring-animate');
+        setTimeout(() => {
+            ring.classList.remove('ring-animate');
+        }, 300);
+    }
+
+        
+    </script>
+    
+    <style>
+    
+    @keyframes ring-pop {
+        0% { transform: scale(0.5); opacity: 0.5; }
+        50% { transform: scale(1.1); opacity: 0.8; }
+        100% { transform: scale(1); opacity: 0; }
+    }
+    
+    .ring-animate {
+        animation: ring-pop 0.3s ease-out;
+    }
+
+    </style>
 
 {% endblock %}

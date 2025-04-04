@@ -1,0 +1,590 @@
+{% load static %}
+
+<form id="filter-form" action="/properties/" method="GET" onsubmit="return false;">
+    
+<div id="filter" class="h-screen sticky top-[178px] flex-col justify-start items-start inline-flex w-full">
+    <input type="hidden" name="sort" value="{{ request.GET.sort|default:'latest' }}">
+    <div class="self-stretch px-3 py-4 border-b-2 border-[#d0d8ef] justify-between items-center inline-flex">
+        <div class="justify-start items-center gap-2 flex">
+            <img src="{% static 'property-listing/filter.svg' %}" alt="Filter" class="w-5 h-5">
+            <div class="text-[#575b6f] text-lg font-medium font-['IBM Plex Sans Thai']">ตัวกรอง</div>
+        </div>
+    </div>
+    <div class="self-stretch h-auto px-[30px] py-5 border-b-2 border-[#d0d8ef] flex-col justify-start items-start gap-6 flex">
+        <div class="self-stretch justify-between items-center inline-flex">
+            <div class="justify-start items-center gap-4 flex">
+                <div data-svg-wrapper class="relative">
+                    <img src="{% static 'property-listing/apply.svg' %}" alt="Filter">
+                </div>
+                <div class="text-[#575b6f] text-[22px] text-lg font-['IBM Plex Sans Thai']">ตัวกรองที่ใส่แล้ว</div>
+            </div>
+            <div id="clear-all-filters" class="justify-start items-center gap-2 flex cursor-pointer">
+                <div class="text-[#575b6f] text-[22px] text-lg font-['IBM Plex Sans Thai']">ล้าง</div>
+                <img src="{% static 'property-listing/x.svg' %}" alt="Delete">
+            </div>
+        </div>
+        <div id="selected-filters-container" class="justify-start items-center gap-4 inline-flex flex-wrap">
+            <!-- Selected filters will be added here -->
+            <div id="no-filters-message" class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">
+                ไม่มีตัวกรองที่เลือก
+            </div>
+        </div>
+    </div>
+    <div class="self-stretch h-auto px-[30px] py-5 border-b-2 border-[#d0d8ef] flex-col justify-start items-start gap-6 flex w-full">
+        <div class="self-stretch justify-between items-center inline-flex">
+            <div class="text-[#575b6f] text-[22px] text-lg font-['IBM Plex Sans Thai']">ตัวกรองพื้นฐาน</div>
+        </div>
+        
+        <div id="basic-filter" class="w-full">
+            <!-- type -->
+            <div class="flex-col justify-start items-start gap-2 flex">
+                <div class="text-[#575b6f] text-base font-bold font-['IBM Plex Sans Thai']">ประเภทของอสังหา</div>
+                <div class="justify-start items-center gap-2 flex flex-wrap">
+                    <button type="button" 
+                            class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
+                            data-selected="false"
+                            data-filter-type="property_type" 
+                            data-filter-value="House"
+                            data-filter-label="บ้านเดี่ยว">
+                        <div class="text-base font-normal font-['IBM Plex Sans Thai']">บ้านเดี่ยว</div>
+                    </button>
+                    <button type="button" 
+                            class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
+                            data-selected="false"
+                            data-filter-type="property_type" 
+                            data-filter-value="Town-Home"
+                            data-filter-label="ทาวน์เฮ้าส์">
+                        <div class="text-base font-normal font-['IBM Plex Sans Thai']">ทาวน์เฮ้าส์</div>
+                    </button>
+                    <button type="button" 
+                            class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
+                            data-selected="false"
+                            data-filter-type="property_type" 
+                            data-filter-value="Condo"
+                            data-filter-label="คอนโด">
+                        <div class="text-base font-normal font-['IBM Plex Sans Thai']">คอนโด</div>
+                    </button>
+                    <button type="button" 
+                            class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
+                            data-selected="false"
+                            data-filter-type="property_type" 
+                            data-filter-value="Apartment"
+                            data-filter-label="อพาร์ทเมนท์">
+                        <div class="text-base font-normal font-['IBM Plex Sans Thai']">อพาร์ทเมนท์</div>
+                    </button>
+                    <button type="button" 
+                            class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
+                            data-selected="false"
+                            data-filter-type="property_type" 
+                            data-filter-value="Home-Office"
+                            data-filter-label="โฮมออฟฟิศ">
+                        <div class="text-base font-normal font-['IBM Plex Sans Thai']">โฮมออฟฟิศ</div>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Price Range Filter -->
+            <div class="self-stretch h-auto flex-col justify-start items-start gap-2 flex mt-4">
+                <div class="text-[#575b6f] text-base font-bold font-['IBM Plex Sans Thai']">ช่วงราคาขาย</div>
+                <div class="self-stretch justify-start items-center gap-4 inline-flex">
+                    <div class="grow shrink basis-0 h-[46px] p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <input type="number" 
+                               id="price-min" 
+                               name="price_min" 
+                               placeholder="min" 
+                               class="w-full text-center bg-transparent outline-none text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']"
+                               min="0"
+                               value="0">
+                    </div>
+                    <div class="grow shrink basis-0 h-[46px] p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <input type="number" 
+                               id="price-max" 
+                               name="price_max" 
+                               placeholder="max" 
+                               class="w-full text-center bg-transparent outline-none text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']"
+                               min="0"
+                               value="10000000">
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="self-stretch h-auto px-[30px] py-5 border-b-2 border-[#d0d8ef] flex-col justify-start items-start gap-6 flex">
+        <div class="self-stretch justify-between items-center inline-flex">
+            <div class="text-[#575b6f] text-[22px] text-lg font-['IBM Plex Sans Thai']">ลักษณะบ้าน</div>
+        </div>
+        <div id="charac-filter" class="w-full">
+        <div class="self-stretch h-auto flex-col justify-start items-start gap-2 flex">
+            <div class="text-[#575b6f] text-base font-bold font-['IBM Plex Sans Thai']">จำนวนห้องนอน</div>
+            <div class="self-stretch justify-start items-center gap-4 flex flex-wrap">
+                <button type="button" 
+                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
+                        data-selected="false"
+                        data-filter-type="bedrooms" 
+                        data-filter-value="1"
+                        data-filter-label="1 ห้องนอน">
+                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">1 ห้องนอน</div>
+                </button>
+                <button type="button" 
+                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
+                        data-selected="false"
+                        data-filter-type="bedrooms" 
+                        data-filter-value="2"
+                        data-filter-label="2 ห้องนอน">
+                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">2 ห้องนอน</div>
+                </button>
+                <button type="button" 
+                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
+                        data-selected="false"
+                        data-filter-type="bedrooms" 
+                        data-filter-value="3"
+                        data-filter-label="3 ห้องนอน">
+                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">3 ห้องนอน</div>
+                </button>
+                <button type="button" 
+                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
+                        data-selected="false"
+                        data-filter-type="bedrooms" 
+                        data-filter-value="4"
+                        data-filter-label="4 ห้องนอน">
+                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">4 ห้องนอน</div>
+                </button>
+                <button type="button" 
+                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
+                        data-selected="false"
+                        data-filter-type="bedrooms" 
+                        data-filter-value="more_than_4"
+                        data-filter-label="มากกว่า 5 ห้องนอน">
+                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">มากกว่า 4 ห้องนอน</div>
+                </button>
+            </div>
+        </div>
+        <div class="self-stretch h-auto flex-col justify-start items-start gap-2 flex mt-4">
+            <div class="text-[#575b6f] text-base font-bold font-['IBM Plex Sans Thai']">จำนวนห้องน้ำ</div>
+            <div class="self-stretch justify-start items-center gap-4 flex flex-wrap">
+                <button type="button" 
+                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
+                        data-selected="false"
+                        data-filter-type="bathrooms" 
+                        data-filter-value="1"
+                        data-filter-label="1 ห้องน้ำ">
+                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">1 ห้องน้ำ</div>
+                </button>
+                <button type="button" 
+                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
+                        data-selected="false"
+                        data-filter-type="bathrooms" 
+                        data-filter-value="2"
+                        data-filter-label="2 ห้องน้ำ">
+                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">2 ห้องน้ำ</div>
+                </button>
+                <button type="button" 
+                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
+                        data-selected="false"
+                        data-filter-type="bathrooms" 
+                        data-filter-value="3"
+                        data-filter-label="3 ห้องน้ำ">
+                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">3 ห้องน้ำ</div>
+                </button>
+                <button type="button" 
+                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
+                        data-selected="false"
+                        data-filter-type="bathrooms" 
+                        data-filter-value="4"
+                        data-filter-label="4 ห้องน้ำ">
+                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">4 ห้องน้ำ</div>
+                </button>
+                <button type="button" 
+                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
+                        data-selected="false"
+                        data-filter-type="bathrooms" 
+                        data-filter-value="5"
+                        data-filter-label="5 ห้องน้ำ">
+                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">5 ห้องน้ำ</div>
+                </button>
+                <button type="button" 
+                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
+                        data-selected="false"
+                        data-filter-type="bathrooms" 
+                        data-filter-value="more_than_5"
+                        data-filter-label="มากกว่า 5 ห้องน้ำ">
+                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">มากกว่า 5 ห้องน้ำ</div>
+                </button>
+            </div>
+        </div>
+        <div class="self-stretch h-auto flex-col justify-start items-start gap-2 flex mt-4">
+            <div class="text-[#575b6f] text-base font-bold font-['IBM Plex Sans Thai']">จำนวนที่จอดรถ</div>
+            <div class="self-stretch justify-start items-center gap-4 flex flex-wrap">
+                <button type="button" 
+                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
+                        data-selected="false"
+                        data-filter-type="parking" 
+                        data-filter-value="1"
+                        data-filter-label="1 คัน">
+                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">1 คัน</div>
+                </button>
+                <button type="button" 
+                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
+                        data-selected="false"
+                        data-filter-type="parking" 
+                        data-filter-value="2"
+                        data-filter-label="2 คัน">
+                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">2 คัน</div>
+                </button>
+                <button type="button" 
+                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
+                        data-selected="false"
+                        data-filter-type="parking" 
+                        data-filter-value="3"
+                        data-filter-label="3 คัน">
+                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">3 คัน</div>
+                </button>
+                <button type="button" 
+                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
+                        data-selected="false"
+                        data-filter-type="parking" 
+                        data-filter-value="4"
+                        data-filter-label="4 คัน">
+                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">4 คัน</div>
+                </button>
+                <button type="button" 
+                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
+                        data-selected="false"
+                        data-filter-type="parking" 
+                        data-filter-value="5"
+                        data-filter-label="4 คันขึ้นไป">
+                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">4 คันขึ้นไป</div>
+                </button>
+            </div>
+        </div>
+        <div class="self-stretch h-auto flex-col justify-start items-start gap-2 flex mt-4">
+            <div class="text-[#575b6f] text-base font-bold font-['IBM Plex Sans Thai']">ขนาดพื้นที่ใช้สอย (ตารางวา)</div>
+            <div class="self-stretch justify-start items-center gap-4 inline-flex w-full">
+                <div class="grow shrink basis-0 h-[46px] p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                    <input type="number" 
+                           id="area-min" 
+                           name="area_min" 
+                           placeholder="min" 
+                           class="w-full text-center bg-transparent outline-none text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']"
+                           min="0"
+                           value="0">
+                </div>
+                <div class="grow shrink basis-0 h-[46px] p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                    <input type="number" 
+                           id="area-max" 
+                           name="area_max" 
+                           placeholder="max" 
+                           class="w-full text-center bg-transparent outline-none text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']"
+                           min="0"
+                           value="10000">
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    
+    <div class="sticky bottom-0 left-0 w-full bg-white border-t border-[#d0d8ef] p-3">
+        <button id="submit-filter" type="button" class="w-full py-3 bg-[#2162d0] hover:bg-[#1a4fb8] text-white font-medium rounded-lg flex items-center justify-center transition-colors duration-200">
+            <img src="{% static 'property-listing/filter.svg' %}" alt="Filter" class="w-5 h-5 mr-2 filter invert">
+            <span class="text-base font-['IBM Plex Sans Thai']">กรอง</span>
+        </button>
+    </div>
+</div>
+    
+</form>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.filter-toggle-btn');
+    const selectedFiltersContainer = document.getElementById('selected-filters-container');
+    const clearAllButton = document.getElementById('clear-all-filters');
+    const priceMinInput = document.getElementById('price-min');
+    const priceMaxInput = document.getElementById('price-max');
+    const areaMinInput = document.getElementById('area-min');
+    const areaMaxInput = document.getElementById('area-max');
+    
+    filterButtons.forEach(button => {
+        updateButtonStyle(button);
+    });
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const isSelected = this.getAttribute('data-selected') === 'true';
+            this.setAttribute('data-selected', !isSelected);
+            
+            updateButtonStyle(this);
+            updateSelectedFiltersDisplay();
+        });
+    });
+    
+    function updateButtonStyle(button) {
+        const isSelected = button.getAttribute('data-selected') === 'true';
+        const textDiv = button.querySelector('div');
+        
+        if (isSelected) {
+            button.classList.add('bg-[#2162d0]');
+            button.classList.remove('bg-[#faf9f6]');
+            textDiv.classList.add('text-[#faf9f6]');
+            textDiv.classList.remove('text-[#575b6f]');
+        } else {
+            button.classList.remove('bg-[#2162d0]');
+            button.classList.add('bg-[#faf9f6]', 'border', 'border-[#d0d8ef]');
+            textDiv.classList.remove('text-[#faf9f6]');
+            textDiv.classList.add('text-[#575b6f]');
+        }
+    }
+    
+    function updateSelectedFiltersDisplay() {
+        selectedFiltersContainer.innerHTML = '';
+        let hasFilters = false;
+        
+        filterButtons.forEach(button => {
+            const isSelected = button.getAttribute('data-selected') === 'true';
+            if (isSelected) {
+                hasFilters = true;
+                const filterType = button.getAttribute('data-filter-type');
+                const filterValue = button.getAttribute('data-filter-value');
+                const filterLabel = button.getAttribute('data-filter-label');
+                
+                const filterTag = document.createElement('div');
+                filterTag.className = 'p-2.5 bg-[#2162d0] rounded-[10px] justify-center items-center gap-2 flex';
+                filterTag.dataset.filterType = filterType;
+                filterTag.dataset.filterValue = filterValue;
+                
+                const label = document.createElement('div');
+                label.className = 'text-[#faf9f6] text-base font-normal font-[\'IBM Plex Sans Thai\']';
+                label.textContent = filterLabel;
+                
+                const removeBtn = document.createElement('img');
+                removeBtn.src = "{% static 'property-listing/x-white.svg' %}";
+                removeBtn.alt = "Delete";
+                removeBtn.className = 'cursor-pointer';
+                
+                removeBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    
+                    const targetButton = document.querySelector(`.filter-toggle-btn[data-filter-type="${filterType}"][data-filter-value="${filterValue}"]`);
+                    if (targetButton) {
+                        targetButton.setAttribute('data-selected', 'false');
+                        updateButtonStyle(targetButton);
+                    }
+                    
+                    filterTag.remove();
+                    checkNoFilters();
+                    updateFiltersObject();
+                });
+                
+                filterTag.appendChild(label);
+                filterTag.appendChild(removeBtn);
+                
+                selectedFiltersContainer.appendChild(filterTag);
+            }
+        });
+        
+        checkNoFilters();
+    }
+    
+    function checkNoFilters() {
+        const noFiltersMessage = document.getElementById('no-filters-message') || 
+                               document.createElement('div');
+        
+        if (!noFiltersMessage.id) {
+            noFiltersMessage.id = 'no-filters-message';
+            noFiltersMessage.className = 'text-[#575b6f] text-base font-normal font-[\'IBM Plex Sans Thai\']';
+            noFiltersMessage.textContent = 'ไม่มีตัวกรองที่เลือก';
+        }
+        
+        const hasActiveFilters = document.querySelectorAll('.filter-toggle-btn[data-selected="true"]').length > 0 ||
+                               (priceMinInput.value && priceMinInput.value !== '0') ||
+                               (priceMaxInput.value && priceMaxInput.value !== '10000000') ||
+                               (areaMinInput.value && areaMinInput.value !== '0') ||
+                               (areaMaxInput.value && areaMaxInput.value !== '10000');
+        
+        if (!hasActiveFilters) {
+            if (!document.getElementById('no-filters-message')) {
+                selectedFiltersContainer.appendChild(noFiltersMessage);
+            }
+        } else {
+            if (noFiltersMessage.parentNode) {
+                noFiltersMessage.parentNode.removeChild(noFiltersMessage);
+            }
+        }
+    }
+    
+    function updateFiltersObject() {
+        const selectedFilters = {};
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        // Get the current sort value from URL
+        const sortValue = urlParams.get('sort') || 'latest';
+        selectedFilters['sort'] = sortValue;
+    
+        filterButtons.forEach(button => {
+            const isSelected = button.getAttribute('data-selected') === 'true';
+            if (isSelected) {
+                const filterType = button.getAttribute('data-filter-type');
+                const filterValue = button.getAttribute('data-filter-value');
+                
+                if (!selectedFilters[filterType]) {
+                    selectedFilters[filterType] = [];
+                }
+                
+                selectedFilters[filterType].push(filterValue);
+            }
+        });
+        
+        if (priceMinInput.value && priceMinInput.value !== '0') {
+            selectedFilters['price_min'] = priceMinInput.value;
+        }
+        if (priceMaxInput.value && priceMaxInput.value !== '10000000') {
+            selectedFilters['price_max'] = priceMaxInput.value;
+        }
+        
+        if (areaMinInput.value && areaMinInput.value !== '0') {
+            selectedFilters['area_min'] = areaMinInput.value;
+        }
+        if (areaMaxInput.value && areaMaxInput.value !== '10000') {
+            selectedFilters['area_max'] = areaMaxInput.value;
+        }
+        
+        window.selectedFilters = selectedFilters;
+        
+        return selectedFilters;
+    }
+    
+    clearAllButton.addEventListener('click', function() {
+        filterButtons.forEach(button => {
+            button.setAttribute('data-selected', 'false');
+            updateButtonStyle(button);
+        });
+
+        priceMinInput.value = '0';
+        priceMaxInput.value = '10000000';
+        areaMinInput.value = '0';
+        areaMaxInput.value = '10000';
+
+        selectedFiltersContainer.innerHTML = '';
+        checkNoFilters();
+        window.location.href = window.location.pathname;
+    });
+    
+    document.getElementById('submit-filter').addEventListener('click', function() {
+        const selectedFilters = updateFiltersObject();
+        const params = new URLSearchParams();
+        
+        params.set('page', '1');
+        
+        for (const [key, value] of Object.entries(selectedFilters)) {
+            if (Array.isArray(value)) {
+                value.forEach(val => params.append(key, val));
+            } else if (value !== '' && value !== '0') {
+                params.set(key, value);
+            }
+        }
+    
+        const baseUrl = window.location.pathname;
+        window.location.href = `${baseUrl}?${params.toString()}`;
+    });
+    
+    function initializeFiltersFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        const propertyTypes = urlParams.getAll('property_type');
+        propertyTypes.forEach(type => {
+            const button = document.querySelector(`.filter-toggle-btn[data-filter-type="property_type"][data-filter-value="${type}"]`);
+            if (button) {
+                button.setAttribute('data-selected', 'true');
+                updateButtonStyle(button);
+            }
+        });
+        
+        const bedrooms = urlParams.getAll('bedrooms');
+        bedrooms.forEach(bed => {
+            const button = document.querySelector(`.filter-toggle-btn[data-filter-type="bedrooms"][data-filter-value="${bed}"]`);
+            if (button) {
+                button.setAttribute('data-selected', 'true');
+                updateButtonStyle(button);
+            }
+        });
+        
+        const bathrooms = urlParams.getAll('bathrooms');
+        bathrooms.forEach(bath => {
+            const button = document.querySelector(`.filter-toggle-btn[data-filter-type="bathrooms"][data-filter-value="${bath}"]`);
+            if (button) {
+                button.setAttribute('data-selected', 'true');
+                updateButtonStyle(button);
+            }
+        });
+        
+        const parkings = urlParams.getAll('parking');
+        parkings.forEach(park => {
+            const button = document.querySelector(`.filter-toggle-btn[data-filter-type="parking"][data-filter-value="${park}"]`);
+            if (button) {
+                button.setAttribute('data-selected', 'true');
+                updateButtonStyle(button);
+            }
+        });
+        
+        const priceMin = urlParams.get('price_min');
+        if (priceMin) {
+            priceMinInput.value = priceMin;
+        }
+        
+        const priceMax = urlParams.get('price_max');
+        if (priceMax) {
+            priceMaxInput.value = priceMax;
+        }
+
+        const areaMin = urlParams.get('area_min');
+        if (areaMin) {
+            areaMinInput.value = areaMin;
+        }
+        
+        const areaMax = urlParams.get('area_max');
+        if (areaMax) {
+            areaMaxInput.value = areaMax;
+        }
+        
+        updateSelectedFiltersDisplay();
+        checkNoFilters();
+    }
+    
+    initializeFiltersFromUrl();
+
+    document.getElementById('submit-filter').addEventListener('click', function() {
+        const sortValue = new URLSearchParams(window.location.search).get('sort') || 'latest';
+        const selectedFilters = updateFiltersObject();
+        const params = new URLSearchParams();
+        
+        for (const [key, value] of Object.entries(selectedFilters)) {
+            if (Array.isArray(value)) {
+                value.forEach(val => params.append(key, val));
+            } else if (value !== '' && value !== '0') {
+                params.set(key, value);
+            }
+        }
+            
+        if (!this.querySelector('input[name="sort"]')) {
+            const sortInput = document.createElement('input');
+            sortInput.type = 'hidden';
+            sortInput.name = 'sort';
+            sortInput.value = sortValue;
+            this.appendChild(sortInput);
+        }
+
+        for (const [key, value] of Object.entries(selectedFilters)) {
+            if (Array.isArray(value)) {
+                value.forEach(val => params.append(key, val));
+            } else if (value !== '' && value !== '0') {
+                params.append(key, value);
+            }
+        }
+
+        const baseUrl = window.location.pathname;
+        window.location.href = `${baseUrl}?${params.toString()}`;
+    });
+    
+    updateSelectedFiltersDisplay();
+});
+</script>

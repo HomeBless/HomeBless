@@ -1,52 +1,40 @@
+import datetime
 from django import forms
-from django.core.exceptions import ValidationError
-from ..models import (
-    Property, PropertyType, HomeFeature,
-    PropertyCondition, View as PropertyView, Warranty
-)
+from ..models import Property
 
-class SellForm(forms.ModelForm):
+
+class PropertyForm(forms.ModelForm):
     class Meta:
         model = Property
-        fields = [
-            'title', 'description', 'property_type', 'transaction_type',
-            'price', 'location', 'latitude', 'longitude',
-            'bedrooms', 'bathrooms', 'floors', 'garages', 'area', 'construct_year',
-            'decoration', 'flooring', 'wall_type', 'ceiling_type',
-            'home_features', 'conditions', 'views', 'warranties',
-        ]
+        exclude = ['user']
 
-        widgets = {
-            'transaction_type': forms.RadioSelect,
-            'property_type': forms.RadioSelect,
-            'decoration': forms.CheckboxSelectMultiple,
-            'flooring': forms.CheckboxSelectMultiple,
-            'wall_type': forms.CheckboxSelectMultiple,
-            'ceiling_type': forms.CheckboxSelectMultiple,
-            'home_features': forms.CheckboxSelectMultiple,
-            'conditions': forms.CheckboxSelectMultiple,
-            'views': forms.CheckboxSelectMultiple,
-            'warranties': forms.CheckboxSelectMultiple,
-        }
+    def clean_price(self):
+        price = self.cleaned_data.get('price')
+        if price is not None and price <= 0:
+            raise forms.ValidationError("Price must be greater than zero.")
+        return price
+
+    def clean_area(self):
+        area = self.cleaned_data.get('area')
+        if area is not None and area <= 0:
+            raise forms.ValidationError("Area must be greater than zero.")
+        return area
+
+    def clean_construct_year(self):
+        year = self.cleaned_data.get('construct_year')
+        current_year = datetime.datetime.now().year + 543
+        if year and (year < 2000 or year > current_year):
+            raise forms.ValidationError(f"Construction year must be between 1900 and {current_year}.")
+        return year
 
     def clean(self):
         cleaned_data = super().clean()
 
-        title = cleaned_data.get('title')
-        price = cleaned_data.get('price')
-        area = cleaned_data.get('area')
-        location = cleaned_data.get('location')
+        bedrooms = cleaned_data.get('bedrooms')
+        bathrooms = cleaned_data.get('bathrooms')
 
-        if not title:
-            self.add_error('title', 'กรุณาระบุหัวข้อประกาศ')
+        if bedrooms is not None and bedrooms < 0:
+            self.add_error('bedrooms', "Bedrooms cannot be negative.")
 
-        if price is not None and price <= 0:
-            self.add_error('price', 'ราคาต้องมากกว่า 0')
-
-        if area is not None and area <= 0:
-            self.add_error('area', 'พื้นที่ต้องมากกว่า 0')
-
-        if not location:
-            self.add_error('location', 'กรุณาระบุทำเลที่ตั้ง')
-
-        return cleaned_data
+        if bathrooms is not None and bathrooms < 0:
+            self.add_error('bathrooms', "Bathrooms cannot be negative.")

@@ -1,5 +1,5 @@
 from django.db import models
-from .seller import Seller
+from django.contrib.auth.models import User
 from .property_type import PropertyType
 from .decoration import Decoration
 from .flooring import Flooring
@@ -21,13 +21,18 @@ class Property(models.Model):
         ('buy', 'For Sale'),
         ('rent', 'For Rent')
     ]
+    SELLER_STATUS_CHOICES = [
+        ('owner', 'Owner'),
+        ('agent', 'Agent')
+    ]
 
-    seller = models.ForeignKey(Seller, on_delete=models.CASCADE, related_name="properties")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="properties")
     title = models.CharField(max_length=255)
     description = models.TextField()
+    seller_status = models.CharField(max_length=10, choices=SELLER_STATUS_CHOICES, default='owner')
     property_type = models.ForeignKey(PropertyType, on_delete=models.SET_NULL, null=True, blank=True)
-    transaction_type = models.CharField(max_length=10, choices=SELLING_TYPE_CHOICES, default='buy')
-    price = models.FloatField(blank=False, null=False)
+    selling_type = models.CharField(max_length=10, choices=SELLING_TYPE_CHOICES, default='buy')
+    price = models.FloatField(blank=True, null=True)
     location = models.CharField(max_length=255)
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
@@ -38,7 +43,8 @@ class Property(models.Model):
     area = models.FloatField(help_text="Area in square wa")
     is_available = models.BooleanField(default=True)
     construct_year = models.IntegerField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+
 
     # Decoration & Materials
     decoration = models.ManyToManyField(Decoration, blank=True)
@@ -52,7 +58,6 @@ class Property(models.Model):
     common_area = models.ManyToManyField(CommonArea, blank=True)
     travelling = models.ManyToManyField(Travelling, blank=True)
     facilities = models.ManyToManyField(Facility, blank=True)
-
 
     # Additional Property Conditions
     conditions = models.ManyToManyField(PropertyCondition, blank=True)
