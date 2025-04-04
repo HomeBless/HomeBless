@@ -1,5 +1,7 @@
 import datetime
+
 from django import forms
+
 from ..models import Property
 
 
@@ -24,7 +26,9 @@ class PropertyForm(forms.ModelForm):
         year = self.cleaned_data.get('construct_year')
         current_year = datetime.datetime.now().year + 543
         if year and (year < 2000 or year > current_year):
-            raise forms.ValidationError(f"Construction year must be between 1900 and {current_year}.")
+            raise forms.ValidationError(
+                f"Construction year must be between 1900 and {current_year}."
+            )
         return year
 
     def clean(self):

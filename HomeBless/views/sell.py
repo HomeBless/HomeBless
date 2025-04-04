@@ -1,11 +1,15 @@
-from django.utils.decorators import method_decorator
+import logging
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
+from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
 from mysite import settings
+
 from ..forms import PropertyForm
 from ..models import PropertyImage
+
+logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name='dispatch')
@@ -14,11 +18,11 @@ class Sell(TemplateView):
 
     def get(self, request, *args, **kwargs):
         form = PropertyForm()
-        return render(request, self.template_name, {
-            'form': form,
-            'google_maps_api_key': settings.GOOGLE_MAPS_API_KEY
-        })
-
+        return render(
+            request,
+            self.template_name,
+            {'form': form, 'google_maps_api_key': settings.GOOGLE_MAPS_API_KEY},
+        )
 
     def post(self, request, *args, **kwargs):
         form = PropertyForm(request.POST, request.FILES)
@@ -27,10 +31,15 @@ class Sell(TemplateView):
             property_obj = form.save(commit=False)
 
             if not request.user.is_authenticated:
-                return render(request, self.template_name, {
-                    'form': form,
-                    'error': "You must be logged in to list a property."
-                })
+                logger.warning("Unauthenticated user tried to post property.")
+                return render(
+                    request,
+                    self.template_name,
+                    {
+                        'form': form,
+                        'error': "You must be logged in to list a property.",
+                    },
+                )
 
             property_obj.latitude = request.POST.get('latitude')
             property_obj.longitude = request.POST.get('longitude')
@@ -41,23 +50,22 @@ class Sell(TemplateView):
             image_files = request.FILES.getlist('images[]')
             cover_index = int(request.POST.get('cover_image_index', 0))
 
-            print("FILES:", request.FILES)
-            print("IMAGES[]:", request.FILES.getlist("images[]"))
-            print("NEW PROPERTY ID:", property_obj.id)
             for i, image_file in enumerate(image_files):
-                print(i)
-                print(image_file)
-                prop_img = PropertyImage(
-                    property=property_obj,
-                    is_main=(i == cover_index)
-                )
-                prop_img.image.save(image_file.name, image_file)
-                prop_img.save()
-                print(f"Saved image: {prop_img.image.url}")
+                try:
+                    prop_img = PropertyImage(
+                        property=property_obj, is_main=(i == cover_index)
+                    )
+                    prop_img.image.save(image_file.name, image_file)
+                    prop_img.save()
+                    logger.debug(f"Saved image {i}: {prop_img.image.url}")
+                except Exception as e:
+                    logger.error(f"Error saving image {i}: {e}")
 
             return redirect('HomeBless:sell')
-        print(form.errors)
-        return render(request, self.template_name, {
-            'form': form,
-            'google_maps_api_key': settings.GOOGLE_MAPS_API_KEY
-        })
+
+        logger.error(f"Form invalid: {form.errors}")
+        return render(
+            request,
+            self.template_name,
+            {'form': form, 'google_maps_api_key': settings.GOOGLE_MAPS_API_KEY},
+        )

@@ -1,9 +1,11 @@
 from django.core.paginator import Paginator
-from django.views.generic import ListView
 from django.db.models import Q
+from django.views.generic import ListView
+
 from ..models import Property, PropertyType, Wishlist
 
 PROPERTY_PER_PAGE = 9
+
 
 class PropertyListing(ListView):
     model = Property
@@ -20,9 +22,9 @@ class PropertyListing(ListView):
         """Enhanced search across multiple relevant fields"""
         if search_query:
             return queryset.filter(
-                Q(title__icontains=search_query) |
-                Q(description__icontains=search_query) |
-                Q(location__icontains=search_query)
+                Q(title__icontains=search_query)
+                | Q(description__icontains=search_query)
+                | Q(location__icontains=search_query)
             )
         return queryset
 
@@ -42,7 +44,9 @@ class PropertyListing(ListView):
         """Filter properties by type"""
         if filters.get('property_type'):
             filter_criteria = filters.getlist('property_type')  # list [House, Condo]
-            filter_id = PropertyType.objects.filter(name__in=filter_criteria).values_list('id', flat=True)
+            filter_id = PropertyType.objects.filter(
+                name__in=filter_criteria
+            ).values_list('id', flat=True)
             queryset = queryset.filter(property_type__in=filter_id)
         return queryset
 
@@ -156,16 +160,20 @@ class PropertyListing(ListView):
             context['wishlist_properties'] = wishlist_properties
 
         for property in context['object_list']:
-            main_image = property.images.filter(is_main=True).first() or property.images.first()
+            main_image = (
+                property.images.filter(is_main=True).first() or property.images.first()
+            )
             property.main_image = main_image.image.url if main_image else None
 
-        context.update({
-            'current_sort': self.request.GET.get('sort', 'latest'),
-            'empty_message': 'ไม่พบคุณสมบัติบ้านที่ตรงตามเกณฑ์ของคุณ',
-            'user_is_authenticated': self.request.user.is_authenticated,
-            'search_query': self.request.GET.get('search', ''),
-            'current_listing_type': self.request.GET.get('listing_type', ''),
-        })
+        context.update(
+            {
+                'current_sort': self.request.GET.get('sort', 'latest'),
+                'empty_message': 'ไม่พบคุณสมบัติบ้านที่ตรงตามเกณฑ์ของคุณ',
+                'user_is_authenticated': self.request.user.is_authenticated,
+                'search_query': self.request.GET.get('search', ''),
+                'current_listing_type': self.request.GET.get('listing_type', ''),
+            }
+        )
 
         if 'page_obj' not in context:
             paginator = Paginator(self.get_queryset(), self.paginate_by)

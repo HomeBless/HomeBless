@@ -1,7 +1,11 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import TemplateView
+import logging
 from django.contrib.auth.mixins import LoginRequiredMixin
-from ..models import Property, PropertyType, PropertyImage
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views.generic import TemplateView
+
+from ..models import Property, PropertyImage, PropertyType
+
+logger = logging.getLogger(__name__)
 
 
 class PropertyManage(LoginRequiredMixin, TemplateView):
@@ -9,11 +13,16 @@ class PropertyManage(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['properties'] = Property.objects.filter(user=self.request.user)
+        user_properties = Property.objects.filter(user=self.request.user)
+        context['properties'] = user_properties
         context['property_types'] = PropertyType.objects.all()
+
+        # Get main images for current user's properties
         main_images = PropertyImage.objects.filter(
-            property__user=self.request.user,
-            is_main=True)
+            property__in=user_properties, is_main=True
+        )
+
+        # Convert to dict: {property_id: image}
         cover_images = {img.property_id: img for img in main_images}
         context['cover_images'] = cover_images
 
@@ -22,6 +31,9 @@ class PropertyManage(LoginRequiredMixin, TemplateView):
     def post(self, request, *args, **kwargs):
         property_id = request.POST.get('delete_property_id')
         if property_id:
-            property_instance = get_object_or_404(Property, id=property_id, user=request.user)
+            property_instance = get_object_or_404(
+                Property, id=property_id, user=request.user
+            )
+            logger.warning(f"User {request.user} deleted property {property_id}")
             property_instance.delete()
         return redirect('HomeBless:manage')
