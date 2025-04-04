@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.template import context
 from django.views.generic import TemplateView
-from ..models import Wishlist
+from ..models import Wishlist, PropertyImage
 
 
 class WishlistView(TemplateView):
@@ -18,16 +18,20 @@ class WishlistView(TemplateView):
         # Prepare additional data for each wishlist item
         wishlist_details = []
         for item in wishlist:
-            property = item.property
+            prop = item.property
+            main_image = PropertyImage.objects.filter(property=prop, is_main=True).first()
+            fallback_image = PropertyImage.objects.filter(property=prop).first()
+
             wishlist_details.append({
-                'id': property.id,
-                'picture': property.images.filter(is_main=True).first() or property.images.first(),
-                'title': property.title,
-                'price': property.price,
-                'floor': property.floors,
-                'bedrooms': property.bedrooms,
-                'bathrooms': property.bathrooms,
+                'id': prop.id,
+                'picture': main_image or fallback_image,
+                'title': prop.title,
+                'price': prop.price,
+                'floor': prop.floors,
+                'bedrooms': prop.bedrooms,
+                'bathrooms': prop.bathrooms,
             })
+
 
         context['wishlist_details'] = wishlist_details
 

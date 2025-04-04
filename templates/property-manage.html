@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load humanize %}
+{% load custom_tags %}
 
 {% block content %}
 
@@ -29,10 +30,22 @@
                 <div x-data="{ open: false }" class="self-stretch flex flex-col justify-start items-start gap-2">
                     <div class="self-stretch py-5 border-b border-slate-300 flex flex-col justify-start items-start gap-8">
                         <div class="self-stretch h-36 p-2.5 inline-flex justify-start items-center gap-4">
-                            <img class="w-36 self-stretch relative rounded-[10px]" src="https://placehold.co/142x121"/>
+                            {% with cover_image=cover_images|dict_get:property.id %}
+                                {% if cover_image %}
+                                    <img class="w-36 self-stretch relative rounded-[10px]"
+                                         src="{{ cover_image.image.url }}" alt="{{ property.title }}">
+                                {% else %}
+                                    <img class="w-36 self-stretch relative rounded-[10px]"
+                                         src="https://placehold.co/142x121" alt="No Image">
+                                {% endif %}
+                            {% endwith %}
                             <div class="flex-1 inline-flex flex-col justify-start items-start gap-4">
                                 <div class="self-stretch flex flex-col justify-start items-start gap-2">
-                                    <div class="self-stretch justify-start text-slate-600 text-base font-bold font-['IBM_Plex_Sans_Thai'] underline">{{ property.title }}</div>
+                                    <div class="self-stretch justify-start text-slate-600 text-base font-bold font-['IBM_Plex_Sans_Thai'] underline">
+                                        <a href="{% url 'HomeBless:property-detail' property.id %}"
+                                               class="text-slate-600 hover:text-blue-600 transition-colors duration-300">
+                                                {{ property.title }}
+                                            </a></div>
                                     <div class="self-stretch justify-start text-[#2DAB6F] text-base font-bold font-['IBM_Plex_Sans_Thai']">
                                         ฿{{ property.price }}</div>
                                 </div>
@@ -68,36 +81,41 @@
 
                             <!-- Delete Form -->
                             <div x-data="{ showConfirm: false }">
-    <!-- Delete Button -->
-    <button type="button" @click="showConfirm = true"
-        class="w-14 p-2.5 border-b border-blue-700 inline-flex flex-col justify-center items-center hover:bg-blue-100 hover:border-blue-900 transition duration-300 ease-in-out">
-        <div class="self-stretch text-center justify-start text-blue-700 text-base font-bold font-['IBM_Plex_Sans_Thai']">
-            ลบ
-        </div>
-    </button>
+                                <!-- Delete Button -->
+                                <button type="button" @click="showConfirm = true"
+                                        class="w-14 p-2.5 border-b border-blue-700 inline-flex flex-col justify-center items-center hover:bg-blue-100 hover:border-blue-900 transition duration-300 ease-in-out">
+                                    <div class="self-stretch text-center justify-start text-blue-700 text-base font-bold font-['IBM_Plex_Sans_Thai']">
+                                        ลบ
+                                    </div>
+                                </button>
 
-    <!-- Confirmation Modal -->
-    <div x-show="showConfirm" x-transition
-         class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-[100]"
-         x-cloak>
-        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-sm relative">
-            <div class="text-lg font-semibold text-gray-800 mb-4">ยืนยันการลบ</div>
-            <p class="text-gray-600 mb-6">คุณแน่ใจหรือไม่ว่าต้องการลบบ้านหลังนี้?</p>
+                                <!-- Confirmation Modal -->
+                                <div x-show="showConfirm" x-transition
+                                     class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-[100]"
+                                     x-cloak>
+                                    <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-sm relative">
+                                        <div class="text-lg font-semibold text-gray-800 mb-4">ยืนยันการลบ</div>
+                                        <p class="text-gray-600 mb-6">คุณแน่ใจหรือไม่ว่าต้องการลบบ้านหลังนี้?</p>
 
-            <div class="flex justify-end gap-3">
-                <button @click="showConfirm = false"
-                    class="px-4 py-2 text-gray-600 border rounded hover:bg-gray-100">ยกเลิก</button>
+                                        <div class="flex justify-end gap-3">
+                                            <button @click="showConfirm = false"
+                                                    class="px-4 py-2 text-gray-600 border rounded hover:bg-gray-100">
+                                                ยกเลิก
+                                            </button>
 
-                <form method="POST" action="{% url 'HomeBless:manage' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="delete_property_id" value="{{ property.id }}">
-                    <button type="submit"
-                        class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">ลบ</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+                                            <form method="POST" action="{% url 'HomeBless:manage' %}">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="delete_property_id"
+                                                       value="{{ property.id }}">
+                                                <button type="submit"
+                                                        class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+                                                    ลบ
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
