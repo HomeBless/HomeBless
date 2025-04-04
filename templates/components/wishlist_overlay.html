@@ -27,7 +27,7 @@
                         </div>
                         {% endif %}
                     </div>
-                    
+
                     <!-- Property Details -->
                     <div class="p-5">
                         <div class="flex justify-between items-start mb-3">
@@ -43,7 +43,7 @@
                                 </svg>
                                 ราคา: {{ property.price|floatformat:"0" }}฿
                             </p>
-                            
+
                             <!-- Area -->
                             <p class="text-gray-700 flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -51,7 +51,7 @@
                                 </svg>
                                 พื้นที่: {{ property.area }} ตารางวา
                             </p>
-                            
+
                             <!-- Location -->
                             <p class="text-gray-700 flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -60,7 +60,7 @@
                                 </svg>
                                 ที่ตั้ง: {{ property.location }}
                             </p>
-                            
+
                             <!-- Price per Area -->
                             <p class="text-gray-700 flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -69,7 +69,7 @@
                                 ราคาต่อตารางวา: {{ property.price_per_wa|floatformat:"2"|intcomma }}฿
                             </p>
                         </div>
-                        
+
                         <!-- Select Button -->
                         <button class="select-property w-full px-4 py-2.5 bg-blue-100 text-blue-600 rounded-lg text-sm font-medium hover:bg-blue-700 hover:text-white transition-colors"
                                 data-property-id="{{ property.id }}">
@@ -84,14 +84,14 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                     </svg>
                     <p class="mt-4 text-gray-500 text-lg">คุณยังไม่มีรายการในบุ๊คมาร์ก</p>
-                    <a href="{% url 'property_listing' %}" class="mt-4 inline-block px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors">
+                    <a href="{% url 'HomeBless:property-listing' %}" class="mt-4 inline-block px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors">
                         เริ่มค้นหาบ้าน
                     </a>
                 </div>
                 {% endfor %}
             </div>
         </div>
-        
+
         <div class="mt-6 flex justify-end gap-3">
             <button id="cancel-selection" class="px-5 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors font-medium">
                 ยกเลิก

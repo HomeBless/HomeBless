@@ -51,7 +51,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
 
@@ -138,11 +138,10 @@
         </div>
     </div>
 </div>
-    
+
 {% include "components/wishlist_overlay.html" %}
 
 <script>
-
 document.addEventListener('DOMContentLoaded', function() {
     const wishlistBox = document.getElementById('wishlistBox');
     const overlay = document.getElementById('wishlist-overlay');
@@ -150,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const cancelBtn = document.getElementById('cancel-selection');
     const confirmBtn = document.getElementById('confirm-selection');
     const selectButtons = document.querySelectorAll('.select-property');
-    
+
     let selectedPropertyId = null;
 
     if (wishlistBox) {
@@ -161,13 +160,12 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.classList.add('overflow-hidden');
         });
     }
-    
+
     function hideOverlay() {
         overlay.classList.remove('flex');
         overlay.classList.add('hidden');
         document.body.classList.remove('overflow-hidden');
         selectedPropertyId = null;
-        // Reset all select buttons
         selectButtons.forEach(btn => {
             btn.classList.remove('bg-blue-600', 'text-white');
             btn.classList.add('bg-blue-100', 'text-blue-600');
@@ -178,17 +176,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.addEventListener('click', function(e) {
         if (e.target.classList.contains('select-property') || e.target.closest('.select-property')) {
-            const button = e.target.classList.contains('select-property') ? 
+            const button = e.target.classList.contains('select-property') ?
                 e.target : e.target.closest('.select-property');
-            
+
             selectedPropertyId = button.getAttribute('data-property-id');
-            
+
             document.querySelectorAll('.select-property').forEach(btn => {
                 btn.classList.remove('bg-blue-600', 'text-white');
                 btn.classList.add('bg-blue-100', 'text-blue-600');
                 btn.textContent = 'เลือก';
             });
-            
+
             button.classList.remove('bg-blue-100', 'text-blue-600');
             button.classList.add('bg-blue-600', 'text-white');
             button.textContent = 'เลือกแล้ว';
@@ -196,34 +194,38 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    {#if (confirmBtn) {#}
-    {#    confirmBtn.addEventListener('click', function() {#}
-    {#        if (selectedPropertyId) {#}
-    {#            fetch('/compare/set-wishlist-property/', {#}
-    {#                method: 'POST',#}
-    {#                headers: {#}
-    {#                    'Content-Type': 'application/json',#}
-    {#                    'X-CSRFToken': '{{ csrf_token }}'#}
-    {#                },#}
-    {#                body: JSON.stringify({#}
-    {#                    property_id: selectedPropertyId#}
-    {#                })#}
-    {#            })#}
-    {#            .then(response => response.json())#}
-    {#            .then(data => {#}
-    {#                if (data.success) {#}
-    {#                    // Reload the page to show the selected property#}
-    {#                    window.location.reload();#}
-    {#                }#}
-    {#            });#}
-    {#        }#}
-    {#        hideOverlay();#}
-    {#    });#}
-    
+    if (confirmBtn) {
+        confirmBtn.addEventListener('click', function() {
+            if (selectedPropertyId) {
+                fetch('/compare/set-wishlist-property/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({
+                        property_id: selectedPropertyId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.reload();
+                    } else {
+                        alert('การบันทึกล้มเหลว');
+                    }
+                })
+                .catch(() => {
+                    alert('เกิดข้อผิดพลาดระหว่างการส่งคำขอ');
+                });
+            }
+            hideOverlay();
+        });
+    }
+
     if (closeBtn) closeBtn.addEventListener('click', hideOverlay);
     if (cancelBtn) cancelBtn.addEventListener('click', hideOverlay);
 });
-
 </script>
 
 {% endblock %}

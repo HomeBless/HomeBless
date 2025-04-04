@@ -10,4 +10,5 @@ urlpatterns = [
     path('property-detail/<int:pk>/', PropertyDetail.as_view(), name='property-detail'),
     path('sell/', Sell.as_view(), name='sell'),
     path('wishlist/', WishlistView.as_view(), name='wishlist'),
+    path('compare/set-wishlist-property/', Compare.set_wishlist_property, name='set_wishlist_property'),
 ]

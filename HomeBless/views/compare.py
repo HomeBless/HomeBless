@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from ..models.wishlist import Wishlist, Property
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+import json
 
 
 class Compare(TemplateView):
@@ -39,3 +42,20 @@ class Compare(TemplateView):
             ]
 
         return render(request, self.template_name, context)
+
+    @csrf_exempt
+    def set_wishlist_property(request):
+        if request.method == 'POST':
+            try:
+                data = json.loads(request.body)
+                property_id = data.get('property_id')
+
+                # Save property ID to session
+                request.session['wishlist_property_id'] = property_id
+                return JsonResponse({'success': True})
+            except Exception as e:
+                return JsonResponse({'success': False, 'error': str(e)},
+                                    status=400)
+
+        return JsonResponse(
+            {'success': False, 'error': 'Invalid request method'}, status=405)
