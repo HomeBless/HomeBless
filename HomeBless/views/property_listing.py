@@ -4,7 +4,7 @@ from django.db.models import Q
 from ..models import Property, PropertyType
 from ..models import Property, Wishlist
 
-PROPERTY_PER_PAGE = 20
+PROPERTY_PER_PAGE = 9
 
 
 class PropertyListing(ListView):
@@ -116,15 +116,17 @@ class PropertyListing(ListView):
         elif sort_option == 'price-desc':
             queryset = queryset.order_by('-price')
 
-        for property in queryset:
-            main_image = property.images.filter(is_main=True).first() or property.images.first()
-            property.main_image = main_image.image.url if main_image else None
-
         return queryset
 
     def get_context_data(self, **kwargs):
         """Override the get_context_data method to add additional context"""
         context = super().get_context_data(**kwargs)
+
+        if self.request.user.is_authenticated:
+            wishlist_properties = Wishlist.objects.filter(
+                user=self.request.user
+            ).values_list('property_id', flat=True)
+            context['wishlist_properties'] = wishlist_properties
 
         for property in context['object_list']:
             main_image = property.images.filter(is_main=True).first() or property.images.first()
@@ -132,6 +134,7 @@ class PropertyListing(ListView):
 
         context['current_sort'] = self.request.GET.get('sort', 'latest')
         context['empty_message'] = 'ไม่พบคุณสมบัติบ้านที่ตรงตามเกณฑ์ของคุณ'
+        context['user_is_authenticated'] = self.request.user.is_authenticated
 
         if 'page_obj' not in context:
             paginator = Paginator(self.get_queryset(), self.paginate_by)

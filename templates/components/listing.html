@@ -1,93 +1,84 @@
 {% load static %}
 {% load humanize %}
 
-<div id="body" class="w-full h-auto p-[30px] flex-col justify-start items-center gap-8 inline-flex">
-{#    <div class="self-stretch text-center">#}
-{#        <span class="text-[#575b6f] text-[32px] font-bold font-['IBM Plex Sans Thai']">ผลการค้นหา </span>#}
-{#        <span class="text-[#2162d0] text-[32px] font-bold font-['IBM Plex Sans Thai']">“ลาดพร้าว”</span>#}
-{#    </div>#}
+<div id="body" class="w-full max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 flex flex-col gap-8">
     {% if properties %}
-    <div class="self-stretch h-auto flex-col justify-start items-center gap-2 flex">
+    <div class="w-full flex flex-col gap-6">
         {% include "components/sort_selector.html" %}
-    
-        <div class="flex flex-wrap gap-6 justify-center">
+
+        <!-- Property listings container -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {% for property in properties %}
-            <a href="{% url 'HomeBless:property-detail' property.id %}">
-            <div class="h-auto p-5 rounded-[10px] border border-[#d0d8ef] flex-col justify-start items-start gap-4 inline-flex">
-                <img src="{{ property.main_image }}" class="w-full h-[222px] rounded-md object-cover" alt="PropertyPicture">
-                    <div class="self-stretch h-[249px] flex-col justify-start items-start gap-4 flex">
-                        <div class="self-stretch h-[180px] flex-col justify-start items-start gap-4 flex">
-                            <div class="self-stretch justify-between items-start inline-flex">
-                                <div class="w-[371px] text-[#444f85] text-base font-bold font-['IBM Plex Sans Thai'] line-clamp-2">{{ property.title }}</div>
-                                <img src="{% static 'property-listing/bookmark.svg' %}" alt="Bookmark">
-                            </div>
-                            <div class="px-[9px] py-2 bg-[#2162d0] rounded-md justify-center items-center gap-1.5 inline-flex">
-                                <img src="{% static 'property-listing/location.svg' %}" alt="Location">
-                                <div class="text-[#faf9f6] text-xs font-normal font-['IBM Plex Sans Thai'] max-w-[150px] truncate overflow-hidden whitespace-nowrap">
-                                    {{ property.location }}
+            <a href="{% url 'HomeBless:property-detail' property.id %}" class="block transition-transform hover:scale-[1.02] duration-200">
+                <div class="h-full rounded-xl border border-[#d0d8ef] overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
+                    <div class="aspect-[4/3] w-full overflow-hidden">
+                        <img src="{{ property.main_image }}" class="w-full h-full object-cover" alt="PropertyPicture">
+                    </div>
+                    <div class="p-5 flex flex-col gap-4">
+                        <div class="flex flex-col gap-3">
+                            <h3 class="text-[#444f85] text-lg font-bold font-['IBM Plex Sans Thai'] line-clamp-2 min-h-[3.5rem]">{{ property.title }}</h3>
+                            
+                            <div class="flex items-center">
+                                <div class="px-3 py-2 bg-[#2162d0] rounded-md flex items-center gap-1.5 max-w-[80%]">
+                                    <img src="{% static 'property-listing/location.svg' %}" alt="Location" class="flex-shrink-0">
+                                    <div class="text-[#faf9f6] text-xs font-normal font-['IBM Plex Sans Thai'] truncate">
+                                        {{ property.location }}
+                                    </div>
                                 </div>
                             </div>
-                            <div class="self-stretch justify-start items-center inline-flex">
-                                <div class="px-2.5 border-r border-[#575b6f] justify-start items-center gap-1.5 flex">
-                                    <div data-svg-wrapper class="relative">
-                                        <img src="{% static 'property-listing/area.svg' %}" alt="Area">
-                                    </div>
-                                    <div class="text-[#575b6f] text-xs font-normal font-['IBM Plex Sans Thai']">
+                            
+                            <div class="grid grid-cols-2 gap-2 mt-1">
+                                <div class="flex items-center gap-1.5 border-r border-[#575b6f] pr-2">
+                                    <img src="{% static 'property-listing/area.svg' %}" alt="Area" class="w-4 h-4">
+                                    <span class="text-[#575b6f] text-xs font-normal font-['IBM Plex Sans Thai']">
                                         {{ property.area }} ตร.ว.
-                                    </div>
+                                    </span>
                                 </div>
-                                <div class="px-2.5 justify-start items-center gap-1.5 flex">
-                                        <img src="{% static 'property-listing/floor.svg' %}" alt="Floor">
-                                    <div class="text-[#575b6f] text-xs font-normal font-['IBM Plex Sans Thai']">
+                                <div class="flex items-center gap-1.5 pl-2">
+                                    <img src="{% static 'property-listing/floor.svg' %}" alt="Floor" class="w-4 h-4">
+                                    <span class="text-[#575b6f] text-xs font-normal font-['IBM Plex Sans Thai']">
                                         {{ property.floors }} ชั้น
-                                    </div>
+                                    </span>
                                 </div>
-                                <div class="px-2.5 border-l border-r border-[#575b6f] justify-start items-center gap-1.5 flex">
-                                    <img src="{% static 'property-listing/bedroom.svg' %}" alt="Bedroom">
-                                    <div class="text-[#575b6f] text-xs font-normal font-['IBM Plex Sans Thai']">
+                                <div class="flex items-center gap-1.5 border-r border-[#575b6f] pr-2">
+                                    <img src="{% static 'property-listing/bedroom.svg' %}" alt="Bedroom" class="w-4 h-4">
+                                    <span class="text-[#575b6f] text-xs font-normal font-['IBM Plex Sans Thai']">
                                         {{ property.bedrooms }} ห้องนอน
-                                    </div>
+                                    </span>
                                 </div>
-                                <div class="px-2.5 justify-start items-center gap-1.5 flex">
-                                    <img src="{% static 'property-listing/bathroom.svg' %}" alt="Bathroom">
-                                    <div class="text-[#575b6f] text-xs font-normal font-['IBM Plex Sans Thai']">
+                                <div class="flex items-center gap-1.5 pl-2">
+                                    <img src="{% static 'property-listing/bathroom.svg' %}" alt="Bathroom" class="w-4 h-4">
+                                    <span class="text-[#575b6f] text-xs font-normal font-['IBM Plex Sans Thai']">
                                         {{ property.bathrooms }} ห้องน้ำ
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="justify-start items-center gap-2 inline-flex">
-                                <div class="px-2 py-0.5 bg-[#faf9f6] rounded-md border border-[#d0d8ef] justify-center items-center gap-1.5 flex">
-                                    <div class="text-[#575b6f] text-xs font-normal font-['IBM Plex Sans Thai']">
-                                        เลี้ยงสัตว์ได้
-                                    </div>
-                                </div>
-                                <div class="px-2 py-0.5 bg-[#faf9f6] rounded-md border border-[#d0d8ef] justify-center items-center gap-1.5 flex">
-                                    <div class="text-[#575b6f] text-xs font-normal font-['IBM Plex Sans Thai']">
-                                        ใกล้อีสวิวล์
-                                    </div>
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                        <div class="self-stretch justify-start items-center gap-2 inline-flex">
-                            <div class="grow shrink basis-0 text-[#2DAB6F] text-[32px] font-bold font-['IBM Plex Sans Thai']">
-                                {{ property.price|intcomma }}</div>
-                            <div class="text-[#2DAB6F] text-[32px] font-bold font-['IBM Plex Sans Thai']">
-                                บาท{% if property.transaction_type == "rent" %}
-                                /ด.{% endif %}
-                            </div>
+                        
+                        <div class="flex items-baseline mt-auto pt-2 border-t border-gray-100">
+                            <span class="text-[#2DAB6F] text-2xl sm:text-3xl font-bold font-['IBM Plex Sans Thai']">
+                                {{ property.price|intcomma }}
+                            </span>
+                            <span class="text-[#2DAB6F] text-xl sm:text-2xl font-bold font-['IBM Plex Sans Thai'] ml-1">
+                                บาท{% if property.transaction_type == "rent" %}/ด.{% endif %}
+                            </span>
                         </div>
                     </div>
                 </div>
             </a>
             {% endfor %}
         </div>
-        {% include "components/pagination.html" %}
+        
+        <!-- Separate pagination container centered -->
+        <div class="w-full flex justify-center mt-6">
+            {% include "components/pagination.html" %}
+        </div>
     </div>
     {% else %}
-        <div class="text-center py-10">
-            <p class="text-lg text-gray-600">{{ empty_message }}</p>
-            <a href="?clear=1" class="mt-4 inline-block px-4 py-3 bg-[#2162d0] text-white rounded-[10px]
-            hover:bg-[#1e4cae] transition-all duration-200">
+        <div class="text-center py-16">
+            <p class="text-lg text-gray-600 mb-6">{{ empty_message }}</p>
+            <a href="?clear=1" class="inline-block px-6 py-3 bg-[#2162d0] text-white rounded-lg
+            hover:bg-[#1e4cae] transition-all duration-200 font-medium">
                 ลบตัวกรอง
             </a>
         </div>
