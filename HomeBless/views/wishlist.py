@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.template import context
 from django.views.generic import TemplateView
-from ..models import Wishlist, PropertyImage
+
+from ..models import PropertyImage, Wishlist
 
 
 class WishlistView(TemplateView):
@@ -19,19 +20,22 @@ class WishlistView(TemplateView):
         wishlist_details = []
         for item in wishlist:
             prop = item.property
-            main_image = PropertyImage.objects.filter(property=prop, is_main=True).first()
+            main_image = PropertyImage.objects.filter(
+                property=prop, is_main=True
+            ).first()
             fallback_image = PropertyImage.objects.filter(property=prop).first()
 
-            wishlist_details.append({
-                'id': prop.id,
-                'picture': main_image or fallback_image,
-                'title': prop.title,
-                'price': prop.price,
-                'floor': prop.floors,
-                'bedrooms': prop.bedrooms,
-                'bathrooms': prop.bathrooms,
-            })
-
+            wishlist_details.append(
+                {
+                    'id': prop.id,
+                    'picture': main_image or fallback_image,
+                    'title': prop.title,
+                    'price': prop.price,
+                    'floor': prop.floors,
+                    'bedrooms': prop.bedrooms,
+                    'bathrooms': prop.bathrooms,
+                }
+            )
 
         context['wishlist_details'] = wishlist_details
 
@@ -47,4 +51,3 @@ class WishlistView(TemplateView):
             wishlist_item.delete()
 
         return redirect('HomeBless:wishlist')
-

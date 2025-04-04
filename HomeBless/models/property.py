@@ -1,37 +1,38 @@
-from django.db import models
 from django.contrib.auth.models import User
-from .property_type import PropertyType
-from .decoration import Decoration
-from .flooring import Flooring
-from .wall import Wall
+from django.db import models
+
 from .ceiling import Ceiling
-from .home_feature import HomeFeature
-from .property_condition import PropertyCondition
-from .view import View
-from .warranty import Warranty
-from .home_system import HomeSystem
-from .security import Security
 from .common_area import CommonArea
+from .decoration import Decoration
 from .facility import Facility
+from .flooring import Flooring
+from .home_feature import HomeFeature
+from .home_system import HomeSystem
+from .property_condition import PropertyCondition
+from .property_type import PropertyType
+from .security import Security
 from .travelling import Travelling
+from .view import View
+from .wall import Wall
+from .warranty import Warranty
 
 
 class Property(models.Model):
-    SELLING_TYPE_CHOICES = [
-        ('buy', 'For Sale'),
-        ('rent', 'For Rent')
-    ]
-    SELLER_STATUS_CHOICES = [
-        ('owner', 'Owner'),
-        ('agent', 'Agent')
-    ]
+    SELLING_TYPE_CHOICES = [('buy', 'For Sale'), ('rent', 'For Rent')]
+    SELLER_STATUS_CHOICES = [('owner', 'Owner'), ('agent', 'Agent')]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="properties")
     title = models.CharField(max_length=255)
     description = models.TextField()
-    seller_status = models.CharField(max_length=10, choices=SELLER_STATUS_CHOICES, default='owner')
-    property_type = models.ForeignKey(PropertyType, on_delete=models.SET_NULL, null=True, blank=True)
-    selling_type = models.CharField(max_length=10, choices=SELLING_TYPE_CHOICES, default='buy')
+    seller_status = models.CharField(
+        max_length=10, choices=SELLER_STATUS_CHOICES, default='owner'
+    )
+    property_type = models.ForeignKey(
+        PropertyType, on_delete=models.SET_NULL, null=True, blank=True
+    )
+    selling_type = models.CharField(
+        max_length=10, choices=SELLING_TYPE_CHOICES, default='buy'
+    )
     price = models.FloatField(blank=True, null=True)
     location = models.CharField(max_length=255)
     latitude = models.FloatField(blank=True, null=True)
@@ -44,7 +45,6 @@ class Property(models.Model):
     is_available = models.BooleanField(default=True)
     construct_year = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
-
 
     # Decoration & Materials
     decoration = models.ManyToManyField(Decoration, blank=True)
