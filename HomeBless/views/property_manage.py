@@ -1,8 +1,11 @@
+import logging
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import TemplateView
 
 from ..models import Property, PropertyImage, PropertyType
+
+logger = logging.getLogger(__name__)
 
 
 class PropertyManage(LoginRequiredMixin, TemplateView):
@@ -31,5 +34,6 @@ class PropertyManage(LoginRequiredMixin, TemplateView):
             property_instance = get_object_or_404(
                 Property, id=property_id, user=request.user
             )
+            logger.warning(f"User {request.user} deleted property {property_id}")
             property_instance.delete()
         return redirect('HomeBless:manage')
