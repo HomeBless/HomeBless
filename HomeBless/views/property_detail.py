@@ -1,6 +1,6 @@
 from django.shortcuts import redirect
 from django.views.generic import DetailView
-from ..models import Property
+from ..models import Property, Wishlist
 
 
 class PropertyDetail(DetailView):
@@ -27,6 +27,8 @@ class PropertyDetail(DetailView):
             property.main_image = property_main_image.image.url if property_main_image else None
 
         context['related_properties'] = related_properties
+
+        context['wishlist_bool'] = Wishlist.objects.filter(user=self.request.user, property=self.object).exists()
 
         # Seller Information
         context['seller_name'] = self.get_seller_short_name()
@@ -79,4 +81,16 @@ class PropertyDetail(DetailView):
         }
 
     def post(self, request, *args, **kwargs):
-        return redirect('HomeBless:property-detail', pk=self.get_object().pk)
+        """Toggle property in wishlist."""
+        property = self.get_object()
+        user = request.user
+
+        wishlist_item = Wishlist.objects.filter(user=user, property=property).first()
+
+        if wishlist_item:
+            wishlist_item.delete()
+        else:
+            Wishlist.objects.create(user=user, property=property)
+
+        return redirect('HomeBless:property-detail', pk=property.pk)
+

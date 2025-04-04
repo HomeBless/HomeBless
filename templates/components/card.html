@@ -1,0 +1,86 @@
+{% load static %}
+{% load humanize %}
+
+
+    <!-- Features -->
+    <div class="flex items-start gap-[16px] self-stretch">
+        <div class="flex p-2.5 flex-col justify-center items-center gap-1.5 flex-1 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6]">
+            <div class="flex items-center gap-[8px]">
+                <div class="h-[20px] w-[20px]">
+                    <img id="area" src="{% static 'property-detail/area.svg' %}" alt="Area">
+                </div>
+                <div class="text-[#444F85] font-bold text-[22px]">
+                    พื้นที่ใช้สอย
+                </div>
+            </div>
+            <div class="text-center text-[#575B6F] font-medium text-[22px]">{{ property.area }}ตร.ว.</div>
+            <div class="text-center text-[#575B6F] font-normal text-[16px]">
+                ({{ property.price_per_area|floatformat:2|intcomma }} บาท/ตร.ว)
+            </div>
+        </div>
+        <div class="flex p-2.5 flex-col justify-center items-center gap-1.5 flex-1 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6]">
+            <div class="flex items-center gap-[8px]">
+                <div class="h-[20px] w-[24px]">
+                    <img id="floor" src="{% static 'property-detail/floor.svg' %}" alt="Floor">
+                </div>
+                <div class="text-[#444F85] font-bold text-[22px]">
+                    จำนวนชั้น
+                </div>
+            </div>
+            <div class="text-center text-[#575B6F] font-medium text-[22px]">
+                {{ property.floors }} ชั้น
+            </div>
+        </div>
+        <div class="flex p-2.5 flex-col justify-center items-center gap-1.5 flex-1 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6]">
+            <div class="flex items-center gap-[8px]">
+                <div class="h-[20px] w-[22px]">
+                    <img id="bedroom" src="{% static 'property-detail/bedroom.svg' %}" alt="Bedroom">
+                </div>
+                <div class="text-[#444F85] font-bold text-[22px]">
+                    ห้องนอน
+                </div>
+            </div>
+            <div class="text-center text-[#575B6F] font-medium text-[22px]">
+                {{ property.bedrooms }} ห้องนอน
+            </div>
+        </div>
+        <div class="flex p-2.5 flex-col justify-center items-center gap-1.5 flex-1 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6]">
+            <div class="flex items-center gap-[8px]">
+                <div class="h-[24px] w-[17px]">
+                    <img id="bathroom" src="{% static 'property-detail/bathroom.svg' %}" alt="Bathroom">    
+                </div>
+                <div class="text-[#444F85] font-bold text-[22px]">
+                    ห้องน้ำ
+                </div>
+            </div>
+            <div class="text-center text-[#575B6F] font-medium text-[22px]">
+                {{ property.bathrooms }} ห้องน้ำ
+            </div>
+        </div>
+        <div class="flex p-2.5 flex-col justify-center items-center gap-1.5 flex-1 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6]">
+            <div class="flex items-center gap-[8px]">
+                <div class="h-[18px] w-[20px]">
+                    <img id="garage" src="{% static 'property-detail/garage.svg' %}" alt="Garage">  
+                </div>
+                <div class="text-[#444F85] font-bold text-[22px]">
+                    ที่จอดรถ
+                </div>
+            </div>
+            <div class="text-center text-[#575B6F] font-medium text-[22px]">
+                {{ property.garages }} คัน
+            </div>
+        </div>
+        <div class="flex p-2.5 flex-col justify-center items-center gap-1.5 flex-1 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6]">
+            <div class="flex items-center gap-[8px]">
+                <div class="h-[18px] w-[18px]">
+                    <img id="year" src="{% static 'property-detail/year.svg' %}" alt="Year">    
+                </div>
+                <div class="text-[#444F85] font-bold text-[22px]">
+                    ปีที่สร้างเสร็จ
+                </div>
+            </div>
+            <div class="text-center text-[#575B6F] font-medium text-[22px]">
+                2020
+            </div>
+        </div>
+    </div>

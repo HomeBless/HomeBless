@@ -2,6 +2,7 @@ from django.core.paginator import Paginator
 from django.views.generic import ListView
 from django.db.models import Q
 from ..models import Property, PropertyType
+from ..models import Property, Wishlist
 
 PROPERTY_PER_PAGE = 20
 

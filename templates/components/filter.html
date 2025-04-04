@@ -1,590 +1,210 @@
 {% load static %}
 
-<form id="filter-form" action="/properties/" method="GET" onsubmit="return false;">
-    
-<div id="filter" class="h-screen sticky top-[178px] flex-col justify-start items-start inline-flex w-full">
-    <input type="hidden" name="sort" value="{{ request.GET.sort|default:'latest' }}">
-    <div class="self-stretch px-3 py-4 border-b-2 border-[#d0d8ef] justify-between items-center inline-flex">
-        <div class="justify-start items-center gap-2 flex">
-            <img src="{% static 'property-listing/filter.svg' %}" alt="Filter" class="w-5 h-5">
-            <div class="text-[#575b6f] text-lg font-medium font-['IBM Plex Sans Thai']">ตัวกรอง</div>
-        </div>
-    </div>
-    <div class="self-stretch h-auto px-[30px] py-5 border-b-2 border-[#d0d8ef] flex-col justify-start items-start gap-6 flex">
-        <div class="self-stretch justify-between items-center inline-flex">
+<div id="filter" class="w-1/4 h-screen overflow-y-auto sticky top-[178px] border-r border-[#d0d8ef] flex-col justify-start items-start inline-flex">
+        <div class="self-stretch px-[30px] py-5 border-b-2 border-[#d0d8ef] justify-between items-center inline-flex">
             <div class="justify-start items-center gap-4 flex">
-                <div data-svg-wrapper class="relative">
-                    <img src="{% static 'property-listing/apply.svg' %}" alt="Filter">
+                <img src="{% static 'property-listing/filter.svg' %}" alt="Filter">
+                <div class="text-[#575b6f] text-[22px] font-medium font-['IBM Plex Sans Thai']">ตัวกรอง</div>
+            </div>
+            <img src="{% static 'property-listing/close.svg' %}" alt="Close" class="w-22 h-22 cursor-pointer" id="close-filter">
+        </div>
+        <div class="self-stretch h-auto px-[30px] py-5 border-b-2 border-[#d0d8ef] flex-col justify-start items-start gap-6 flex">
+            <div class="self-stretch justify-between items-center inline-flex">
+                <div class="justify-start items-center gap-4 flex">
+                    <div data-svg-wrapper class="relative">
+                        <img src="{% static 'property-listing/apply.svg' %}" alt="Filter">
+                    </div>
+                    <div class="text-[#575b6f] text-[22px] font-medium font-['IBM Plex Sans Thai']">ตัวกรองที่ใส่แล้ว</div>
                 </div>
-                <div class="text-[#575b6f] text-[22px] text-lg font-['IBM Plex Sans Thai']">ตัวกรองที่ใส่แล้ว</div>
+                <div class="justify-start items-center gap-2 flex">
+                    <div class="text-[#575b6f] text-[22px] font-medium font-['IBM Plex Sans Thai']">ล้าง</div>
+                    <img src="{% static 'property-listing/x.svg' %}" alt="Delete">
+                </div>
             </div>
-            <div id="clear-all-filters" class="justify-start items-center gap-2 flex cursor-pointer">
-                <div class="text-[#575b6f] text-[22px] text-lg font-['IBM Plex Sans Thai']">ล้าง</div>
-                <img src="{% static 'property-listing/x.svg' %}" alt="Delete">
+            <div class="justify-start items-center gap-4 inline-flex">
+                <div class="p-2.5 bg-[#2162d0] rounded-[10px] justify-center items-center gap-2 flex">
+                    <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">บ้านเดี่ยว</div>
+                    <img src="{% static 'property-listing/x-white.svg' %}" alt="Delete">
+                </div>
+                <div class="p-2.5 bg-[#2162d0] rounded-[10px] justify-center items-center gap-2 flex">
+                    <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">โครงการบ้านจัดสรร</div>
+                    <img src="{% static 'property-listing/x-white.svg' %}" alt="Delete">
+                </div>
             </div>
         </div>
-        <div id="selected-filters-container" class="justify-start items-center gap-4 inline-flex flex-wrap">
-            <!-- Selected filters will be added here -->
-            <div id="no-filters-message" class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">
-                ไม่มีตัวกรองที่เลือก
+        <div class="self-stretch h-auto px-[30px] py-5 border-b-2 border-[#d0d8ef] flex-col justify-start items-start gap-6 flex">
+            <div class="self-stretch justify-between items-center inline-flex">
+                <div class="text-[#575b6f] text-[22px] font-medium font-['IBM Plex Sans Thai']">ตัวกรองพื้นฐาน</div>
+                <img id="basic-filter-arrow"
+                     src="{% static 'property-listing/arrow.svg' %}"
+                     alt="arrow"
+                     class="w-6 h-6 cursor-pointer transition-transform duration-300">
             </div>
-        </div>
-    </div>
-    <div class="self-stretch h-auto px-[30px] py-5 border-b-2 border-[#d0d8ef] flex-col justify-start items-start gap-6 flex w-full">
-        <div class="self-stretch justify-between items-center inline-flex">
-            <div class="text-[#575b6f] text-[22px] text-lg font-['IBM Plex Sans Thai']">ตัวกรองพื้นฐาน</div>
-        </div>
-        
-        <div id="basic-filter" class="w-full">
-            <!-- type -->
+            <div id="basic-filter" class="w-full">
             <div class="flex-col justify-start items-start gap-2 flex">
                 <div class="text-[#575b6f] text-base font-bold font-['IBM Plex Sans Thai']">ประเภทของอสังหา</div>
-                <div class="justify-start items-center gap-2 flex flex-wrap">
-                    <button type="button" 
-                            class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
-                            data-selected="false"
-                            data-filter-type="property_type" 
-                            data-filter-value="House"
-                            data-filter-label="บ้านเดี่ยว">
-                        <div class="text-base font-normal font-['IBM Plex Sans Thai']">บ้านเดี่ยว</div>
-                    </button>
-                    <button type="button" 
-                            class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
-                            data-selected="false"
-                            data-filter-type="property_type" 
-                            data-filter-value="Town-Home"
-                            data-filter-label="ทาวน์เฮ้าส์">
-                        <div class="text-base font-normal font-['IBM Plex Sans Thai']">ทาวน์เฮ้าส์</div>
-                    </button>
-                    <button type="button" 
-                            class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
-                            data-selected="false"
-                            data-filter-type="property_type" 
-                            data-filter-value="Condo"
-                            data-filter-label="คอนโด">
-                        <div class="text-base font-normal font-['IBM Plex Sans Thai']">คอนโด</div>
-                    </button>
-                    <button type="button" 
-                            class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
-                            data-selected="false"
-                            data-filter-type="property_type" 
-                            data-filter-value="Apartment"
-                            data-filter-label="อพาร์ทเมนท์">
-                        <div class="text-base font-normal font-['IBM Plex Sans Thai']">อพาร์ทเมนท์</div>
-                    </button>
-                    <button type="button" 
-                            class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
-                            data-selected="false"
-                            data-filter-type="property_type" 
-                            data-filter-value="Home-Office"
-                            data-filter-label="โฮมออฟฟิศ">
-                        <div class="text-base font-normal font-['IBM Plex Sans Thai']">โฮมออฟฟิศ</div>
-                    </button>
+                <div class="justify-start items-center gap-4 inline-flex">
+                    <div class="p-2.5 bg-[#2162d0] rounded-[10px] justify-center items-center gap-2 flex">
+                        <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">บ้านเดี่ยว</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">ทาวน์เฮ้าส์</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">คอนโด</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">ที่ดิน</div>
+                    </div>
                 </div>
             </div>
-            
-            <!-- Price Range Filter -->
             <div class="self-stretch h-auto flex-col justify-start items-start gap-2 flex mt-4">
                 <div class="text-[#575b6f] text-base font-bold font-['IBM Plex Sans Thai']">ช่วงราคาขาย</div>
                 <div class="self-stretch justify-start items-center gap-4 inline-flex">
                     <div class="grow shrink basis-0 h-[46px] p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
-                        <input type="number" 
-                               id="price-min" 
-                               name="price_min" 
-                               placeholder="min" 
-                               class="w-full text-center bg-transparent outline-none text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']"
-                               min="0"
-                               value="0">
+                        <div class="text-[#a6abc6] text-base font-normal font-['IBM Plex Sans Thai']">min</div>
                     </div>
                     <div class="grow shrink basis-0 h-[46px] p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
-                        <input type="number" 
-                               id="price-max" 
-                               name="price_max" 
-                               placeholder="max" 
-                               class="w-full text-center bg-transparent outline-none text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']"
-                               min="0"
-                               value="10000000">
+                        <div class="text-[#a6abc6] text-base font-normal font-['IBM Plex Sans Thai']">max</div>
+                    </div>
+                </div>
+                <div class="self-stretch h-auto flex-col justify-start items-center flex">
+                    <div class="self-stretch justify-between items-center inline-flex">
+                        <div class="text-center text-[#2162d0] text-base font-normal font-['IBM Plex Sans Thai']">0บาท</div>
+                        <div class="text-center text-[#2162d0] text-base font-normal font-['IBM Plex Sans Thai']">infบาท</div>
+                    </div>
+                    <div class="self-stretch px-[3px] justify-start items-center inline-flex">
+                        <div class="w-4 h-4 bg-[#2162d0] rounded-full border border-[#faf9f6]"></div>
+                        <div class="grow shrink basis-0 flex-col justify-start items-start gap-2.5 inline-flex">
+                            <div class="self-stretch h-[0px] border-2 border-[#2162d0]"></div>
+                        </div>
+                        <div class="w-4 h-4 bg-[#2162d0] rounded-full border border-[#faf9f6]"></div>
                     </div>
                 </div>
             </div>
-            
-        </div>
-    </div>
-    <div class="self-stretch h-auto px-[30px] py-5 border-b-2 border-[#d0d8ef] flex-col justify-start items-start gap-6 flex">
-        <div class="self-stretch justify-between items-center inline-flex">
-            <div class="text-[#575b6f] text-[22px] text-lg font-['IBM Plex Sans Thai']">ลักษณะบ้าน</div>
-        </div>
-        <div id="charac-filter" class="w-full">
-        <div class="self-stretch h-auto flex-col justify-start items-start gap-2 flex">
-            <div class="text-[#575b6f] text-base font-bold font-['IBM Plex Sans Thai']">จำนวนห้องนอน</div>
-            <div class="self-stretch justify-start items-center gap-4 flex flex-wrap">
-                <button type="button" 
-                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
-                        data-selected="false"
-                        data-filter-type="bedrooms" 
-                        data-filter-value="1"
-                        data-filter-label="1 ห้องนอน">
-                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">1 ห้องนอน</div>
-                </button>
-                <button type="button" 
-                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
-                        data-selected="false"
-                        data-filter-type="bedrooms" 
-                        data-filter-value="2"
-                        data-filter-label="2 ห้องนอน">
-                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">2 ห้องนอน</div>
-                </button>
-                <button type="button" 
-                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
-                        data-selected="false"
-                        data-filter-type="bedrooms" 
-                        data-filter-value="3"
-                        data-filter-label="3 ห้องนอน">
-                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">3 ห้องนอน</div>
-                </button>
-                <button type="button" 
-                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
-                        data-selected="false"
-                        data-filter-type="bedrooms" 
-                        data-filter-value="4"
-                        data-filter-label="4 ห้องนอน">
-                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">4 ห้องนอน</div>
-                </button>
-                <button type="button" 
-                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
-                        data-selected="false"
-                        data-filter-type="bedrooms" 
-                        data-filter-value="more_than_4"
-                        data-filter-label="มากกว่า 5 ห้องนอน">
-                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">มากกว่า 4 ห้องนอน</div>
-                </button>
             </div>
         </div>
-        <div class="self-stretch h-auto flex-col justify-start items-start gap-2 flex mt-4">
-            <div class="text-[#575b6f] text-base font-bold font-['IBM Plex Sans Thai']">จำนวนห้องน้ำ</div>
-            <div class="self-stretch justify-start items-center gap-4 flex flex-wrap">
-                <button type="button" 
-                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
-                        data-selected="false"
-                        data-filter-type="bathrooms" 
-                        data-filter-value="1"
-                        data-filter-label="1 ห้องน้ำ">
-                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">1 ห้องน้ำ</div>
-                </button>
-                <button type="button" 
-                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
-                        data-selected="false"
-                        data-filter-type="bathrooms" 
-                        data-filter-value="2"
-                        data-filter-label="2 ห้องน้ำ">
-                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">2 ห้องน้ำ</div>
-                </button>
-                <button type="button" 
-                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
-                        data-selected="false"
-                        data-filter-type="bathrooms" 
-                        data-filter-value="3"
-                        data-filter-label="3 ห้องน้ำ">
-                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">3 ห้องน้ำ</div>
-                </button>
-                <button type="button" 
-                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
-                        data-selected="false"
-                        data-filter-type="bathrooms" 
-                        data-filter-value="4"
-                        data-filter-label="4 ห้องน้ำ">
-                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">4 ห้องน้ำ</div>
-                </button>
-                <button type="button" 
-                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
-                        data-selected="false"
-                        data-filter-type="bathrooms" 
-                        data-filter-value="5"
-                        data-filter-label="5 ห้องน้ำ">
-                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">5 ห้องน้ำ</div>
-                </button>
-                <button type="button" 
-                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
-                        data-selected="false"
-                        data-filter-type="bathrooms" 
-                        data-filter-value="more_than_5"
-                        data-filter-label="มากกว่า 5 ห้องน้ำ">
-                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">มากกว่า 5 ห้องน้ำ</div>
-                </button>
+        <div class="self-stretch h-auto px-[30px] py-5 border-b-2 border-[#d0d8ef] flex-col justify-start items-start gap-6 flex">
+            <div class="self-stretch justify-between items-center inline-flex">
+                <div class="text-[#575b6f] text-[22px] font-medium font-['IBM Plex Sans Thai']">ลักษณะบ้าน</div>
+                <img id="charac-filter-arrow"
+                     src="{% static 'property-listing/arrow.svg' %}"
+                     alt="arrow"
+                     class="w-6 h-6 cursor-pointer transition-transform duration-300">
             </div>
-        </div>
-        <div class="self-stretch h-auto flex-col justify-start items-start gap-2 flex mt-4">
-            <div class="text-[#575b6f] text-base font-bold font-['IBM Plex Sans Thai']">จำนวนที่จอดรถ</div>
-            <div class="self-stretch justify-start items-center gap-4 flex flex-wrap">
-                <button type="button" 
-                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
-                        data-selected="false"
-                        data-filter-type="parking" 
-                        data-filter-value="1"
-                        data-filter-label="1 คัน">
-                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">1 คัน</div>
-                </button>
-                <button type="button" 
-                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
-                        data-selected="false"
-                        data-filter-type="parking" 
-                        data-filter-value="2"
-                        data-filter-label="2 คัน">
-                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">2 คัน</div>
-                </button>
-                <button type="button" 
-                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
-                        data-selected="false"
-                        data-filter-type="parking" 
-                        data-filter-value="3"
-                        data-filter-label="3 คัน">
-                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">3 คัน</div>
-                </button>
-                <button type="button" 
-                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
-                        data-selected="false"
-                        data-filter-type="parking" 
-                        data-filter-value="4"
-                        data-filter-label="4 คัน">
-                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">4 คัน</div>
-                </button>
-                <button type="button" 
-                        class="filter-toggle-btn p-2.5 rounded-[10px] justify-center items-center gap-2 flex"
-                        data-selected="false"
-                        data-filter-type="parking" 
-                        data-filter-value="5"
-                        data-filter-label="4 คันขึ้นไป">
-                    <div class="text-base font-normal font-['IBM Plex Sans Thai']">4 คันขึ้นไป</div>
-                </button>
-            </div>
-        </div>
-        <div class="self-stretch h-auto flex-col justify-start items-start gap-2 flex mt-4">
-            <div class="text-[#575b6f] text-base font-bold font-['IBM Plex Sans Thai']">ขนาดพื้นที่ใช้สอย (ตารางวา)</div>
-            <div class="self-stretch justify-start items-center gap-4 inline-flex w-full">
-                <div class="grow shrink basis-0 h-[46px] p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
-                    <input type="number" 
-                           id="area-min" 
-                           name="area_min" 
-                           placeholder="min" 
-                           class="w-full text-center bg-transparent outline-none text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']"
-                           min="0"
-                           value="0">
+            <div id="charac-filter" class="w-full">
+            <div class="self-stretch h-auto flex-col justify-start items-start gap-2 flex">
+                <div class="text-[#575b6f] text-base font-bold font-['IBM Plex Sans Thai']">จำนวนห้องนอน</div>
+                <div class="self-stretch justify-start items-center gap-4 flex flex-wrap">
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">1 ห้องนอน</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">4 ห้องนอน</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">2 ห้องนอน</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">5 ห้องนอน</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">3 ห้องนอน</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">มากกว่า 5 ห้องนอน</div>
+                    </div>
                 </div>
-                <div class="grow shrink basis-0 h-[46px] p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
-                    <input type="number" 
-                           id="area-max" 
-                           name="area_max" 
-                           placeholder="max" 
-                           class="w-full text-center bg-transparent outline-none text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']"
-                           min="0"
-                           value="10000">
+            </div>
+            <div class="self-stretch h-auto flex-col justify-start items-start gap-2 flex mt-4">
+                <div class="text-[#575b6f] text-base font-bold font-['IBM Plex Sans Thai']">จำนวนห้องน้ำ</div>
+                <div class="self-stretch justify-start items-center gap-4 flex flex-wrap">
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">1 ห้องน้ำ</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">2 ห้องน้ำ</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">3 ห้องน้ำ</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">4 ห้องน้ำ</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">5 ห้องน้ำ</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">มากกว่า 5 ห้องน้ำ</div>
+                    </div>
+                </div>
+            </div>
+            <div class="self-stretch h-auto flex-col justify-start items-start gap-2 flex mt-4">
+                <div class="text-[#575b6f] text-base font-bold font-['IBM Plex Sans Thai']">จำนวนที่จอดรถ</div>
+                <div class="self-stretch justify-start items-center gap-4 flex flex-wrap">
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">ไม่มี</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">1 คัน</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">2 คัน</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">3 คัน</div>
+                    </div>
+                    <div class="p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] justify-center items-center gap-2 flex">
+                        <div class="text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">4 คันขึ้นไป</div>
+                    </div>
+                </div>
+            </div>
+            <div class="self-stretch h-auto flex-col justify-start items-start gap-2 flex mt-4">
+                <div class="text-[#575b6f] text-base font-bold font-['IBM Plex Sans Thai']">ขนาดพื้นที่ใช้สอย</div>
+                <div class="self-stretch justify-start items-center gap-4 inline-flex w-full">
+                    <label>
+                        <input type="number" placeholder="min"
+                            class="grow shrink basis-0 h-[46px] p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] text-[#a6abc6] text-base font-normal font-['IBM Plex Sans Thai'] text-center outline-none">
+                    </label>
+                    <label>
+                        <input type="number" placeholder="max"
+                            class="grow shrink basis-0 h-[46px] p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef] text-[#a6abc6] text-base font-normal font-['IBM Plex Sans Thai'] text-center outline-none">
+                    </label>
+                </div>
+                <div class="self-stretch h-auto] flex-col justify-start items-center flex">
+                    <div class="self-stretch justify-between items-center inline-flex">
+                        <div class="text-center text-[#2162d0] text-base font-normal font-['IBM Plex Sans Thai']">0ตร.ม</div>
+                        <div class="text-center text-[#2162d0] text-base font-normal font-['IBM Plex Sans Thai']">infตร.ม</div>
+                    </div>
+                    <div class="self-stretch px-[3px] justify-start items-center inline-flex">
+                        <div class="w-4 h-4 bg-[#2162d0] rounded-full border border-[#faf9f6]"></div>
+                        <div class="grow shrink basis-0 flex-col justify-start items-start gap-2.5 inline-flex">
+                            <div class="self-stretch h-[0px] border-2 border-[#2162d0]"></div>
+                        </div>
+                        <div class="w-4 h-4 bg-[#2162d0] rounded-full border border-[#faf9f6]"></div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="self-stretch h-auto px-[30px] py-5 border-b-2 border-[#d0d8ef] flex-col justify-start items-start gap-6 flex">
+            <div class="self-stretch justify-between items-center inline-flex">
+                <div class="text-[#575b6f] text-[22px] font-medium font-['IBM Plex Sans Thai']">รายละเอียดเพิ่มเติม</div>
+                <div data-svg-wrapper class="relative">
+                <svg width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M2.36613 7.17857C2.43289 7.11163 2.51221 7.05853 2.59953 7.02229C2.68685 6.98606 2.78046 6.96741 2.875 6.96741C2.96954 6.96741 3.06316 6.98606 3.15048 7.02229C3.2378 7.05853 3.31711 7.11163 3.38388 7.17857L11.5 15.2961L19.6161 7.17857C19.683 7.11174 19.7623 7.05873 19.8496 7.02257C19.9369 6.9864 20.0305 6.96779 20.125 6.96779C20.2195 6.96779 20.3131 6.9864 20.4004 7.02257C20.4877 7.05873 20.5671 7.11174 20.6339 7.17857C20.7007 7.2454 20.7537 7.32473 20.7899 7.41204C20.826 7.49936 20.8447 7.59294 20.8447 7.68745C20.8447 7.78195 20.826 7.87553 20.7899 7.96285C20.7537 8.05016 20.7007 8.12949 20.6339 8.19632L12.0089 16.8213C11.9421 16.8883 11.8628 16.9414 11.7755 16.9776C11.6882 17.0138 11.5945 17.0325 11.5 17.0325C11.4055 17.0325 11.3118 17.0138 11.2245 16.9776C11.1372 16.9414 11.0579 16.8883 10.9911 16.8213L2.36613 8.19632C2.29919 8.12955 2.24609 8.05024 2.20985 7.96292C2.17362 7.87559 2.15497 7.78198 2.15497 7.68744C2.15497 7.5929 2.17362 7.49929 2.20985 7.41197C2.24609 7.32465 2.29919 7.24533 2.36613 7.17857Z" fill="#575B6F"/>
+                </svg>
                 </div>
             </div>
         </div>
+        <div class="self-stretch h-auto px-[30px] py-5 border-b-2 border-[#d0d8ef] flex-col justify-start items-start gap-6 flex">
+            <div class="self-stretch justify-between items-center inline-flex">
+                <div class="text-[#575b6f] text-[22px] font-medium font-['IBM Plex Sans Thai']">การใช้งานและทำเล</div>
+                <div data-svg-wrapper class="relative">
+                <svg width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M2.36613 7.17857C2.43289 7.11163 2.51221 7.05853 2.59953 7.02229C2.68685 6.98606 2.78046 6.96741 2.875 6.96741C2.96954 6.96741 3.06316 6.98606 3.15048 7.02229C3.2378 7.05853 3.31711 7.11163 3.38388 7.17857L11.5 15.2961L19.6161 7.17857C19.683 7.11174 19.7623 7.05873 19.8496 7.02257C19.9369 6.9864 20.0305 6.96779 20.125 6.96779C20.2195 6.96779 20.3131 6.9864 20.4004 7.02257C20.4877 7.05873 20.5671 7.11174 20.6339 7.17857C20.7007 7.2454 20.7537 7.32473 20.7899 7.41204C20.826 7.49936 20.8447 7.59294 20.8447 7.68745C20.8447 7.78195 20.826 7.87553 20.7899 7.96285C20.7537 8.05016 20.7007 8.12949 20.6339 8.19632L12.0089 16.8213C11.9421 16.8883 11.8628 16.9414 11.7755 16.9776C11.6882 17.0138 11.5945 17.0325 11.5 17.0325C11.4055 17.0325 11.3118 17.0138 11.2245 16.9776C11.1372 16.9414 11.0579 16.8883 10.9911 16.8213L2.36613 8.19632C2.29919 8.12955 2.24609 8.05024 2.20985 7.96292C2.17362 7.87559 2.15497 7.78198 2.15497 7.68744C2.15497 7.5929 2.17362 7.49929 2.20985 7.41197C2.24609 7.32465 2.29919 7.24533 2.36613 7.17857Z" fill="#575B6F"/>
+                </svg>
+                </div>
+            </div>
         </div>
     </div>
-    
-    <div class="sticky bottom-0 left-0 w-full bg-white border-t border-[#d0d8ef] p-3">
-        <button id="submit-filter" type="button" class="w-full py-3 bg-[#2162d0] hover:bg-[#1a4fb8] text-white font-medium rounded-lg flex items-center justify-center transition-colors duration-200">
-            <img src="{% static 'property-listing/filter.svg' %}" alt="Filter" class="w-5 h-5 mr-2 filter invert">
-            <span class="text-base font-['IBM Plex Sans Thai']">กรอง</span>
-        </button>
-    </div>
-</div>
-    
-</form>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const filterButtons = document.querySelectorAll('.filter-toggle-btn');
-    const selectedFiltersContainer = document.getElementById('selected-filters-container');
-    const clearAllButton = document.getElementById('clear-all-filters');
-    const priceMinInput = document.getElementById('price-min');
-    const priceMaxInput = document.getElementById('price-max');
-    const areaMinInput = document.getElementById('area-min');
-    const areaMaxInput = document.getElementById('area-max');
-    
-    filterButtons.forEach(button => {
-        updateButtonStyle(button);
-    });
-    
-    filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const isSelected = this.getAttribute('data-selected') === 'true';
-            this.setAttribute('data-selected', !isSelected);
-            
-            updateButtonStyle(this);
-            updateSelectedFiltersDisplay();
-        });
-    });
-    
-    function updateButtonStyle(button) {
-        const isSelected = button.getAttribute('data-selected') === 'true';
-        const textDiv = button.querySelector('div');
-        
-        if (isSelected) {
-            button.classList.add('bg-[#2162d0]');
-            button.classList.remove('bg-[#faf9f6]');
-            textDiv.classList.add('text-[#faf9f6]');
-            textDiv.classList.remove('text-[#575b6f]');
-        } else {
-            button.classList.remove('bg-[#2162d0]');
-            button.classList.add('bg-[#faf9f6]', 'border', 'border-[#d0d8ef]');
-            textDiv.classList.remove('text-[#faf9f6]');
-            textDiv.classList.add('text-[#575b6f]');
-        }
-    }
-    
-    function updateSelectedFiltersDisplay() {
-        selectedFiltersContainer.innerHTML = '';
-        let hasFilters = false;
-        
-        filterButtons.forEach(button => {
-            const isSelected = button.getAttribute('data-selected') === 'true';
-            if (isSelected) {
-                hasFilters = true;
-                const filterType = button.getAttribute('data-filter-type');
-                const filterValue = button.getAttribute('data-filter-value');
-                const filterLabel = button.getAttribute('data-filter-label');
-                
-                const filterTag = document.createElement('div');
-                filterTag.className = 'p-2.5 bg-[#2162d0] rounded-[10px] justify-center items-center gap-2 flex';
-                filterTag.dataset.filterType = filterType;
-                filterTag.dataset.filterValue = filterValue;
-                
-                const label = document.createElement('div');
-                label.className = 'text-[#faf9f6] text-base font-normal font-[\'IBM Plex Sans Thai\']';
-                label.textContent = filterLabel;
-                
-                const removeBtn = document.createElement('img');
-                removeBtn.src = "{% static 'property-listing/x-white.svg' %}";
-                removeBtn.alt = "Delete";
-                removeBtn.className = 'cursor-pointer';
-                
-                removeBtn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    
-                    const targetButton = document.querySelector(`.filter-toggle-btn[data-filter-type="${filterType}"][data-filter-value="${filterValue}"]`);
-                    if (targetButton) {
-                        targetButton.setAttribute('data-selected', 'false');
-                        updateButtonStyle(targetButton);
-                    }
-                    
-                    filterTag.remove();
-                    checkNoFilters();
-                    updateFiltersObject();
-                });
-                
-                filterTag.appendChild(label);
-                filterTag.appendChild(removeBtn);
-                
-                selectedFiltersContainer.appendChild(filterTag);
-            }
-        });
-        
-        checkNoFilters();
-    }
-    
-    function checkNoFilters() {
-        const noFiltersMessage = document.getElementById('no-filters-message') || 
-                               document.createElement('div');
-        
-        if (!noFiltersMessage.id) {
-            noFiltersMessage.id = 'no-filters-message';
-            noFiltersMessage.className = 'text-[#575b6f] text-base font-normal font-[\'IBM Plex Sans Thai\']';
-            noFiltersMessage.textContent = 'ไม่มีตัวกรองที่เลือก';
-        }
-        
-        const hasActiveFilters = document.querySelectorAll('.filter-toggle-btn[data-selected="true"]').length > 0 ||
-                               (priceMinInput.value && priceMinInput.value !== '0') ||
-                               (priceMaxInput.value && priceMaxInput.value !== '10000000') ||
-                               (areaMinInput.value && areaMinInput.value !== '0') ||
-                               (areaMaxInput.value && areaMaxInput.value !== '10000');
-        
-        if (!hasActiveFilters) {
-            if (!document.getElementById('no-filters-message')) {
-                selectedFiltersContainer.appendChild(noFiltersMessage);
-            }
-        } else {
-            if (noFiltersMessage.parentNode) {
-                noFiltersMessage.parentNode.removeChild(noFiltersMessage);
-            }
-        }
-    }
-    
-    function updateFiltersObject() {
-        const selectedFilters = {};
-        const urlParams = new URLSearchParams(window.location.search);
-        
-        // Get the current sort value from URL
-        const sortValue = urlParams.get('sort') || 'latest';
-        selectedFilters['sort'] = sortValue;
-    
-        filterButtons.forEach(button => {
-            const isSelected = button.getAttribute('data-selected') === 'true';
-            if (isSelected) {
-                const filterType = button.getAttribute('data-filter-type');
-                const filterValue = button.getAttribute('data-filter-value');
-                
-                if (!selectedFilters[filterType]) {
-                    selectedFilters[filterType] = [];
-                }
-                
-                selectedFilters[filterType].push(filterValue);
-            }
-        });
-        
-        if (priceMinInput.value && priceMinInput.value !== '0') {
-            selectedFilters['price_min'] = priceMinInput.value;
-        }
-        if (priceMaxInput.value && priceMaxInput.value !== '10000000') {
-            selectedFilters['price_max'] = priceMaxInput.value;
-        }
-        
-        if (areaMinInput.value && areaMinInput.value !== '0') {
-            selectedFilters['area_min'] = areaMinInput.value;
-        }
-        if (areaMaxInput.value && areaMaxInput.value !== '10000') {
-            selectedFilters['area_max'] = areaMaxInput.value;
-        }
-        
-        window.selectedFilters = selectedFilters;
-        
-        return selectedFilters;
-    }
-    
-    clearAllButton.addEventListener('click', function() {
-        filterButtons.forEach(button => {
-            button.setAttribute('data-selected', 'false');
-            updateButtonStyle(button);
-        });
-
-        priceMinInput.value = '0';
-        priceMaxInput.value = '10000000';
-        areaMinInput.value = '0';
-        areaMaxInput.value = '10000';
-
-        selectedFiltersContainer.innerHTML = '';
-        checkNoFilters();
-        window.location.href = window.location.pathname;
-    });
-    
-    document.getElementById('submit-filter').addEventListener('click', function() {
-        const selectedFilters = updateFiltersObject();
-        const params = new URLSearchParams();
-        
-        params.set('page', '1');
-        
-        for (const [key, value] of Object.entries(selectedFilters)) {
-            if (Array.isArray(value)) {
-                value.forEach(val => params.append(key, val));
-            } else if (value !== '' && value !== '0') {
-                params.set(key, value);
-            }
-        }
-    
-        const baseUrl = window.location.pathname;
-        window.location.href = `${baseUrl}?${params.toString()}`;
-    });
-    
-    function initializeFiltersFromUrl() {
-        const urlParams = new URLSearchParams(window.location.search);
-        
-        const propertyTypes = urlParams.getAll('property_type');
-        propertyTypes.forEach(type => {
-            const button = document.querySelector(`.filter-toggle-btn[data-filter-type="property_type"][data-filter-value="${type}"]`);
-            if (button) {
-                button.setAttribute('data-selected', 'true');
-                updateButtonStyle(button);
-            }
-        });
-        
-        const bedrooms = urlParams.getAll('bedrooms');
-        bedrooms.forEach(bed => {
-            const button = document.querySelector(`.filter-toggle-btn[data-filter-type="bedrooms"][data-filter-value="${bed}"]`);
-            if (button) {
-                button.setAttribute('data-selected', 'true');
-                updateButtonStyle(button);
-            }
-        });
-        
-        const bathrooms = urlParams.getAll('bathrooms');
-        bathrooms.forEach(bath => {
-            const button = document.querySelector(`.filter-toggle-btn[data-filter-type="bathrooms"][data-filter-value="${bath}"]`);
-            if (button) {
-                button.setAttribute('data-selected', 'true');
-                updateButtonStyle(button);
-            }
-        });
-        
-        const parkings = urlParams.getAll('parking');
-        parkings.forEach(park => {
-            const button = document.querySelector(`.filter-toggle-btn[data-filter-type="parking"][data-filter-value="${park}"]`);
-            if (button) {
-                button.setAttribute('data-selected', 'true');
-                updateButtonStyle(button);
-            }
-        });
-        
-        const priceMin = urlParams.get('price_min');
-        if (priceMin) {
-            priceMinInput.value = priceMin;
-        }
-        
-        const priceMax = urlParams.get('price_max');
-        if (priceMax) {
-            priceMaxInput.value = priceMax;
-        }
-
-        const areaMin = urlParams.get('area_min');
-        if (areaMin) {
-            areaMinInput.value = areaMin;
-        }
-        
-        const areaMax = urlParams.get('area_max');
-        if (areaMax) {
-            areaMaxInput.value = areaMax;
-        }
-        
-        updateSelectedFiltersDisplay();
-        checkNoFilters();
-    }
-    
-    initializeFiltersFromUrl();
-
-    document.getElementById('submit-filter').addEventListener('click', function() {
-        const sortValue = new URLSearchParams(window.location.search).get('sort') || 'latest';
-        const selectedFilters = updateFiltersObject();
-        const params = new URLSearchParams();
-        
-        for (const [key, value] of Object.entries(selectedFilters)) {
-            if (Array.isArray(value)) {
-                value.forEach(val => params.append(key, val));
-            } else if (value !== '' && value !== '0') {
-                params.set(key, value);
-            }
-        }
-            
-        if (!this.querySelector('input[name="sort"]')) {
-            const sortInput = document.createElement('input');
-            sortInput.type = 'hidden';
-            sortInput.name = 'sort';
-            sortInput.value = sortValue;
-            this.appendChild(sortInput);
-        }
-
-        for (const [key, value] of Object.entries(selectedFilters)) {
-            if (Array.isArray(value)) {
-                value.forEach(val => params.append(key, val));
-            } else if (value !== '' && value !== '0') {
-                params.append(key, value);
-            }
-        }
-
-        const baseUrl = window.location.pathname;
-        window.location.href = `${baseUrl}?${params.toString()}`;
-    });
-    
-    updateSelectedFiltersDisplay();
-});
-</script>
