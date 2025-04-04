@@ -404,15 +404,16 @@
                             <div class="text-[#575B6F] text-[22px] font-medium leading-normal flex-[1_0_0]">
                                 เปรียบเทียบ
                             </div>
-                            <button onclick="window.location.href='{% url 'HomeBless:compare' %}?property_id={{ property.id }}'"
-                                    class="flex p-2.5 justify-center items-start gap-2 self-stretch rounded-md bg-[#2DAB6F] hover:bg-[#24975e] active:ring-2 active:ring-[#1e7c4d] transition duration-200 ease-in-out">
-                                <div class="w-[25px] h-[25px]">
-                                    <img src="{% static 'property-detail/compare.svg' %}" alt="Compare">
-                                </div>
-                                <div class="text-[#FAF9F6] text-[16px] font-bold leading-normal">
-                                    เปรียบเทียบระแวกนี้
-                                </div>
-                            </button>
+                        </div>
+                        <button onclick="window.location.href='{% url 'HomeBless:compare' %}?property_id={{ property.id }}'"
+                                class="flex p-2.5 justify-center items-start gap-2 self-stretch rounded-md bg-[#2DAB6F] hover:bg-[#24975e] active:ring-2 active:ring-[#1e7c4d] transition duration-200 ease-in-out">
+                            <div class="w-[25px] h-[25px]">
+                                <img src="{% static 'property-detail/compare.svg' %}" alt="Compare">
+                            </div>
+                            <div class="text-[#FAF9F6] text-[16px] font-bold leading-normal">
+                                เปรียบเทียบระแวกนี้
+                            </div>
+                        </button>
                     </div>
                 </div>
             </div>
