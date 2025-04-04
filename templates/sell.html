@@ -682,9 +682,11 @@ function initMap() {
   const input = document.createElement("input");
   input.type = "text";
   input.placeholder = "Search for a location";
+  input.style.fontSize = "20px";
   input.className = "form-control";
   input.style.margin = "10px";
-  input.style.width = "300px";
+  input.style.width = "350px";
+  input.style.height = "40px";
   map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
   // Initialize autocomplete with the older Places API
