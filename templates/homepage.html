@@ -12,13 +12,13 @@
                     <div class="self-stretch text-[#faf9f6] text-[32px] font-bold font-['IBM Plex Sans Thai']">เรามีตัวเลือกบ้านหลากหลายสำหรับทุกความต้องการ</div>
                 </div>
                 <div class="self-stretch h-[200px] p-5 bg-[#faf9f6] rounded-[10px] flex-col justify-end items-start gap-6 flex">
-                    <form method="GET" action="{% url 'HomeBless:property-listing' %}" class="w-full h-[86px] px-[8px] justify-center items-center gap-[30px] inline-flex left-0">
+                    <form method="GET" action="{% url 'HomeBless:property-listing' %}" class="w-full h-[86px] px-[8px] justify-center items-center gap-[30px] inline-flex left-0" id="searchForm">
                         <div class="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
                             <div class="self-stretch p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#a6abc6] justify-start items-center gap-2.5 inline-flex">
                                 <div data-svg-wrapper class="relative">
                                     <img src="{% static 'property-listing/search.svg' %}" alt="Search">
                                 </div>
-                                <input type="text" name="search" placeholder="คีย์เวิร์ด, สถานที่สำคัญ, จังหวัด ฯลฯ"
+                                <input type="text" name="search" id="searchInput" placeholder="คีย์เวิร์ด, สถานที่สำคัญ, จังหวัด ฯลฯ"
                                     class="grow shrink basis-0 h-[26px] bg-transparent outline-none text-[#444F85] text-base font-normal font-['IBM Plex Sans Thai']"
                                     value="{{ request.GET.search }}">
                             </div>
@@ -26,7 +26,7 @@
                     
                         <div class="px-8 border-l border-r border-[#d0d8ef] justify-start items-center gap-4 flex">
                             <div class="relative">
-                                <select name="listing_type" class="h-[46px] px-2.5 bg-[#faf9f6] rounded-[10px] border border-[#2162d0] text-[#2162d0] text-base font-normal font-['IBM Plex Sans Thai'] appearance-none pr-8">
+                                <select name="listing_type" id="listingTypeSelect" class="h-[46px] px-2.5 bg-[#faf9f6] rounded-[10px] border border-[#2162d0] text-[#2162d0] text-base font-normal font-['IBM Plex Sans Thai'] appearance-none pr-8">
                                     <option value="" {% if not request.GET.listing_type %}selected{% endif %}>ประกาศ</option>
                                     <option value="all" {% if request.GET.listing_type == 'all' %}selected{% endif %}>ทั้งหมด</option>
                                     <option value="sell" {% if request.GET.listing_type == 'sell' %}selected{% endif %}>ขาย</option>
@@ -45,28 +45,28 @@
                     <div class="flex-col justify-start items-start gap-2 flex">
                         <div class="self-stretch text-[#575b6f] text-base font-normal font-['IBM Plex Sans Thai']">คีย์เวิร์ดยอดนิยม</div>
                         <div class="self-stretch justify-start items-center gap-4 inline-flex">
-                            <button class="p-2.5 bg-[#d0d8ef] rounded-md justify-center items-center gap-2.5 flex">
+                            <button class="keyword-btn p-2.5 bg-[#d0d8ef] rounded-md justify-center items-center gap-2.5 flex">
                                 <div class="text-[#444f85] text-base font-normal font-['IBM Plex Sans Thai']">ใกล้ BTS</div>
                             </button>
-                            <button class="p-2.5 bg-[#d0d8ef] rounded-md justify-center items-center gap-2.5 flex">
+                            <button class="keyword-btn p-2.5 bg-[#d0d8ef] rounded-md justify-center items-center gap-2.5 flex">
                                 <div class="text-[#444f85] text-base font-normal font-['IBM Plex Sans Thai']">ใกล้โรงเรียน</div>
                             </button>
-                            <button class="p-2.5 bg-[#d0d8ef] rounded-md justify-center items-center gap-2.5 flex">
+                            <button class="keyword-btn p-2.5 bg-[#d0d8ef] rounded-md justify-center items-center gap-2.5 flex">
                                 <div class="text-[#444f85] text-base font-normal font-['IBM Plex Sans Thai']">มีประกัน</div>
                             </button>
-                            <button class="p-2.5 bg-[#d0d8ef] rounded-md justify-center items-center gap-2.5 flex">
+                            <button class="keyword-btn p-2.5 bg-[#d0d8ef] rounded-md justify-center items-center gap-2.5 flex">
                                 <div class="text-[#444f85] text-base font-normal font-['IBM Plex Sans Thai']">คอนโด Pet-Friendly</div>
                             </button>
-                            <button class="p-2.5 bg-[#d0d8ef] rounded-md justify-center items-center gap-2.5 flex">
+                            <button class="keyword-btn p-2.5 bg-[#d0d8ef] rounded-md justify-center items-center gap-2.5 flex">
                                 <div class="text-[#444f85] text-base font-normal font-['IBM Plex Sans Thai']">บ้านเดี่ยว</div>
                             </button>
-                            <button class="p-2.5 bg-[#d0d8ef] rounded-md justify-center items-center gap-2.5 flex">
+                            <button class="keyword-btn p-2.5 bg-[#d0d8ef] rounded-md justify-center items-center gap-2.5 flex">
                                 <div class="text-[#444f85] text-base font-normal font-['IBM Plex Sans Thai']">วิวสวย</div>
                             </button>
-                            <button class="p-2.5 bg-[#d0d8ef] rounded-md justify-center items-center gap-2.5 flex">
+                            <button class="keyword-btn p-2.5 bg-[#d0d8ef] rounded-md justify-center items-center gap-2.5 flex">
                                 <div class="text-[#444f85] text-base font-normal font-['IBM Plex Sans Thai']">สระว่ายน้ำ</div>
                             </button>
-                            <button class="p-2.5 bg-[#d0d8ef] rounded-md justify-center items-center gap-2.5 flex">
+                            <button class="keyword-btn p-2.5 bg-[#d0d8ef] rounded-md justify-center items-center gap-2.5 flex">
                                 <div class="text-[#444f85] text-base font-normal font-['IBM Plex Sans Thai']">สวนสวย</div>
                             </button>
                         </div>
@@ -84,31 +84,31 @@
                     <div class="w-24 border-2 border-black/20 mx-auto"></div>
                 </div>
             <div class="w-full h-auto flex justify-start items-center gap-8">
-                <button class="flex flex-col justify-center items-center gap-4 grow shrink basis-0 h-[120px] p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef]">
+                <button class="property-type-btn flex flex-col justify-center items-center gap-4 grow shrink basis-0 h-[120px] p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef]" data-property-type="บ้านเดี่ยว">
                     <div data-svg-wrapper>
                     <img src="{% static 'home/house.svg' %}" alt="House">
                     </div>
                     <div class="text-center text-[#444f85] text-[22px] font-medium font-['IBM Plex Sans Thai']">บ้านเดี่ยว</div>
                 </button>
-                <button class="flex flex-col justify-center items-center gap-4 grow shrink basis-0 h-[120px] p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef]">
+                <button class="property-type-btn flex flex-col justify-center items-center gap-4 grow shrink basis-0 h-[120px] p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef]" data-property-type="คอนโด">
                     <div data-svg-wrapper>
                     <img src="{% static 'home/condo.svg' %}" alt="Condo">
                     </div>
                     <div class="text-center text-[#444f85] text-[22px] font-medium font-['IBM Plex Sans Thai']">คอนโด</div>
                 </button>
-                <button class="flex flex-col justify-center items-center gap-4 grow shrink basis-0 h-[120px] p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef]">
+                <button class="property-type-btn flex flex-col justify-center items-center gap-4 grow shrink basis-0 h-[120px] p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef]" data-property-type="โฮมออฟฟิศ">
                     <div data-svg-wrapper>
                     <img src="{% static 'home/homeoffice.svg' %}" alt="Office">
                     </div>
                     <div class="text-center text-[#444f85] text-[22px] font-medium font-['IBM Plex Sans Thai']">โฮมออฟฟิศ</div>
                 </button>
-                <button class="flex flex-col justify-center items-center gap-4 grow shrink basis-0 h-[120px] p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef]">
+                <button class="property-type-btn flex flex-col justify-center items-center gap-4 grow shrink basis-0 h-[120px] p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef]" data-property-type="อพาร์ทเม้นท์">
                     <div data-svg-wrapper>
                     <img src="{% static 'home/apartment.svg' %}" alt="Apartment">
                     </div>
                     <div class="text-center text-[#444f85] text-[22px] font-medium font-['IBM Plex Sans Thai']">อพาร์ทเม้นท์</div>
                 </button>
-                <button class="flex flex-col justify-center items-center gap-4 grow shrink basis-0 h-[120px] p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef]">
+                <button class="property-type-btn flex flex-col justify-center items-center gap-4 grow shrink basis-0 h-[120px] p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#d0d8ef]" data-property-type="ทาวน์เฮ้าส์">
                     <div data-svg-wrapper>
                     <img src="{% static 'home/townhouse.svg' %}" alt="Townhouse">
                     </div>
@@ -203,6 +203,32 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    document.querySelectorAll('.keyword-btn').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            const keywordText = this.querySelector('div').innerText;
+            document.getElementById('searchInput').value = keywordText;
+            document.getElementById('searchForm').submit();
+        });
+    });
+    
+    document.querySelectorAll('.property-type-btn').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            const propertyType = this.getAttribute('data-property-type');
+            document.getElementById('searchInput').value = propertyType;
+            document.getElementById('searchForm').submit();
+        });
+    });
+    
+    locationTabButtons.forEach(button => {
+        button.addEventListener('dblclick', function() {
+            const locationText = this.querySelector('div').innerText;
+            document.getElementById('searchInput').value = locationText;
+            document.getElementById('searchForm').submit();
+        });
+    });
+    
     const trainTabButtons = document.querySelectorAll('.tab-train-btn');
     
     trainTabButtons.forEach(button => {
@@ -227,7 +253,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-
 </script>
 
 {% endblock %}
