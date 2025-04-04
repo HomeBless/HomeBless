@@ -1,8 +1,10 @@
+import logging
 from django.shortcuts import redirect, render
-from django.template import context
 from django.views.generic import TemplateView
 
 from ..models import PropertyImage, Wishlist
+
+logger = logging.getLogger(__name__)
 
 
 class WishlistView(TemplateView):
@@ -47,7 +49,10 @@ class WishlistView(TemplateView):
 
         wishlist_item = Wishlist.objects.filter(user=user, property_id=property_id)
 
-        if wishlist_item:
+        if wishlist_item.exists():
             wishlist_item.delete()
+            logger.warning(f"User {user} removed property ID {property_id} from wishlist.")
+        else:
+            logger.error(f"User {user} tried to remove property ID {property_id}, but it was not in their wishlist.")
 
         return redirect('HomeBless:wishlist')
