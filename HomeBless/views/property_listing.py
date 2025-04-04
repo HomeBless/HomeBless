@@ -1,11 +1,9 @@
 from django.core.paginator import Paginator
 from django.views.generic import ListView
 from django.db.models import Q
-from ..models import Property, PropertyType
-from ..models import Property, Wishlist
+from ..models import Property, PropertyType, Wishlist
 
 PROPERTY_PER_PAGE = 9
-
 
 class PropertyListing(ListView):
     model = Property
@@ -15,8 +13,29 @@ class PropertyListing(ListView):
 
     def get_filters(self):
         """Helper function to get and parse the filter parameters"""
-        filters = self.request.GET
-        return filters
+        return self.request.GET
+
+    @staticmethod
+    def filter_by_search(queryset, search_query):
+        """Enhanced search across multiple relevant fields"""
+        if search_query:
+            return queryset.filter(
+                Q(title__icontains=search_query) |
+                Q(description__icontains=search_query) |
+                Q(location__icontains=search_query)
+            )
+        return queryset
+
+    @staticmethod
+    def filter_by_listing_type(queryset, listing_type):
+        """Filter by selling type (buy/rent)"""
+        if listing_type == 'sell':
+            return queryset.filter(selling_type='buy')
+        elif listing_type == 'rent':
+            return queryset.filter(selling_type='rent')
+        elif listing_type == 'other':
+            return queryset.exclude(selling_type__in=['buy', 'rent'])
+        return queryset
 
     @staticmethod
     def filter_by_property_type(queryset, filters):
@@ -98,6 +117,14 @@ class PropertyListing(ListView):
         queryset = Property.objects.filter(is_available=True)
         filters = self.get_filters()
 
+        search_query = filters.get('search')
+        if search_query:
+            queryset = self.filter_by_search(queryset, search_query)
+
+        listing_type = filters.get('listing_type')
+        if listing_type:
+            queryset = self.filter_by_listing_type(queryset, listing_type)
+
         queryset = self.filter_by_property_type(queryset, filters)
         queryset = self.filter_by_bedrooms(queryset, filters)
         queryset = self.filter_by_bathrooms(queryset, filters)
@@ -132,9 +159,13 @@ class PropertyListing(ListView):
             main_image = property.images.filter(is_main=True).first() or property.images.first()
             property.main_image = main_image.image.url if main_image else None
 
-        context['current_sort'] = self.request.GET.get('sort', 'latest')
-        context['empty_message'] = 'ไม่พบคุณสมบัติบ้านที่ตรงตามเกณฑ์ของคุณ'
-        context['user_is_authenticated'] = self.request.user.is_authenticated
+        context.update({
+            'current_sort': self.request.GET.get('sort', 'latest'),
+            'empty_message': 'ไม่พบคุณสมบัติบ้านที่ตรงตามเกณฑ์ของคุณ',
+            'user_is_authenticated': self.request.user.is_authenticated,
+            'search_query': self.request.GET.get('search', ''),
+            'current_listing_type': self.request.GET.get('listing_type', ''),
+        })
 
         if 'page_obj' not in context:
             paginator = Paginator(self.get_queryset(), self.paginate_by)
