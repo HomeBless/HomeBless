@@ -2,20 +2,26 @@
 {% load static %}
 
 {% block content %}
-<div class="pt-[178px]">
-    <div class="w-full h-auto px-[30px] py-5 border-b border-[#d0d8ef] justify-center items-center gap-[30px] inline-flex fixed top-[92px] left-0 bg-white z-[1] w-full h-auto px-[30px] py-5 border-b border-[#d0d8ef] fixed">
-    <div class="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex w-full">
-        <div class="self-stretch p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#a6abc6] justify-start items-center gap-2.5 inline-flex w-full">
-            <img src="{% static 'property-listing/search.svg' %}" alt="Search" class="w-5 h-5">
-            <input type="text" placeholder="คีย์เวิร์ด, สถานที่สำคัญ, จังหวัดฯลฯ"
-                   class="grow shrink basis-0 h-[26px] bg-transparent text-[#333] text-base font-normal font-['IBM Plex Sans Thai'] outline-none">
+<!-- Main Content -->
+<div class="pt-[178px] pb-[60px]">
+    <!-- Fixed Search Bar -->
+    <div class="w-full h-auto px-[30px] py-5 border-b border-[#d0d8ef] justify-center items-center gap-[30px] inline-flex fixed top-[92px] left-0 bg-white z-[1]">
+        <div class="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex w-full">
+            <div class="self-stretch p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#a6abc6] justify-start items-center gap-2.5 inline-flex w-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input type="text" placeholder="คีย์เวิร์ด, สถานที่สำคัญ, จังหวัดฯลฯ"
+                       class="grow shrink basis-0 h-[26px] bg-transparent text-[#333] text-base font-normal outline-none">
+            </div>
         </div>
     </div>
-</div>
+
+    <!-- Main Content Area -->
     <div class="w-full h-auto inline-flex justify-start items-start gap-4">
         <div class="flex-1 self-stretch p-7 inline-flex flex-col justify-start items-start gap-4">
             <div class="inline-flex justify-start items-center gap-4">
-                <div class="justify-start text-blue-700 text-3xl font-bold font-['IBM_Plex_Sans_Thai']">
+                <div class="justify-start text-blue-700 text-3xl font-bold">
                     เปรียบเทียบในระแวกนี้
                 </div>
                 <div>
@@ -38,237 +44,532 @@
             </div>
 
             <div class="self-stretch flex flex-col justify-start items-start gap-8">
+                <!-- First Row of Properties -->
                 <div class="self-stretch inline-flex justify-start items-center gap-4">
-                    <div class="flex-1 inline-flex flex-col justify-start items-start gap-2">
-                        <div class="self-stretch inline-flex justify-start items-center gap-4">
-                            <div class="flex-1 inline-flex flex-col justify-start items-start gap-2">
-                                <div class="self-stretch justify-start"><span class="text-gray-600 text-xl font-medium font-['IBM_Plex_Sans_Thai']">ราคาต่อตารางวา</span><span class="text-blue-700 text-xl font-medium font-['IBM_Plex_Sans_Thai']">ถูก</span><span class="text-gray-600 text-xl font-medium font-['IBM_Plex_Sans_Thai']">ที่สุด</span></div>
-                                <div class="self-stretch p-2.5 rounded-[20px] outline outline-1 outline-offset-[-1px] outline-slate-300 inline-flex justify-start items-center gap-4">
-                                    <img class="w-36 self-stretch relative rounded-[10px]" src="https://placehold.co/142x121" />
-                                    <div class="flex-1 inline-flex flex-col justify-start items-start gap-4">
-                                        <div class="self-stretch flex flex-col justify-start items-start gap-2">
-                                            <div class="self-stretch h-12 justify-start text-slate-600 text-base font-bold font-['IBM_Plex_Sans_Thai'] underline">ขายบ้านใหม่สไตล์โมเดิร์น วินเทจ เรียบด่วนรามอินทรา เกษตร-นวมินทร์ ซ.นาคนิวาส48 หลัง ม.คริสตัลปาร์ค ชั้น2 พื้นปูไม้สักทุกห้อง</div>
-                                            <div class="self-stretch justify-start text-[#2DAB6F] text-base font-bold font-['IBM_Plex_Sans_Thai']">฿12,900,000</div>
-                                        </div>
-                                        <div class="self-stretch inline-flex justify-start items-center flex-wrap content-center">
-                                            <div class="px-2.5 flex justify-start items-center gap-1.5">
-                                                <img src="{% static 'property-listing/floor.svg' %}" alt="Floor" class="w-5 h-5">
-                                                <div class="justify-start text-gray-600 text-xs font-normal font-['IBM_Plex_Sans_Thai']">2 ชั้น</div>
-                                            </div>
-                                            <div class="px-2.5 border-l border-r border-gray-600 flex justify-start items-center gap-1.5">
-                                                <img src="{% static 'property-listing/bedroom.svg' %}" alt="Bedroom" class="w-5 h-5">
-                                                <div class="justify-start text-gray-600 text-xs font-normal font-['IBM_Plex_Sans_Thai']">3 ห้องนอน</div>
-                                            </div>
-                                            <div class="px-2.5 flex justify-start items-center gap-1.5">
-                                                <img src="{% static 'property-listing/bathroom.svg' %}" alt="Bath" class="w-5 h-5">
-                                                <div class="justify-start text-gray-600 text-xs font-normal font-['IBM_Plex_Sans_Thai']">3 ห้องน้ำ</div>
-                                            </div>
-                                        </div>
+                    
+                    <!-- Cheapest Property -->
+                    <div class="flex-1">
+                        <div class="mb-2">
+                            <span class="text-gray-600 text-xl font-medium">ราคาต่อตารางวา</span>
+                            <span class="text-blue-700 text-xl font-medium">ถูก</span>
+                            <span class="text-gray-600 text-xl font-medium">ที่สุด</span>
+                        </div>
+                        <div class="p-2.5 rounded-[20px] border border-slate-300 flex items-start gap-4">
+                            <img class="w-36 h-32 rounded-[10px] object-cover" src="https://placehold.co/142x121" alt="Property image">
+                            <div class="flex-1 flex flex-col gap-4">
+                                <div class="space-y-2">
+                                    <div class="h-12 text-slate-600 text-base font-bold underline overflow-hidden text-ellipsis line-clamp-2">
+                                        ขายบ้านใหม่สไตล์โมเดิร์น วินเทจ เรียบด่วนรามอินทรา เกษตร-นวมินทร์ ซ.นาคนิวาส48 หลัง ม.คริสตัลปาร์ค
+                                    </div>
+                                    <div class="text-[#2DAB6F] text-base font-bold">฿12,900,000</div>
+                                </div>
+                                <div class="flex flex-wrap items-center justify-start gap-2 w-full">
+                                    <div class="flex items-center gap-1 px-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                        </svg>
+                                        <div class="text-xs text-gray-600">2 ชั้น</div>
+                                    </div>
+                                    <div class="flex items-center gap-1 px-2 border-l border-r border-gray-300">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                        </svg>
+                                        <div class="text-xs text-gray-600">3 นอน</div>
+                                    </div>
+                                    <div class="flex items-center gap-1 px-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        </svg>
+                                        <div class="text-xs text-gray-600">3 น้ำ</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="self-stretch flex flex-col justify-start items-start gap-2">
-                            <div class="self-stretch inline-flex justify-start items-center gap-4">
-                                <div class="flex-1 pl-5 py-2.5 border-b border-slate-300 inline-flex flex-col justify-start items-start">
-                                    <div class="self-stretch justify-start text-gray-600 text-base font-bold font-['IBM_Plex_Sans_Thai']">ราคาต่อตารางวา</div>
-                                    <div class="self-stretch justify-start"><span class="text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">100,000 บาท/ตารางวา - </span><span class="text-blue-700 text-base font-bold font-['IBM_Plex_Sans_Thai']">ถูกกว่า 40,245 บาท</span></div>
+                            
+                        <!-- Property Details -->
+                        <div class="space-y-2 mt-2">
+                            <div class="pl-5 py-2.5 border-b border-slate-300">
+                                <div class="text-gray-600 text-base font-bold">ราคาต่อตารางวา</div>
+                                <div>
+                                    <span class="text-gray-600 text-base">100,000 บาท/ตารางวา - </span>
+                                    <span class="text-blue-700 text-base font-bold">ถูกกว่า 40,245 บาท</span>
                                 </div>
                             </div>
-                            <div class="self-stretch inline-flex justify-start items-center gap-4">
-                                <div class="flex-1 pl-5 py-2.5 border-b border-slate-300 inline-flex flex-col justify-start items-start">
-                                    <div class="self-stretch justify-start text-gray-600 text-base font-bold font-['IBM_Plex_Sans_Thai']">สภาพบ้าน</div>
-                                    <div class="self-stretch justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">มือสอง</div>
-                                </div>
+                            <div class="pl-5 py-2.5 border-b border-slate-300">
+                                <div class="text-gray-600 text-base font-bold">สภาพบ้าน</div>
+                                <div class="text-gray-600 text-base">มือสอง</div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="flex-1 inline-flex flex-col justify-start items-start gap-2">
-                        <div class="self-stretch inline-flex justify-start items-center gap-4">
-                            <div class="flex-1 inline-flex flex-col justify-start items-start gap-2">
-                                <div class="self-stretch justify-start"><span class="text-gray-600 text-xl font-medium font-['IBM_Plex_Sans_Thai']">ราคาต่อตารางวา</span><span class="text-blue-700 text-xl font-medium font-['IBM_Plex_Sans_Thai']">แพง</span><span class="text-gray-600 text-xl font-medium font-['IBM_Plex_Sans_Thai']">ที่สุด</span></div>
-                                <div class="self-stretch p-2.5 rounded-[20px] outline outline-1 outline-offset-[-1px] outline-slate-300 inline-flex justify-start items-center gap-4">
-                                    <img class="w-36 self-stretch relative rounded-[10px]" src="https://placehold.co/142x121" />
-                                    <div class="flex-1 inline-flex flex-col justify-start items-start gap-4">
-                                        <div class="self-stretch flex flex-col justify-start items-start gap-2">
-                                            <div class="self-stretch h-12 justify-start text-slate-600 text-base font-bold font-['IBM_Plex_Sans_Thai'] underline">ขายบ้านใหม่สไตล์โมเดิร์น วินเทจ เรียบด่วนรามอินทรา เกษตร-นวมินทร์ ซ.นาคนิวาส48 หลัง ม.คริสตัลปาร์ค ชั้น2 พื้นปูไม้สักทุกห้อง</div>
-                                            <div class="self-stretch justify-start text-[#2DAB6F] text-base font-bold font-['IBM_Plex_Sans_Thai']">฿12,900,000</div>
-                                        </div>
-                                        <div class="self-stretch inline-flex justify-start items-center flex-wrap content-center">
-                                            <div class="px-2.5 flex justify-start items-center gap-1.5">
-                                                <img src="{% static 'property-listing/floor.svg' %}" alt="Floor" class="w-5 h-5">
-                                                <div class="justify-start text-gray-600 text-xs font-normal font-['IBM_Plex_Sans_Thai']">2 ชั้น</div>
-                                            </div>
-                                            <div class="px-2.5 border-l border-r border-gray-600 flex justify-start items-center gap-1.5">
-                                                <img src="{% static 'property-listing/bedroom.svg' %}" alt="Bedroom" class="w-5 h-5">
-                                                <div class="justify-start text-gray-600 text-xs font-normal font-['IBM_Plex_Sans_Thai']">3 ห้องนอน</div>
-                                            </div>
-                                            <div class="px-2.5 flex justify-start items-center gap-1.5">
-                                                <img src="{% static 'property-listing/bathroom.svg' %}" alt="Bath" class="w-5 h-5">
-                                                <div class="justify-start text-gray-600 text-xs font-normal font-['IBM_Plex_Sans_Thai']">3 ห้องน้ำ</div>
-                                            </div>
-                                        </div>
+                    <!-- Most Expensive Property -->
+                    <div class="flex-1">
+                        <div class="mb-2">
+                            <span class="text-gray-600 text-xl font-medium">ราคาต่อตารางวา</span>
+                            <span class="text-blue-700 text-xl font-medium">แพง</span>
+                            <span class="text-gray-600 text-xl font-medium">ที่สุด</span>
+                        </div>
+                        <div class="p-2.5 rounded-[20px] border border-slate-300 flex items-start gap-4">
+                            <img class="w-36 h-32 rounded-[10px] object-cover" src="https://placehold.co/142x121" alt="Property image">
+                            <div class="flex-1 flex flex-col gap-4">
+                                <div class="space-y-2">
+                                    <div class="h-12 text-slate-600 text-base font-bold underline overflow-hidden text-ellipsis line-clamp-2">
+                                        ขายบ้านใหม่สไตล์โมเดิร์น วินเทจ เรียบด่วนรามอินทรา เกษตร-นวมินทร์ ซ.นาคนิวาส48 หลัง ม.คริสตัลปาร์ค
+                                    </div>
+                                    <div class="text-[#2DAB6F] text-base font-bold">฿12,900,000</div>
+                                </div>
+                                <div class="flex flex-wrap items-center justify-start gap-2 w-full">
+                                    <div class="flex items-center gap-1 px-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                        </svg>
+                                        <div class="text-xs text-gray-600">2 ชั้น</div>
+                                    </div>
+                                    <div class="flex items-center gap-1 px-2 border-l border-r border-gray-300">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                        </svg>
+                                        <div class="text-xs text-gray-600">3 นอน</div>
+                                    </div>
+                                    <div class="flex items-center gap-1 px-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        </svg>
+                                        <div class="text-xs text-gray-600">3 น้ำ</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="self-stretch flex flex-col justify-start items-start gap-2">
-                            <div class="self-stretch inline-flex justify-start items-center gap-4">
-                                <div class="flex-1 pl-5 py-2.5 border-b border-slate-300 inline-flex flex-col justify-start items-start">
-                                    <div class="self-stretch justify-start text-gray-600 text-base font-bold font-['IBM_Plex_Sans_Thai']">ราคาต่อตารางวา</div>
-                                    <div class="self-stretch justify-start"><span class="text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">100,000 บาท/ตารางวา - </span><span class="text-blue-700 text-base font-bold font-['IBM_Plex_Sans_Thai']">ถูกกว่า 40,245 บาท</span></div>
+                        <!-- Property Details -->
+                        <div class="space-y-2 mt-2">
+                            <div class="pl-5 py-2.5 border-b border-slate-300">
+                                <div class="text-gray-600 text-base font-bold">ราคาต่อตารางวา</div>
+                                <div>
+                                    <span class="text-gray-600 text-base">100,000 บาท/ตารางวา - </span>
+                                    <span class="text-blue-700 text-base font-bold">ถูกกว่า 40,245 บาท</span>
                                 </div>
                             </div>
-                            <div class="self-stretch inline-flex justify-start items-center gap-4">
-                                <div class="flex-1 pl-5 py-2.5 border-b border-slate-300 inline-flex flex-col justify-start items-start">
-                                    <div class="self-stretch justify-start text-gray-600 text-base font-bold font-['IBM_Plex_Sans_Thai']">สภาพบ้าน</div>
-                                    <div class="self-stretch justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">มือสอง</div>
-                                </div>
+                            <div class="pl-5 py-2.5 border-b border-slate-300">
+                                <div class="text-gray-600 text-base font-bold">สภาพบ้าน</div>
+                                <div class="text-gray-600 text-base">มือสอง</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- Second Row of Properties -->
                 <div class="self-stretch inline-flex justify-start items-center gap-4">
-                    <div class="flex-1 inline-flex flex-col justify-start items-start gap-2">
-                        <div class="self-stretch inline-flex justify-start items-center gap-4">
-                            <div class="flex-1 inline-flex flex-col justify-start items-start gap-2">
-                                <div class="self-stretch justify-start"><span class="text-gray-600 text-xl font-medium font-['IBM_Plex_Sans_Thai']">ราคาต่อตารางวา</span><span class="text-blue-700 text-xl font-medium font-['IBM_Plex_Sans_Thai']">ใกล้เคียง</span><span class="text-gray-600 text-xl font-medium font-['IBM_Plex_Sans_Thai']">ที่สุด</span></div>
-                                <div class="self-stretch p-2.5 rounded-[20px] outline outline-1 outline-offset-[-1px] outline-slate-300 inline-flex justify-start items-center gap-4">
-                                    <img class="w-36 self-stretch relative rounded-[10px]" src="https://placehold.co/142x121" />
-                                    <div class="flex-1 inline-flex flex-col justify-start items-start gap-4">
-                                        <div class="self-stretch flex flex-col justify-start items-start gap-2">
-                                            <div class="self-stretch h-12 justify-start text-slate-600 text-base font-bold font-['IBM_Plex_Sans_Thai'] underline">ขายบ้านใหม่สไตล์โมเดิร์น วินเทจ เรียบด่วนรามอินทรา เกษตร-นวมินทร์ ซ.นาคนิวาส48 หลัง ม.คริสตัลปาร์ค ชั้น2 พื้นปูไม้สักทุกห้อง</div>
-                                            <div class="self-stretch justify-start text-[#2DAB6F] text-base font-bold font-['IBM_Plex_Sans_Thai']">฿12,900,000</div>
-                                        </div>
-                                        <div class="self-stretch inline-flex justify-start items-center flex-wrap content-center">
-                                            <div class="px-2.5 flex justify-start items-center gap-1.5">
-                                                <img src="{% static 'property-listing/floor.svg' %}" alt="Floor" class="w-5 h-5">
-                                                <div class="justify-start text-gray-600 text-xs font-normal font-['IBM_Plex_Sans_Thai']">2 ชั้น</div>
-                                            </div>
-                                            <div class="px-2.5 border-l border-r border-gray-600 flex justify-start items-center gap-1.5">
-                                                <img src="{% static 'property-listing/bedroom.svg' %}" alt="Bedroom" class="w-5 h-5">
-                                                <div class="justify-start text-gray-600 text-xs font-normal font-['IBM_Plex_Sans_Thai']">3 ห้องนอน</div>
-                                            </div>
-                                            <div class="px-2.5 flex justify-start items-center gap-1.5">
-                                                <img src="{% static 'property-listing/bathroom.svg' %}" alt="Bath" class="w-5 h-5">
-                                                <div class="justify-start text-gray-600 text-xs font-normal font-['IBM_Plex_Sans_Thai']">3 ห้องน้ำ</div>
-                                            </div>
-                                        </div>
+                    
+                    <!-- Similar Property -->
+                    <div class="flex-1">
+                        <div class="mb-2">
+                            <span class="text-gray-600 text-xl font-medium">ราคาต่อตารางวา</span>
+                            <span class="text-blue-700 text-xl font-medium">ใกล้เคียง</span>
+                            <span class="text-gray-600 text-xl font-medium">ที่สุด</span>
+                        </div>
+                        <div class="p-2.5 rounded-[20px] border border-slate-300 flex items-start gap-4">
+                            <img class="w-36 h-32 rounded-[10px] object-cover" src="https://placehold.co/142x121" alt="Property image">
+                            <div class="flex-1 flex flex-col gap-4">
+                                <div class="space-y-2">
+                                    <div class="h-12 text-slate-600 text-base font-bold underline overflow-hidden text-ellipsis line-clamp-2">
+                                        ขายบ้านใหม่สไตล์โมเดิร์น วินเทจ เรียบด่วนรามอินทรา เกษตร-นวมินทร์ ซ.นาคนิวาส48 หลัง ม.คริสตัลปาร์ค
+                                    </div>
+                                    <div class="text-[#2DAB6F] text-base font-bold">฿12,900,000</div>
+                                </div>
+                                <div class="flex flex-wrap items-center justify-start gap-2 w-full">
+                                    <div class="flex items-center gap-1 px-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                        </svg>
+                                        <div class="text-xs text-gray-600">2 ชั้น</div>
+                                    </div>
+                                    <div class="flex items-center gap-1 px-2 border-l border-r border-gray-300">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                        </svg>
+                                        <div class="text-xs text-gray-600">3 นอน</div>
+                                    </div>
+                                    <div class="flex items-center gap-1 px-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        </svg>
+                                        <div class="text-xs text-gray-600">3 น้ำ</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="self-stretch flex flex-col justify-start items-start gap-2">
-                            <div class="self-stretch inline-flex justify-start items-center gap-4">
-                                <div class="flex-1 pl-5 py-2.5 border-b border-slate-300 inline-flex flex-col justify-start items-start">
-                                    <div class="self-stretch justify-start text-gray-600 text-base font-bold font-['IBM_Plex_Sans_Thai']">ราคาต่อตารางวา</div>
-                                    <div class="self-stretch justify-start"><span class="text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">100,000 บาท/ตารางวา - </span><span class="text-blue-700 text-base font-bold font-['IBM_Plex_Sans_Thai']">ถูกกว่า 40,245 บาท</span></div>
+                        <!-- Property Details -->
+                        <div class="space-y-2 mt-2">
+                            <div class="pl-5 py-2.5 border-b border-slate-300">
+                                <div class="text-gray-600 text-base font-bold">ราคาต่อตารางวา</div>
+                                <div>
+                                    <span class="text-gray-600 text-base">100,000 บาท/ตารางวา - </span>
+                                    <span class="text-blue-700 text-base font-bold">ถูกกว่า 40,245 บาท</span>
                                 </div>
                             </div>
-                            <div class="self-stretch inline-flex justify-start items-center gap-4">
-                                <div class="flex-1 pl-5 py-2.5 border-b border-slate-300 inline-flex flex-col justify-start items-start">
-                                    <div class="self-stretch justify-start text-gray-600 text-base font-bold font-['IBM_Plex_Sans_Thai']">สภาพบ้าน</div>
-                                    <div class="self-stretch justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">มือสอง</div>
-                                </div>
+                            <div class="pl-5 py-2.5 border-b border-slate-300">
+                                <div class="text-gray-600 text-base font-bold">สภาพบ้าน</div>
+                                <div class="text-gray-600 text-base">มือสอง</div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="flex-1 self-stretch p-2.5 rounded-[10px] border-2 border-dashed border-slate-300 hover:bg-slate-100 hover:border-blue-500 inline-flex flex-col justify-center items-center gap-2.5">
+                    <!-- Wishlist Selection Box -->
+                    <div id="wishlistBox" class="flex-1 self-stretch p-2.5 rounded-[10px] border-2 border-dashed border-slate-300 hover:bg-slate-100 hover:border-blue-500 inline-flex flex-col justify-center items-center gap-2.5 cursor-pointer">
                         <div class="self-stretch flex flex-col justify-start items-center">
-                            <img src="{% static 'property-listing/bookmark.svg' %}" alt="Bookmark" class="w-8 h-8">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                            </svg>
                             <div class="self-stretch p-2.5 inline-flex justify-center items-center gap-2.5">
-                                <div class="justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">เลือกบ้านในบุ๊คมาร์กของคุณมาเปรียบเทียบ</div>
+                                <div class="justify-start text-gray-600 text-base font-normal">เลือกบ้านในบุ๊คมาร์กของคุณมาเปรียบเทียบ</div>
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </div>
 
+        <!-- Main Comparison Panel -->
         <div class="w-[494px] self-stretch px-4 py-7 border-l border-slate-300 inline-flex flex-col justify-start items-center gap-4">
-            <div class="self-stretch text-center justify-start text-blue-700 text-3xl font-bold font-['IBM_Plex_Sans_Thai']">ตัวเปรียบเทียบหลัก</div>
+            <div class="self-stretch text-center justify-start text-blue-700 text-3xl font-bold">ตัวเปรียบเทียบหลัก</div>
             <div class="self-stretch flex flex-col justify-start items-start gap-2">
                 <div class="self-stretch p-5 rounded-[10px] outline outline-1 outline-offset-[-1px] outline-slate-300 flex flex-col justify-start items-start gap-6">
 
                     <div class="flex items-start gap-2">
                         <!-- Main Image -->
                         <div class="relative flex-shrink-0 w-2/3 h-full">
-                            <img class="w-full h-full object-cover" src="https://placehold.co/261x222" />
+                            <img class="w-full h-full object-cover rounded-l-[10px]" src="https://placehold.co/261x222" />
                         </div>
 
                         <!-- Small Images -->
                         <div class="flex flex-col gap-2 w-full h-full">
-                            <img class="w-full h-1/2 object-cover" src="https://placehold.co/144x107" />
-                            <img class="w-full h-1/2 object-cover" src="https://placehold.co/144x107" />
+                            <img class="w-full h-1/2 object-cover rounded-tr-[10px]" src="https://placehold.co/144x107" />
+                            <img class="w-full h-1/2 object-cover rounded-br-[10px]" src="https://placehold.co/144x107" />
                         </div>
                     </div>
 
                     <div class="self-stretch flex flex-col justify-start items-start gap-4">
                         <div class="self-stretch flex flex-col justify-start items-start gap-4">
                             <div class="self-stretch inline-flex justify-between items-center">
-                                <div class="w-96 justify-start text-slate-600 text-base font-bold font-['IBM_Plex_Sans_Thai'] underline">ขายบ้านใหม่สไตล์โมเดิร์น วินเทจ เรียบด่วนรามอินทรา เกษตร-นวมินทร์ ซ.นาคนิวาส48 หลัง ม.คริสตัลปาร์ค ชั้น2 พื้นปูไม้สักทุกห้อง</div>
+                                <div class="h-12 text-slate-600 text-base font-bold underline overflow-hidden text-ellipsis line-clamp-3">
+                                    ขายบ้านใหม่สไตล์โมเดิร์น วินเทจ เรียบด่วนรามอินทรา เกษตร-นวมินทร์ ซ.นาคนิวาส48 หลัง ม.คริสตัลปาร์ค ชั้น2 พื้นปูไม้สักทุกห้อง</div>
                             </div>
                             <div class="inline-flex justify-start items-center">
                                 <div class="px-2.5 border-r border-gray-600 flex justify-start items-center gap-1.5">
-                                    <img src="{% static 'property-listing/area.svg' %}" alt="Area" class="w-5 h-5">
-                                    <div class="justify-start text-gray-600 text-xs font-normal font-['IBM_Plex_Sans_Thai']">80 ตร.ว.</div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5" />
+                                    </svg>
+                                    <div class="justify-start text-gray-600 text-xs font-normal">80 ตร.ว.</div>
                                 </div>
                                 <div class="px-2.5 flex justify-start items-center gap-1.5">
-                                    <img src="{% static 'property-listing/floor.svg' %}" alt="Floor" class="w-5 h-5">
-                                    <div class="justify-start text-gray-600 text-xs font-normal font-['IBM_Plex_Sans_Thai']">2 ชั้น</div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                    </svg>
+                                    <div class="justify-start text-gray-600 text-xs font-normal">2 ชั้น</div>
                                 </div>
                                 <div class="px-2.5 border-l border-r border-gray-600 flex justify-start items-center gap-1.5">
-                                    <img src="{% static 'property-listing/bedroom.svg' %}" alt="Bedroom" class="w-5 h-5">
-                                    <div class="justify-start text-gray-600 text-xs font-normal font-['IBM_Plex_Sans_Thai']">4 ห้องนอน</div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                    </svg>
+                                    <div class="justify-start text-gray-600 text-xs font-normal">4 ห้องนอน</div>
                                 </div>
                                 <div class="px-2.5 flex justify-start items-center gap-1.5">
-                                    <img src="{% static 'property-listing/bathroom.svg' %}" alt="Bath" class="w-5 h-5">
-                                    <div class="justify-start text-gray-600 text-xs font-normal font-['IBM_Plex_Sans_Thai']">5 ห้องน้ำ</div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                    <div class="justify-start text-gray-600 text-xs font-normal">5 ห้องน้ำ</div>
                                 </div>
                             </div>
                             <div class="inline-flex flex-wrap justify-start items-center gap-2">
-
-                                {% for tag in '01235678' %}
+                                <!-- Tags -->
                                 <div class="px-2 py-0.5 bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-slate-300 flex justify-center items-center gap-1.5">
-                                    <div class="justify-start text-gray-600 text-xs font-normal font-['IBM_Plex_Sans_Thai']">แท็ก</div>
+                                    <div class="justify-start text-gray-600 text-xs font-normal">แท็ก</div>
                                 </div>
-                                {% endfor %}
-
+                                <div class="px-2 py-0.5 bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-slate-300 flex justify-center items-center gap-1.5">
+                                    <div class="justify-start text-gray-600 text-xs font-normal">แท็ก</div>
+                                </div>
+                                <div class="px-2 py-0.5 bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-slate-300 flex justify-center items-center gap-1.5">
+                                    <div class="justify-start text-gray-600 text-xs font-normal">แท็ก</div>
+                                </div>
                             </div>
                         </div>
                         <div class="self-stretch inline-flex justify-start items-center gap-2">
-                            <div class="flex-1 justify-start text-[#2DAB6F] text-3xl font-bold font-['IBM_Plex_Sans_Thai']">
+                            <div class="flex-1 justify-start text-[#2DAB6F] text-3xl font-bold">
                                 8,900,000
                             </div>
-                            <div class="justify-start text-[#2DAB6F] text-3xl font-bold font-['IBM_Plex_Sans_Thai']">บาท</div>
+                            <div class="justify-start text-[#2DAB6F] text-3xl font-bold">บาท</div>
                         </div>
                     </div>
                 </div>
                 <div class="self-stretch pl-5 py-2.5 border-b border-slate-300 flex flex-col justify-start items-start">
-                    <div class="self-stretch justify-start text-gray-600 text-base font-bold font-['IBM_Plex_Sans_Thai']">ราคาต่อตารางวา</div>
-                    <div class="self-stretch justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
+                    <div class="self-stretch justify-start text-gray-600 text-base font-bold">ราคาต่อตารางวา</div>
+                    <div class="self-stretch justify-start text-gray-600 text-base font-normal">
                         <span>240,000</span>
                         <span>บาท/ตารางวา</span>
                     </div>
                 </div>
                 <div class="self-stretch pl-5 py-2.5 border-b border-slate-300 flex flex-col justify-start items-start">
-                    <div class="self-stretch justify-start text-gray-600 text-base font-bold font-['IBM_Plex_Sans_Thai']">สภาพบ้าน</div>
-                    <div class="self-stretch justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">มือหนึ่ง</div>
+                    <div class="self-stretch justify-start text-gray-600 text-base font-bold">สภาพบ้าน</div>
+                    <div class="self-stretch justify-start text-gray-600 text-base font-normal">มือหนึ่ง</div>
                 </div>
             </div>
             <button class="self-stretch p-2.5 bg-blue-700 rounded-md inline-flex justify-center items-center gap-2 hover:bg-blue-800 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                <div class="justify-start text-stone-50 text-base font-normal font-['IBM_Plex_Sans_Thai']">เปลี่ยนตัวเปรียบเทียบหลัก</div>
+                <div class="justify-start text-stone-50 text-base font-normal">เปลี่ยนตัวเปรียบเทียบหลัก</div>
             </button>
         </div>
     </div>
 </div>
+
+<!-- Wishlist Overlay -->
+<div id="wishlistOverlay" class="overlay fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+    <div class="bg-white rounded-lg w-full max-w-3xl p-6 max-h-[80vh] overflow-y-auto">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-bold text-blue-700">เลือกบ้านจากบุ๊คมาร์กของคุณ</h2>
+            <button id="closeOverlay" class="text-gray-500 hover:text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="wishlistContainer">
+            <!-- Wishlist items will be populated here dynamically -->
+        </div>
+        
+        <div class="mt-6 flex justify-end">
+            <button id="cancelWishlist" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 mr-2 hover:bg-gray-100">
+                ยกเลิก
+            </button>
+            <button id="confirmWishlist" class="px-4 py-2 bg-blue-700 text-white rounded-md hover:bg-blue-800 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                เลือก
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Sample wishlist data (in a real implementation, this would come from Django's {{wishlist}} variable)
+    const wishlistData = [
+        {
+            id: 1,
+            title: "บ้านเดี่ยว 2 ชั้น หมู่บ้านเดอะแกรนด์ บางนา",
+            price: 5900000,
+            image: "https://placehold.co/142x121",
+            details: {
+                floors: 2,
+                bedrooms: 3,
+                bathrooms: 2,
+                area: 60,
+                pricePerUnit: 98333,
+                condition: "มือสอง"
+            }
+        },
+        {
+            id: 2,
+            title: "คอนโดมิเนียม ลุมพินี พาร์ค ริเวอร์ไซด์",
+            price: 3500000,
+            image: "https://placehold.co/142x121",
+            details: {
+                floors: 1,
+                bedrooms: 1,
+                bathrooms: 1,
+                area: 35,
+                pricePerUnit: 100000,
+                condition: "มือหนึ่ง"
+            }
+        },
+        {
+            id: 3,
+            title: "ทาวน์โฮม 3 ชั้น บ้านกลางเมือง พระราม 9",
+            price: 7200000,
+            image: "https://placehold.co/142x121",
+            details: {
+                floors: 3,
+                bedrooms: 3,
+                bathrooms: 3,
+                area: 30,
+                pricePerUnit: 240000,
+                condition: "มือสอง"
+            }
+        },
+        {
+            id: 4,
+            title: "บ้านเดี่ยว 2 ชั้น เศรษฐสิริ ราชพฤกษ์",
+            price: 12500000,
+            image: "https://placehold.co/142x121",
+            details: {
+                floors: 2,
+                bedrooms: 4,
+                bathrooms: 4,
+                area: 100,
+                pricePerUnit: 125000,
+                condition: "มือหนึ่ง"
+            }
+        }
+    ];
+
+    // DOM Elements
+    const wishlistBox = document.getElementById('wishlistBox');
+    const wishlistOverlay = document.getElementById('wishlistOverlay');
+    const closeOverlay = document.getElementById('closeOverlay');
+    const cancelWishlist = document.getElementById('cancelWishlist');
+    const confirmWishlist = document.getElementById('confirmWishlist');
+    const wishlistContainer = document.getElementById('wishlistContainer');
+    
+    let selectedWishlistItem = null;
+
+    // Open overlay when clicking on the wishlist box
+    wishlistBox.addEventListener('click', () => {
+        populateWishlistItems();
+        wishlistOverlay.classList.add('active');
+    });
+
+    // Close overlay
+    closeOverlay.addEventListener('click', () => {
+        wishlistOverlay.classList.remove('active');
+    });
+
+    cancelWishlist.addEventListener('click', () => {
+        wishlistOverlay.classList.remove('active');
+    });
+
+    // Confirm selection
+    confirmWishlist.addEventListener('click', () => {
+        if (selectedWishlistItem) {
+            addSelectedPropertyToComparison(selectedWishlistItem);
+            wishlistOverlay.classList.remove('active');
+        } else {
+            alert('กรุณาเลือกบ้านที่ต้องการเปรียบเทียบ');
+        }
+    });
+
+    // Populate wishlist items in the overlay
+    function populateWishlistItems() {
+        wishlistContainer.innerHTML = '';
+        
+        wishlistData.forEach(item => {
+            const itemElement = document.createElement('div');
+            itemElement.className = 'p-2.5 rounded-[10px] border border-slate-300 flex items-start gap-4 cursor-pointer hover:border-blue-500';
+            itemElement.dataset.id = item.id;
+            
+            itemElement.innerHTML = `
+                <img class="w-24 h-24 rounded-[10px] object-cover" src="${item.image}" alt="${item.title}">
+                <div class="flex-1 flex flex-col gap-2">
+                    <div class="space-y-1">
+                        <div class="text-slate-600 text-sm font-bold line-clamp-2">${item.title}</div>
+                        <div class="text-[#2DAB6F] text-sm font-bold">฿${item.price.toLocaleString()}</div>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <div class="flex items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                            </svg>
+                            <div class="text-xs text-gray-600">${item.details.floors} ชั้น</div>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                            </svg>
+                            <div class="text-xs text-gray-600">${item.details.bedrooms} นอน</div>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <div class="text-xs text-gray-600">${item.details.bathrooms} น้ำ</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-shrink-0">
+                    <div class="w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center wishlist-radio" data-id="${item.id}"></div>
+                </div>
+            `;
+            
+            wishlistContainer.appendChild(itemElement);
+            
+            // Add click event to select item
+            itemElement.addEventListener('click', () => {
+                // Remove selection from all items
+                document.querySelectorAll('.wishlist-radio').forEach(radio => {
+                    radio.classList.remove('bg-blue-700');
+                    radio.classList.remove('border-blue-700');
+                });
+                
+                // Add selection to clicked item
+                const radio = itemElement.querySelector('.wishlist-radio');
+                radio.classList.add('bg-blue-700');
+                radio.classList.add('border-blue-700');
+                
+                // Store selected item
+                selectedWishlistItem = wishlistData.find(w => w.id === parseInt(itemElement.dataset.id));
+            });
+        });
+    }
+
+    // Add selected property to comparison
+    function addSelectedPropertyToComparison(property) {
+        // Replace the wishlist box with the selected property
+        const wishlistBoxParent = wishlistBox.parentElement;
+        
+        const propertyElement = document.createElement('div');
+        propertyElement.className = 'flex-1';
+        propertyElement.innerHTML = `
+            <div class="mb-2">
+                <span class="text-gray-600 text-xl font-medium">บ้านจาก</span>
+                <span class="text-blue-700 text-xl font-medium">บุ๊คมาร์ก</span>
+                <span class="text-gray-600 text-xl font-medium">ของคุณ</span>
+            </div>
+            <div class="p-2.5 rounded-[20px] border border-slate-300 flex items-start gap-4">
+                <img class="w-36 h-32 rounded-[10px] object-cover" src="${property.image}" alt="${property.title}">
+                <div class="flex-1 flex flex-col gap-4">
+                    <div class="space-y-2">
+                        <div class="h-12 text-slate-600 text-base font-bold underline overflow-hidden text-ellipsis line-clamp-2">
+                            ${property.title}
+                        </div>
+                        <div class="text-[#2DAB6F] text-base font-bold">฿${property.price.toLocaleString()}</div>
+                    </div>
+                    <div class="flex flex-wrap items-center justify-start gap-2 w-full">
+                        <div class="flex items-center gap-1 px-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                            </svg>
+                            <div class="text-xs text-gray-600">${property.details.floors} ชั้น</div>
+                        </div>
+                        <div class="flex items-center gap-1 px-2 border-l border-r border-gray-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                            </svg>
+                            <div class="text-xs text-gray-600">${property.details.bedrooms} นอน</div>
+                        </div>
+                        <div class="flex items-center gap-1 px-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <div class="text-xs text-gray-600">${property.details.bathrooms} น้ำ</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Property Details -->
+            <div class="space-y-2 mt-2">
+                <div class="pl-5 py-2.5 border-b border-slate-300">
+                    <div class="text-gray-600 text-base font-bold">ราคาต่อตารางวา</div>
+                    <div>
+                        <span class="text-gray-600 text-base">${property.details.pricePerUnit.toLocaleString()} บาท/ตารางวา</span>
+                    </div>
+                </div>
+                <div class="pl-5 py-2.5 border-b border-slate-300">
+                    <div class="text-gray-600 text-base font-bold">สภาพบ้าน</div>
+                    <div class="text-gray-600 text-base">${property.details.condition}</div>
+                </div>
+            </div>
+        `;
+        
+        wishlistBoxParent.replaceChild(propertyElement, wishlistBox);
+    }
+</script>
 
 {% endblock %}
