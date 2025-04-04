@@ -4,4 +4,8 @@ django-storages
 Pillow
 django-allauth
 cryptography
+dotenv
+psycopg2
+requests
+jwt
 requests

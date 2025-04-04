@@ -1,0 +1,49 @@
+{% load static %}
+
+<!-- Most Expensive Property -->
+<div class="flex-1">
+    <div class="mb-2">
+        <span class="text-gray-600 text-xl font-medium">ราคาต่อตารางวา</span>
+        <span class="text-blue-700 text-xl font-medium">แพง</span>
+        <span class="text-gray-600 text-xl font-medium">ที่สุด</span>
+    </div>
+    <div class="p-2.5 rounded-[20px] border border-slate-300 flex items-start gap-4">
+        <img class="w-36 h-32 rounded-[10px] object-cover" src="{{ highest_nearby.image_url }}" alt="Property image">
+        <div class="flex-1 flex flex-col gap-4">
+            <div class="space-y-2">
+                <div class="h-12 text-slate-600 text-base font-bold underline overflow-hidden text-ellipsis line-clamp-2">
+                    {{ highest_nearby.title }}
+                </div>
+                <div class="text-[#2DAB6F] text-base font-bold">฿{{ highest_nearby.price }}</div>
+            </div>
+            <div class="flex flex-wrap items-center justify-start gap-2 w-full">
+                <div class="flex items-center gap-1 px-2">
+                    <img src="{% static 'property-detail/floor.svg' %}" alt="Floor" class="w-5 h-5">
+                    <div class="text-xs text-gray-600">{{ highest_nearby.floor }} ชั้น</div>
+                </div>
+                <div class="flex items-center gap-1 px-2 border-l border-r border-gray-300">
+                    <img src="{% static 'property-detail/bedroom.svg' %}" alt="Bedroom" class="w-5 h-5">
+                    <div class="text-xs text-gray-600">{{ highest_nearby.bedrooms }} นอน</div>
+                </div>
+                <div class="flex items-center gap-1 px-2">
+                    <img src="{% static 'property-detail/bathroom.svg' %}" alt="Bathroom" class="w-5 h-5">
+                    <div class="text-xs text-gray-600">{{ highest_nearby.bathrooms }} น้ำ</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Property Details -->
+    <div class="space-y-2 mt-2">
+        <div class="pl-5 py-2.5 border-b border-slate-300">
+            <div class="text-gray-600 text-base font-bold">ราคาต่อตารางวา</div>
+            <div>
+                <span class="text-gray-600 text-base">{{ highest_nearby.price_per_wa }} บาท/ตารางวา </span>
+            </div>
+        </div>
+        <div class="pl-5 py-2.5 border-b border-slate-300">
+            <div class="text-gray-600 text-base font-bold">ประเภท</div>
+            <div class="text-gray-600 text-base">{{ highest_nearby.type }}</div>
+        </div>
+    </div>
+</div>

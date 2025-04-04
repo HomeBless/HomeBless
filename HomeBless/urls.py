@@ -13,4 +13,5 @@ urlpatterns = [
     path('manage/', PropertyManage.as_view(), name='manage'),
     path('edit-property/<int:property_id>/', edit_property, name='edit_property'),
     path('wishlist/', WishlistView.as_view(), name='wishlist'),
+    path('compare/set-wishlist-property/', Compare.set_wishlist_property, name='set_wishlist_property'),
 ]
