@@ -176,3 +176,5 @@ SOCIALACCOUNT_LOGIN_ON_GET = True
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 ACCOUNT_PASSWORD_RESET_REDIRECT_URL = '/accounts/login/'
+
+GOOGLE_MAPS_API_KEY = getenv('GOOGLE_MAPS_API_KEY')

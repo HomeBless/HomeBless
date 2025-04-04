@@ -6,3 +6,4 @@ from .property_list import property_list
 from .sell import Sell
 from .property_manage import PropertyManage
 from .edit_property import edit_property
+from .wishlist import WishlistView

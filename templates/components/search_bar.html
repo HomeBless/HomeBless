@@ -1,48 +1,33 @@
 {% load static %}
 
 <!-- Search Bar Component -->
-<div class="w-full h-[86px] px-[30px] py-5 border-b border-[#d0d8ef] justify-center items-center gap-[30px] inline-flex fixed top-[92px] left-0 bg-white">
+<form method="GET" action="{% url 'HomeBless:property-listing' %}" class="w-full h-[86px] px-[30px] py-5 border-b border-[#d0d8ef] justify-center items-center gap-[30px] inline-flex fixed top-[92px] left-0 bg-white z-50">
     <div class="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
         <div class="self-stretch p-2.5 bg-[#faf9f6] rounded-[10px] border border-[#a6abc6] justify-start items-center gap-2.5 inline-flex">
             <div data-svg-wrapper class="relative">
                 <img src="{% static 'property-listing/search.svg' %}" alt="Search">
             </div>
-            <input type="text" placeholder="คีย์เวิร์ด, สถานที่สำคัญ, จังหวัด ฯลฯ" 
-                class="grow shrink basis-0 h-[26px] bg-transparent outline-none text-[#444F85] text-base font-normal font-['IBM Plex Sans Thai']">
+            <input type="text" name="search" placeholder="คีย์เวิร์ด, สถานที่สำคัญ, จังหวัด ฯลฯ"
+                class="grow shrink basis-0 h-[26px] bg-transparent outline-none text-[#444F85] text-base font-normal font-['IBM Plex Sans Thai']"
+                value="{{ request.GET.search }}">
         </div>
     </div>
 
     <div class="px-8 border-l border-r border-[#d0d8ef] justify-start items-center gap-4 flex">
         <div class="relative">
-            <select class="h-[46px] px-2.5 bg-[#faf9f6] rounded-[10px] border border-[#2162d0] text-[#2162d0] text-base font-normal font-['IBM Plex Sans Thai'] appearance-none pr-8">
-                <option selected disabled>ช่วงราคา</option>
-                <option value="not-defined">ไม่กำหนด</option>
-                <option value="below500k">ต่ำกว่า 500,000</option>
-                <option value="500k-2m">500,000-2,000,000</option>
-                <option value="2m-5m">2,000,000-5,000,000</option>
-                <option value="5m-8m">5,000,000-8,000,000</option>
-                <option value="8m-10m">8,000,000-10,000,000</option>
-                <option value="morethan10m">มากกว่า 10,000,000</option>
-            </select>
-            <div class="absolute top-1/2 right-3 -translate-y-1/2 pointer-events-none">
-                <img src="{% static 'dropdown-icon.svg' %}" alt="Icon">
-            </div>
-        </div>
-        <div class="relative">
-            <select class="h-[46px] px-2.5 bg-[#faf9f6] rounded-[10px] border border-[#2162d0] text-[#2162d0] text-base font-normal font-['IBM Plex Sans Thai'] appearance-none pr-8">
-                <option selected disabled>ประกาศ</option>
-                <option value="all">ทั้งหมด</option>
-                <option value="sell">ขาย</option>
-                <option value="rent">ให้เช่า</option>
-                <option value="other">อื่นๆ</option>
+            <select name="listing_type" class="h-[46px] px-2.5 bg-[#faf9f6] rounded-[10px] border border-[#2162d0] text-[#2162d0] text-base font-normal font-['IBM Plex Sans Thai'] appearance-none pr-8">
+                <option value="" {% if not request.GET.listing_type %}selected{% endif %}>ประกาศ</option>
+                <option value="all" {% if request.GET.listing_type == 'all' %}selected{% endif %}>ทั้งหมด</option>
+                <option value="sell" {% if request.GET.listing_type == 'sell' %}selected{% endif %}>ขาย</option>
+                <option value="rent" {% if request.GET.listing_type == 'rent' %}selected{% endif %}>ให้เช่า</option>
             </select>
             <div class="absolute top-1/2 right-3 -translate-y-1/2 pointer-events-none">
                 <img src="{% static 'dropdown-icon.svg' %}" alt="Icon">
             </div>
         </div>
     </div>
-    <button class="p-2.5 bg-[#2162d0] rounded-[10px] justify-center items-center gap-2.5 flex
+    <button type="submit" class="p-2.5 bg-[#2162d0] rounded-[10px] justify-center items-center gap-2.5 flex
         hover:bg-[#1e4cae] active:ring-4 active:ring-[#aac4f9] transition-all duration-200">
         <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">ค้นหาเลย!</div>
     </button>
-</div>
+</form>

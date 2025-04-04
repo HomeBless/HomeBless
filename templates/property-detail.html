@@ -2,7 +2,12 @@
 {% load static %}
 {% load humanize %}
 
+{% block head %}
+  <script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&libraries=maps,marker,places,geometry&callback=initMap" defer></script>
+{% endblock %}
+
 {% block content %}
+
     <div class="pt-[178px] pb-[60px]">
         <!-- search bar -->
         {% include "components/search_bar.html" %}
@@ -46,29 +51,29 @@
                         </div>
                     </div>
                     <!-- Title -->
-                    <div class="line-clamp-2 overflow-hidden text-[#444F85] font-bold text-[32px]">
-                        {{ property.title }}
+                    <div class="self-stretch inline-flex justify-start items-start gap-4">
+                        <div class="flex-1 justify-start text-slate-600 text-3xl font-bold font-['IBM_Plex_Sans_Thai']">
+                            {{ property.title }}
+                        </div>
+                        {% if user_is_authenticated %}
+                        <form method="POST" action="{% url 'HomeBless:property-detail' pk=property.pk %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="bookmark_property" value="{{ property.id }}">
+                            <button onclick="toggleBookmark(this)" class="relative p-2 rounded-full transition-transform duration-200 hover:scale-110 focus:outline-none">
+                                <span class="absolute inset-0 rounded-full bg-blue-500 opacity-0 scale-50 transition-all duration-300 ease-out group-hover:opacity-20"></span>
+                                <img id="bookmark-icon"
+                                     src="{% if wishlist_bool %}{% static 'property-detail/booked.svg' %}{% else %}{% static 'property-detail/bookmark.svg' %}{% endif %}"
+                                     alt="Bookmark"
+                                     class="w-15 h-15 relative z-10">
+                            </button>
+                        </form>
+                        {% endif %}
                     </div>
                     <!-- Location pin -->
                     <div class="flex p-2 px-3 justify-center items-center gap-1.5 rounded-md bg-[#2162D0]">
                         <div class="flex items-center gap-2">
                             <div class="h-[14px] w-[13px]">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14"
-                                     fill="none">
-                                    <g clip-path="url(#clip0_35_196)">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                              d="M2.51875 9.8C2.55659 9.74566 2.60566 9.70156 2.66207 9.67119C2.71848 9.64081 2.78068 9.625 2.84375 9.625H4.875C4.98274 9.625 5.08608 9.67109 5.16226 9.75314C5.23845 9.83519 5.28125 9.94647 5.28125 10.0625C5.28125 10.1785 5.23845 10.2898 5.16226 10.3719C5.08608 10.4539 4.98274 10.5 4.875 10.5H3.04688L1.21875 13.125H11.7812L9.95312 10.5H8.125C8.01726 10.5 7.91392 10.4539 7.83774 10.3719C7.76155 10.2898 7.71875 10.1785 7.71875 10.0625C7.71875 9.94647 7.76155 9.83519 7.83774 9.75314C7.91392 9.67109 8.01726 9.625 8.125 9.625H10.1562C10.2193 9.625 10.2815 9.64081 10.3379 9.67119C10.3943 9.70156 10.4434 9.74566 10.4812 9.8L12.9187 13.3C12.964 13.365 12.9916 13.4423 12.9984 13.5232C13.0051 13.6041 12.9909 13.6855 12.9571 13.7582C12.9234 13.8308 12.8715 13.8919 12.8073 13.9347C12.7432 13.9774 12.6692 14 12.5938 14H0.40625C0.330805 14 0.25685 13.9774 0.192672 13.9347C0.128494 13.8919 0.0766294 13.8308 0.0428891 13.7582C0.00914891 13.6855 -0.00513371 13.6041 0.00164172 13.5232C0.00841715 13.4423 0.0359829 13.365 0.0812502 13.3L2.51875 9.8Z"
-                                              fill="#FAF9F6"/>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                              d="M3.25 3.49998C3.25006 2.82643 3.43058 2.1672 3.76991 1.6014C4.10924 1.0356 4.59297 0.587256 5.16303 0.310174C5.7331 0.0330922 6.3653 -0.0609609 6.98378 0.0393004C7.60225 0.139562 8.18073 0.429879 8.64979 0.875415C9.11885 1.32095 9.45857 1.90278 9.6282 2.55109C9.79782 3.1994 9.79013 3.88665 9.60607 4.53037C9.422 5.17409 9.06936 5.74694 8.59047 6.18019C8.11158 6.61343 7.52679 6.88866 6.90625 6.97286V11.8125C6.90625 11.9285 6.86345 12.0398 6.78726 12.1218C6.71108 12.2039 6.60774 12.25 6.5 12.25C6.39226 12.25 6.28893 12.2039 6.21274 12.1218C6.13655 12.0398 6.09375 11.9285 6.09375 11.8125V6.97373C5.30803 6.86713 4.5855 6.45524 4.06186 5.81544C3.53823 5.17564 3.24953 4.35283 3.25 3.49998Z"
-                                              fill="#FAF9F6"/>
-                                    </g>
-                                    <defs>
-                                        <clipPath id="clip0_35_196">
-                                            <rect width="13" height="14" fill="white"/>
-                                        </clipPath>
-                                    </defs>
-                                </svg>
+                                <img id="bookmark-icon" src="{% static 'property-detail/location_pin.svg' %}" alt="Bookmark">
                             </div>
                             <div class="text-[#FAF9F6] font-bold text-[16px]">
                                 {{ property.location }}
@@ -84,129 +89,11 @@
                             บาท
                         </div>
                     </div>
-                    <!-- Features -->
-                    <div class="flex items-start gap-[16px] self-stretch">
-                        <div class="flex p-2.5 flex-col justify-center items-center gap-1.5 flex-1 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6]">
-                            <div class="flex items-center gap-[8px]">
-                                <div class="h-[20px] w-[20px]">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20"
-                                         fill="none">
-                                        <g clip-path="url(#clip0_35_29)">
-                                            <path d="M1.58325 0C1.25173 0 0.933789 0.131696 0.699368 0.366117C0.464948 0.600537 0.333252 0.918479 0.333252 1.25L0.333252 18.75C0.333252 19.0815 0.464948 19.3995 0.699368 19.6339C0.933789 19.8683 1.25173 20 1.58325 20H7.83325V18.75H2.83325V17.5H7.83325V16.25H5.33325V15H7.83325V13.75H2.83325V12.5H7.83325V11.25H5.33325V10H7.83325V8.75H2.83325V7.5H7.83325V2.5H9.08325V7.5H10.3333V5H11.5833V7.5H12.8333V2.5H14.0833V7.5H15.3333V5H16.5833V7.5H17.8333V2.5H19.0833V7.5H20.3333V1.25C20.3333 0.918479 20.2016 0.600537 19.9671 0.366117C19.7327 0.131696 19.4148 0 19.0833 0L1.58325 0Z"
-                                                  fill="#444F85"/>
-                                        </g>
-                                        <defs>
-                                            <clipPath id="clip0_35_29">
-                                                <rect width="20" height="20" fill="white"
-                                                      transform="translate(0.333252)"/>
-                                            </clipPath>
-                                        </defs>
-                                    </svg>
-                                </div>
-                                <div class="text-[#444F85] font-bold text-[22px]">
-                                    พื้นที่ใช้สอย
-                                </div>
-                            </div>
-                            <div class="text-center text-[#575B6F] font-medium text-[22px]">{{ property.area }}ตร.ว.</div>
-                            <div class="text-center text-[#575B6F] font-normal text-[16px]">
-                                ({{ property.price_per_area|floatformat:2|intcomma }} บาท/ตร.ว)
-                            </div>
-                        </div>
-                        <div class="flex p-2.5 flex-col justify-center items-center gap-1.5 flex-1 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6]">
-                            <div class="flex items-center gap-[8px]">
-                                <div class="h-[20px] w-[24px]">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="21" viewBox="0 0 24 21"
-                                         fill="none">
-                                        <path d="M24 14.9V20.5H12.8V13.3H5.6V6.1H0V0.5H11.2V7.7H18.4V14.9H24Z"
-                                              fill="#444F85"/>
-                                    </svg>
-                                </div>
-                                <div class="text-[#444F85] font-bold text-[22px]">
-                                    จำนวนชั้น
-                                </div>
-                            </div>
-                            <div class="text-center text-[#575B6F] font-medium text-[22px]">
-                                {{ property.floors }} ชั้น
-                            </div>
-                        </div>
-                        <div class="flex p-2.5 flex-col justify-center items-center gap-1.5 flex-1 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6]">
-                            <div class="flex items-center gap-[8px]">
-                                <div class="h-[20px] w-[22px]">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="23" height="21" viewBox="0 0 23 21"
-                                         fill="none">
-                                        <path d="M20.4665 10.5V1.61111C20.4665 1.31643 20.3506 1.03381 20.1443 0.825437C19.938 0.617063 19.6582 0.5 19.3665 0.5C19.0748 0.5 18.795 0.617063 18.5887 0.825437C18.3824 1.03381 18.2665 1.31643 18.2665 1.61111V3.83333H5.0665V1.61111C5.0665 1.31643 4.95061 1.03381 4.74432 0.825437C4.53803 0.617063 4.25824 0.5 3.9665 0.5C3.67477 0.5 3.39498 0.617063 3.18869 0.825437C2.9824 1.03381 2.8665 1.31643 2.8665 1.61111V10.5C2.28303 10.5 1.72345 10.7341 1.31087 11.1509C0.898289 11.5676 0.666504 12.1329 0.666504 12.7222V19.3889C0.666504 19.6836 0.782396 19.9662 0.988686 20.1746C1.19498 20.3829 1.47477 20.5 1.7665 20.5C2.05824 20.5 2.33803 20.3829 2.54432 20.1746C2.75061 19.9662 2.8665 19.6836 2.8665 19.3889V17.1667H20.4665V19.3889C20.4665 19.6836 20.5824 19.9662 20.7887 20.1746C20.995 20.3829 21.2748 20.5 21.5665 20.5C21.8582 20.5 22.138 20.3829 22.3443 20.1746C22.5506 19.9662 22.6665 19.6836 22.6665 19.3889V12.7222C22.6665 12.1329 22.4347 11.5676 22.0221 11.1509C21.6096 10.7341 21.05 10.5 20.4665 10.5ZM10.5665 10.5H5.0665V9.38889C5.0665 9.0942 5.1824 8.81159 5.38869 8.60322C5.59498 8.39484 5.87477 8.27778 6.1665 8.27778H9.4665C9.75824 8.27778 10.038 8.39484 10.2443 8.60322C10.4506 8.81159 10.5665 9.0942 10.5665 9.38889V10.5ZM18.2665 10.5H12.7665V9.38889C12.7665 9.0942 12.8824 8.81159 13.0887 8.60322C13.295 8.39484 13.5748 8.27778 13.8665 8.27778H17.1665C17.4582 8.27778 17.738 8.39484 17.9443 8.60322C18.1506 8.81159 18.2665 9.0942 18.2665 9.38889V10.5Z"
-                                              fill="#444F85"/>
-                                    </svg>
-                                </div>
-                                <div class="text-[#444F85] font-bold text-[22px]">
-                                    ห้องนอน
-                                </div>
-                            </div>
-                            <div class="text-center text-[#575B6F] font-medium text-[22px]">
-                                {{ property.bedrooms }} ห้องนอน
-                            </div>
-                        </div>
-                        <div class="flex p-2.5 flex-col justify-center items-center gap-1.5 flex-1 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6]">
-                            <div class="flex items-center gap-[8px]">
-                                <div class="h-[24px] w-[17px]">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="25" viewBox="0 0 18 25"
-                                         fill="none">
-                                        <path d="M17.8333 2.3V23.9C17.8333 24.0591 17.7715 24.2117 17.6616 24.3243C17.5516 24.4368 17.4025 24.5 17.247 24.5C17.0916 24.5 16.9425 24.4368 16.8325 24.3243C16.7226 24.2117 16.6608 24.0591 16.6608 23.9V2.3C16.6608 2.14087 16.5991 1.98826 16.4891 1.87574C16.3792 1.76321 16.2301 1.7 16.0746 1.7H7.28153C7.12606 1.7 6.97695 1.76321 6.86702 1.87574C6.75708 1.98826 6.69532 2.14087 6.69532 2.3V5.9C7.05785 5.9011 7.41116 6.01704 7.70673 6.23191C8.0023 6.44677 8.22564 6.75001 8.34608 7.1H3.87215C3.99259 6.75001 4.21593 6.44677 4.5115 6.23191C4.80707 6.01704 5.16038 5.9011 5.52291 5.9V2.3C5.52337 1.82276 5.70881 1.3652 6.03851 1.02773C6.36821 0.690272 6.81526 0.500477 7.28153 0.5H16.0746C16.5409 0.500477 16.9879 0.690272 17.3176 1.02773C17.6474 1.3652 17.8328 1.82276 17.8333 2.3ZM6.10911 15.5C5.95364 15.5 5.80454 15.5632 5.6946 15.6757C5.58467 15.7883 5.52291 15.9409 5.52291 16.1V18.5C5.52291 18.6591 5.58467 18.8117 5.6946 18.9243C5.80454 19.0368 5.95364 19.1 6.10911 19.1C6.26459 19.1 6.41369 19.0368 6.52363 18.9243C6.63356 18.8117 6.69532 18.6591 6.69532 18.5V16.1C6.69532 15.9409 6.63356 15.7883 6.52363 15.6757C6.41369 15.5632 6.26459 15.5 6.10911 15.5ZM2.59187 16.1C2.4364 16.1 2.2873 16.1632 2.17736 16.2757C2.06743 16.3883 2.00567 16.5409 2.00567 16.7V17.3C2.00567 17.4591 2.06743 17.6117 2.17736 17.7243C2.2873 17.8368 2.4364 17.9 2.59187 17.9C2.74734 17.9 2.89645 17.8368 3.00638 17.7243C3.11632 17.6117 3.17808 17.4591 3.17808 17.3V16.7C3.17808 16.5409 3.11632 16.3883 3.00638 16.2757C2.89645 16.1632 2.74734 16.1 2.59187 16.1ZM8.45394 8.3H3.76429C2.98721 8.30095 2.24223 8.61733 1.69276 9.17973C1.14329 9.74213 0.834183 10.5046 0.833252 11.3V13.7C0.833252 13.8591 0.895013 14.0117 1.00495 14.1243C1.11488 14.2368 1.26399 14.3 1.41946 14.3H10.7988C10.9542 14.3 11.1033 14.2368 11.2133 14.1243C11.3232 14.0117 11.385 13.8591 11.385 13.7V11.3C11.384 10.5046 11.0749 9.74213 10.5255 9.17973C9.976 8.61733 9.23102 8.30095 8.45394 8.3ZM2.59187 19.1C2.4364 19.1 2.2873 19.1632 2.17736 19.2757C2.06743 19.3883 2.00567 19.5409 2.00567 19.7V20.9C2.00567 21.0591 2.06743 21.2117 2.17736 21.3243C2.2873 21.4368 2.4364 21.5 2.59187 21.5C2.74734 21.5 2.89645 21.4368 3.00638 21.3243C3.11632 21.2117 3.17808 21.0591 3.17808 20.9V19.7C3.17808 19.5409 3.11632 19.3883 3.00638 19.2757C2.89645 19.1632 2.74734 19.1 2.59187 19.1ZM9.62636 15.5C9.47088 15.5 9.32178 15.5632 9.21184 15.6757C9.10191 15.7883 9.04015 15.9409 9.04015 16.1V17.3C9.04015 17.4591 9.10191 17.6117 9.21184 17.7243C9.32178 17.8368 9.47088 17.9 9.62636 17.9C9.78183 17.9 9.93093 17.8368 10.0409 17.7243C10.1508 17.6117 10.2126 17.4591 10.2126 17.3V16.1C10.2126 15.9409 10.1508 15.7883 10.0409 15.6757C9.93093 15.5632 9.78183 15.5 9.62636 15.5ZM9.62636 19.1C9.47088 19.1 9.32178 19.1632 9.21184 19.2757C9.10191 19.3883 9.04015 19.5409 9.04015 19.7V20.9C9.04015 21.0591 9.10191 21.2117 9.21184 21.3243C9.32178 21.4368 9.47088 21.5 9.62636 21.5C9.78183 21.5 9.93093 21.4368 10.0409 21.3243C10.1508 21.2117 10.2126 21.0591 10.2126 20.9V19.7C10.2126 19.5409 10.1508 19.3883 10.0409 19.2757C9.93093 19.1632 9.78183 19.1 9.62636 19.1ZM6.10911 20.3C5.95364 20.3 5.80454 20.3632 5.6946 20.4757C5.58467 20.5883 5.52291 20.7409 5.52291 20.9V22.1C5.52291 22.2591 5.58467 22.4117 5.6946 22.5243C5.80454 22.6368 5.95364 22.7 6.10911 22.7C6.26459 22.7 6.41369 22.6368 6.52363 22.5243C6.63356 22.4117 6.69532 22.2591 6.69532 22.1V20.9C6.69532 20.7409 6.63356 20.5883 6.52363 20.4757C6.41369 20.3632 6.26459 20.3 6.10911 20.3Z"
-                                              fill="#444F85"/>
-                                    </svg>
-                                </div>
-                                <div class="text-[#444F85] font-bold text-[22px]">
-                                    ห้องน้ำ
-                                </div>
-                            </div>
-                            <div class="text-center text-[#575B6F] font-medium text-[22px]">
-                                {{ property.bathrooms }} ห้องน้ำ
-                            </div>
-                        </div>
-                        <div class="flex p-2.5 flex-col justify-center items-center gap-1.5 flex-1 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6]">
-                            <div class="flex items-center gap-[8px]">
-                                <div class="h-[18px] w-[20px]">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="19" viewBox="0 0 20 19"
-                                         fill="none">
-                                        <path d="M17.6889 1.63625C17.575 1.30441 17.3619 1.01671 17.0792 0.813093C16.7964 0.609476 16.4581 0.500047 16.1111 0.5H3.88889C3.16111 0.5 2.53889 0.9725 2.31111 1.63625L0 8.375V17.375C0 17.9937 0.5 18.5 1.11111 18.5H2.22222C2.51691 18.5 2.79952 18.3815 3.0079 18.1705C3.21627 17.9595 3.33333 17.6734 3.33333 17.375V16.25H16.6667V17.375C16.6667 17.9937 17.1667 18.5 17.7778 18.5H18.8889C19.1836 18.5 19.4662 18.3815 19.6746 18.1705C19.8829 17.9595 20 17.6734 20 17.375V8.375L17.6889 1.63625ZM3.88889 12.875C2.96667 12.875 2.22222 12.1213 2.22222 11.1875C2.22222 10.2537 2.96667 9.5 3.88889 9.5C4.81111 9.5 5.55556 10.2537 5.55556 11.1875C5.55556 12.1213 4.81111 12.875 3.88889 12.875ZM16.1111 12.875C15.1889 12.875 14.4444 12.1213 14.4444 11.1875C14.4444 10.2537 15.1889 9.5 16.1111 9.5C17.0333 9.5 17.7778 10.2537 17.7778 11.1875C17.7778 12.1213 17.0333 12.875 16.1111 12.875ZM2.22222 7.25L3.88889 2.1875H16.1111L17.7778 7.25H2.22222Z"
-                                              fill="#444F85"/>
-                                    </svg>
-                                </div>
-                                <div class="text-[#444F85] font-bold text-[22px]">
-                                    ที่จอดรถ
-                                </div>
-                            </div>
-                            <div class="text-center text-[#575B6F] font-medium text-[22px]">
-                                {{ property.garages }} คัน
-                            </div>
-                        </div>
-                        <div class="flex p-2.5 flex-col justify-center items-center gap-1.5 flex-1 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6]">
-                            <div class="flex items-center gap-[8px]">
-                                <div class="h-[18px] w-[18px]">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19"
-                                         fill="none">
-                                        <g clip-path="url(#clip0_35_70)">
-                                            <path d="M4.66675 1.0625C4.66675 0.913316 4.60748 0.770242 4.502 0.664752C4.39651 0.559263 4.25343 0.5 4.10425 0.5C3.95506 0.5 3.81199 0.559263 3.7065 0.664752C3.60101 0.770242 3.54175 0.913316 3.54175 1.0625V1.625H2.41675C1.82001 1.625 1.24771 1.86205 0.825758 2.28401C0.403801 2.70597 0.166748 3.27826 0.166748 3.875L0.166748 16.25C0.166748 16.8467 0.403801 17.419 0.825758 17.841C1.24771 18.2629 1.82001 18.5 2.41675 18.5H15.9167C16.5135 18.5 17.0858 18.2629 17.5077 17.841C17.9297 17.419 18.1667 16.8467 18.1667 16.25V3.875C18.1667 3.27826 17.9297 2.70597 17.5077 2.28401C17.0858 1.86205 16.5135 1.625 15.9167 1.625H14.7917V1.0625C14.7917 0.913316 14.7325 0.770242 14.627 0.664752C14.5215 0.559263 14.3784 0.5 14.2292 0.5C14.0801 0.5 13.937 0.559263 13.8315 0.664752C13.726 0.770242 13.6667 0.913316 13.6667 1.0625V1.625H4.66675V1.0625ZM3.02987 3.875H15.3036C15.6411 3.875 15.9167 4.127 15.9167 4.4375V5.5625C15.9167 5.873 15.6422 6.125 15.3025 6.125H3.02987C2.69237 6.125 2.41675 5.873 2.41675 5.5625V4.4375C2.41675 4.127 2.69125 3.875 3.02987 3.875Z"
-                                                  fill="#444F85"/>
-                                        </g>
-                                        <defs>
-                                            <clipPath id="clip0_35_70">
-                                                <rect width="18" height="18" fill="white"
-                                                      transform="translate(0.166748 0.5)"/>
-                                            </clipPath>
-                                        </defs>
-                                    </svg>
-                                </div>
-                                <div class="text-[#444F85] font-bold text-[22px]">
-                                    ปีที่สร้างเสร็จ
-                                </div>
-                            </div>
-                            <div class="text-center text-[#575B6F] font-medium text-[22px]">
-                                2020
-                            </div>
-                        </div>
-                    </div>
                 </div>
+
+                <!-- Property Info Card-->
+                {% include "components/card.html" %}
+
                 <!-- Additional Info -->
                 <div class="flex justify-between items-start self-stretch">
                     <!-- Tags Tabs -->
@@ -235,290 +122,13 @@
                         <!-- Tabs Content for 'Details' -->
                         <div class="tab-content flex flex-col items-start gap-[16px] self-stretch"
                              data-tab-content="details">
-                        
-                            <!-- Content -->
-                        
-                            <!-- Decoration -->
-                            {% if decoration_tags or flooring_tags or wall_tags or ceiling_tags %}
-                            <div class="flex flex-col items-start gap-[8px] self-stretch">
-                                <div class="text-[#575B6F] font-bold text-[16px] self-stretch">
-                                    การตกแต่ง
-                                </div>
-                                
-                                {% if decoration_tags %}
-                                <div class="self-stretch pl-4 inline-flex flex-col justify-start items-start gap-2">
-                                    <div class="self-stretch justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
-                                        ตกแต่งภายใน
-                                    </div>
-                                    <div class="self-stretch inline-flex justify-start items-center gap-2 flex-wrap content-center">
-                                        {% for tag in decoration_tags %}
-                                        <div class="px-2.5 py-[3px] bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-gray-600 flex justify-center items-center gap-2.5">
-                                            <div class="justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
-                                                {{ tag.name }}
-                                            </div>
-                                        </div>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                                {% endif %}
-                                
-                                {% if flooring_tags %}
-                                <div class="self-stretch pl-4 inline-flex flex-col justify-start items-start gap-2">
-                                    <div class="self-stretch justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
-                                        วัสดุปูพื้น
-                                    </div>
-                                    <div class="self-stretch inline-flex justify-start items-center gap-2 flex-wrap content-center">
-                                        {% for tag in flooring_tags %}
-                                        <div class="px-2.5 py-[3px] bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-gray-600 flex justify-center items-center gap-2.5">
-                                            <div class="justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
-                                                {{ tag.name }}
-                                            </div>
-                                        </div>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                                {% endif %}
-                                
-                                {% if wall_tags %}
-                                <div class="self-stretch pl-4 inline-flex flex-col justify-start items-start gap-2">
-                                    <div class="self-stretch justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
-                                        ผนัง
-                                    </div>
-                                    <div class="self-stretch inline-flex justify-start items-center gap-2 flex-wrap content-center">
-                                        {% for tag in wall_tags %}
-                                        <div class="px-2.5 py-[3px] bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-gray-600 flex justify-center items-center gap-2.5">
-                                            <div class="justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
-                                                {{ tag.name }}
-                                            </div>
-                                        </div>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                                {% endif %}
-                                
-                                {% if ceiling_tags %}
-                                <div class="self-stretch pl-4 inline-flex flex-col justify-start items-start gap-2">
-                                    <div class="self-stretch justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
-                                        เพดาน
-                                    </div>
-                                    <div class="self-stretch inline-flex justify-start items-center gap-2 flex-wrap content-center">
-                                        {% for tag in ceiling_tags %}
-                                        <div class="px-2.5 py-[3px] bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-gray-600 flex justify-center items-center gap-2.5">
-                                            <div class="justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
-                                                {{ tag.name }}
-                                            </div>
-                                        </div>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                                {% endif %}
-                            
-                            </div>
-                            {% endif %}
-                        
-                            
-                            {% if home_features_tags %}
-                            <!-- Home Features -->
-                            <div class="flex flex-col items-start gap-[8px] self-stretch">
-                                <div class="text-[#575B6F] font-bold text-[16px] self-stretch">
-                                    สิ่งอำนวยความสะดวกในบ้าน
-                                </div>
-                                <div class="self-stretch inline-flex justify-start items-center gap-2 flex-wrap content-center">
-                                    {% for tag in home_features_tags %}
-                                    <div class="px-2.5 py-[3px] bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-gray-600 flex justify-center items-center gap-2.5">
-                                        <div class="justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
-                                            {{ tag.name }}
-                                        </div>
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                            {% endif %}
-                        
-                        
-                            <!-- Project Amenities -->
-                            {% if security_tags or common_area_tags or travelling_tags or facility_tags %}
-                            <div class="flex flex-col items-start gap-[8px] self-stretch">
-                                <div class="text-[#575B6F] font-bold text-[16px] self-stretch">
-                                    สิ่งอำนวยความสะดวกในโครงการ
-                                </div>
-                            
-                                {% if security_tags %}
-                                <div class="self-stretch pl-4 inline-flex flex-col justify-start items-start gap-2">
-                                    <div class="self-stretch justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
-                                        ความปลอดภัย
-                                    </div>
-                                    <div class="self-stretch inline-flex justify-start items-center gap-2 flex-wrap content-center">
-                                        {% for tag in security_tags %}
-                                        <div class="px-2.5 py-[3px] bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-gray-600 flex justify-center items-center gap-2.5">
-                                            <div class="justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
-                                                {{ tag.name }}
-                                            </div>
-                                        </div>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                                {% endif %}
-                            
-                                {% if common_area_tags %}
-                                <div class="self-stretch pl-4 inline-flex flex-col justify-start items-start gap-2">
-                                    <div class="self-stretch justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
-                                        พื้นที่ส่วนกลาง
-                                    </div>
-                                    <div class="self-stretch inline-flex justify-start items-center gap-2 flex-wrap content-center">
-                                        {% for tag in common_area_tags %}
-                                        <div class="px-2.5 py-[3px] bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-gray-600 flex justify-center items-center gap-2.5">
-                                            <div class="justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
-                                                {{ tag.name }}
-                                            </div>
-                                        </div>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                                {% endif %}
-                            
-                                {% if travelling_tags %}
-                                <div class="self-stretch pl-4 inline-flex flex-col justify-start items-start gap-2">
-                                    <div class="self-stretch justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
-                                        การเดินทาง
-                                    </div>
-                                    <div class="self-stretch inline-flex justify-start items-center gap-2 flex-wrap content-center">
-                                        {% for tag in travelling_tags %}
-                                        <div class="px-2.5 py-[3px] bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-gray-600 flex justify-center items-center gap-2.5">
-                                            <div class="justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
-                                                {{ tag.name }}
-                                            </div>
-                                        </div>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                                {% endif %}
-                            
-                                {% if facility_tags %}
-                                <div class="self-stretch pl-4 inline-flex flex-col justify-start items-start gap-2">
-                                    <div class="self-stretch justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
-                                        สิ่งอำนวยความสะดวก
-                                    </div>
-                                    <div class="self-stretch inline-flex justify-start items-center gap-2 flex-wrap content-center">
-                                        {% for tag in facility_tags %}
-                                        <div class="px-2.5 py-[3px] bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-gray-600 flex justify-center items-center gap-2.5">
-                                            <div class="justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
-                                                {{ tag.name }}
-                                            </div>
-                                        </div>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                                {% endif %}
-                            
-                            </div>
-                            {% endif %}
-                            
-                            
-                            {% if home_system_tags %}
-                            <!-- Home Features -->
-                            <div class="flex flex-col items-start gap-[8px] self-stretch">
-                                <div class="text-[#575B6F] font-bold text-[16px] self-stretch">
-                                    ระบบภายในบ้าน
-                                </div>
-                                <div class="self-stretch inline-flex justify-start items-center gap-2 flex-wrap content-center">
-                                    {% for tag in home_system_tags %}
-                                    <div class="px-2.5 py-[3px] bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-gray-600 flex justify-center items-center gap-2.5">
-                                        <div class="justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
-                                            {{ tag.name }}
-                                        </div>
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                            {% endif %}
-                        
-                            <!-- Additional -->
-                            {% if condition_tags or view_tags or warranty_tags %}
-                            <div class="flex flex-col items-start gap-[8px] self-stretch">
-                                <div class="text-[#575B6F] font-bold text-[16px] self-stretch">
-                                    รายละเอียดอื่น ๆ
-                                </div>
-                            
-                                {% if condition_tags %}
-                                <div class="self-stretch pl-4 inline-flex flex-col justify-start items-start gap-2">
-                                    <div class="self-stretch justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
-                                        สภาพบ้าน
-                                    </div>
-                                    <div class="self-stretch inline-flex justify-start items-center gap-2 flex-wrap content-center">
-                                        {% for tag in condition_tags %}
-                                        <div class="px-2.5 py-[3px] bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-gray-600 flex justify-center items-center gap-2.5">
-                                            <div class="justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
-                                                {{ tag.name }}
-                                            </div>
-                                        </div>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                                {% endif %}
-                            
-                                {% if view_tags %}
-                                <div class="self-stretch pl-4 inline-flex flex-col justify-start items-start gap-2">
-                                    <div class="self-stretch justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
-                                        วิวบ้าน
-                                    </div>
-                                    <div class="self-stretch inline-flex justify-start items-center gap-2 flex-wrap content-center">
-                                        {% for tag in view_tags %}
-                                        <div class="px-2.5 py-[3px] bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-gray-600 flex justify-center items-center gap-2.5">
-                                            <div class="justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
-                                                {{ tag.name }}
-                                            </div>
-                                        </div>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                                {% endif %}
-                            
-                                {% if warranty_tags %}
-                                <div class="self-stretch pl-4 inline-flex flex-col justify-start items-start gap-2">
-                                    <div class="self-stretch justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
-                                        การรับประกัน
-                                    </div>
-                                    <div class="self-stretch inline-flex justify-start items-center gap-2 flex-wrap content-center">
-                                        {% for tag in warranty_tags %}
-                                        <div class="px-2.5 py-[3px] bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-gray-600 flex justify-center items-center gap-2.5">
-                                            <div class="justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
-                                                {{ tag.name }}
-                                            </div>
-                                        </div>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                                {% endif %}
-                            </div>
-                            {% endif %}
-                        
-                        </div>
-                        <!-- Tabs Content for 'Messages' -->
-                        <div class="tab-content hidden flex flex-col items-start gap-[16px] self-stretch"
-                             data-tab-content="messages">
-                            <!-- Content -->
-                            <div class="flex items-center gap-[10px] self-stretch px-[20px] pb-[20px]">
-                                <div class="w-[483px] text-[#575B6F] font-normal text-[16px]">
-                                    <p><strong>บ้านเดี่ยว ปลูกเอง ทำเลดี สวยมาก พร้อมตกแต่ง</strong></p>
-                                    <ul>
-                                        <li>3 นอน 4 น้ำ</li>
-                                        <li>1 ห้องแม่บ้าน</li>
-                                        <li>เรือนเล็ก มี 1 shower, 1 toilet</li>
-                                    </ul>
-                                    <p><strong>ขนาดเนื้อที่</strong>: 459 ตารางวา</p>
-                                    <p><strong>ราคาขาย</strong>: 39,900,000 ล้านบาท (ราคาต่อรองได้)</p>
-                                    <p><strong>ค่าโอน</strong>: 50 : 50</p>
-                                    <br>
-                                    <p><strong>สนใจติดต่อ</strong></p>
-                                    <p>📞 <strong>Tel</strong>: <a class="text-[#2162D0] underline" href="#">คลิกเพื่อดูเบอร์โทรติดต่อ</a>
-                                    </p>
-                                    <p>📩 <strong>LineID</strong>: @Livablehome (Please fill @)</p>
-                                    <br>
-                                    <p><em>*รบกวนแคปหน้าจอหรือส่ง link คอนโดที่สนใจ ส่งทางไลน์ได้เลยครับ*</em></p>
-                                </div>
-                            </div>
-                        </div>
+
+                            <!-- Tag -->
+                            {% include "components/tag.html" %}
+
+                            <!-- Message -->
+                            {% include "components/message.html" %}
+
                         <!-- Tabs Content for 'Location' -->
                         <div class="tab-content hidden flex flex-col items-start gap-[16px] self-stretch"
                              data-tab-content="location">
@@ -528,46 +138,22 @@
                                 <div class="flex items-start gap-[24px] self-stretch">
                                     <!-- Address -->
                                     <div class="flex flex-col items-start gap-[17px] flex-[1_0_0]">
-                                        <div class="flex flex-col items-start gap-[8px] self-stretch">
+                                        <div class="flex flex-col items-start gap-[64px] self-stretch max-w-[500px]">
                                             <div class="text-[#2162D0] font-medium text-[22px]">
                                                 ทำเลที่ตั้ง
                                             </div>
                                             <div class="flex flex-col items-start gap-[16px] self-stretch">
                                                 <div class="flex flex-col items-start gap-[8px] self-stretch">
                                                     <div class="text-[#575B6F] font-bold text-[16px] self-stretch">
-                                                        โครงการ
-                                                    </div>
-                                                    <div class="flex justify-between items-center self-stretch">
-                                                        <div class="flex justify-center items-center content-center gap-2 flex-[1_0_0] flex-wrap">
-                                                            <div class="text-[#575B6F] font-normal text-[16px] flex-[1_0_0]">
-                                                                นิชดา ธานี
-                                                            </div>
-                                                        </div>
-                                                        <div class="flex items-center gap-[5px]">
-                                                            <a class="text-[#2162D0] font-normal text-[16px]" href="#">
-                                                                ค้นหาบ้านในโครงการเดียวกัน
-                                                            </a>
-                                                            <div class="w-[7.5px] h-[13px]">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="8"
-                                                                     height="14" viewBox="0 0 8 14" fill="none">
-                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                          d="M0.716621 0.24897C0.76597 0.199497 0.824594 0.160245 0.889136 0.133463C0.953677 0.106681 1.02287 0.0928955 1.09275 0.0928955C1.16262 0.0928955 1.23182 0.106681 1.29636 0.133463C1.3609 0.160245 1.41952 0.199497 1.46887 0.24897L7.84387 6.62397C7.89334 6.67332 7.9326 6.73194 7.95938 6.79648C7.98616 6.86103 7.99995 6.93022 7.99995 7.00009C7.99995 7.06997 7.98616 7.13916 7.95938 7.20371C7.9326 7.26825 7.89334 7.32687 7.84387 7.37622L1.46887 13.7512C1.36912 13.851 1.23382 13.907 1.09275 13.907C0.951672 13.907 0.816376 13.851 0.716621 13.7512C0.616867 13.6515 0.560825 13.5162 0.560825 13.3751C0.560825 13.234 0.616867 13.0987 0.716621 12.999L6.71656 7.00009L0.716621 1.00122C0.667148 0.951872 0.627896 0.893248 0.601114 0.828706C0.574332 0.764164 0.560547 0.694973 0.560547 0.625095C0.560547 0.555217 0.574332 0.486026 0.601114 0.421485C0.627896 0.356943 0.667148 0.298319 0.716621 0.24897Z"
-                                                                          fill="#2162D0"/>
-                                                                </svg>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="flex flex-col items-start gap-[8px] self-stretch">
-                                                    <div class="text-[#575B6F] font-bold text-[16px] self-stretch">
                                                         ที่อยู่
                                                     </div>
                                                     <div class="text-[#575B6F] font-normal text-[16px] self-stretch">
-                                                        แจ้งวัฒนะ เมืองทอง งามวงศ์วาน เลียบคลองประปา แคราย ปากเกร็ด
+                                                      {{ address }}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                      <a href="https://www.google.com/maps?q={{ property.latitude }}, {{ property.longitude }}" target="_blank" class="flex w-full items-center justify-center gap-2 px-4 py-2">
                                         <button class="flex w-full items-center justify-center gap-2 px-4 py-2 border border-gray-300 bg-offWhite rounded-md hover:bg-gray-100">
                                             <div class="w-[21px] h-[21px]">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="21" height="22"
@@ -602,10 +188,15 @@
                                                 ดูใน Google map
                                             </div>
                                         </button>
+                                      </a>
                                     </div>
                                     <!-- Map -->
                                     <div class="flex w-[377px] flex-col justify-between items-start self-stretch">
-                                        <div class="flex flex-col items-center flex-1 self-stretch rounded-lg border border-gray-300 bg-[url('{% static "map.png" %}')] bg-lightgray bg-cover bg-center">
+                                        <div class="flex flex-col items-center flex-1 self-stretch rounded-lg border border-gray-300">
+                                          <gmp-map center="{{ property.latitude }},{{ property.longitude }}" zoom="14" style="height: 100%;" map-id="DEMO_MAP_ID">
+                                            <!-- Add the gmp-advanced-marker component -->
+                                            <gmp-advanced-marker position="{{ property.latitude }},{{ property.longitude }}" title=""></gmp-advanced-marker>
+                                          </gmp-map>
                                         </div>
                                     </div>
                                 </div>
@@ -618,141 +209,71 @@
                                     </div>
                                     <!-- Navigations -->
                                     <div class="flex items-center gap-[16px] self-stretch">
-                                        <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 border-b-2 border-[#575B6F] hover:bg-gray-100">
-                                            <div class="text-[#575B6F] font-normal text-[16px]">
-                                                ทั้งหมด
-                                            </div>
+                                        <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 border-b-2 border-[#575B6F] hover:bg-gray-100" data-category="all">
+                                            <div class="text-[#575B6F] font-normal text-[16px]">ทั้งหมด</div>
                                         </button>
-                                        <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100">
-                                            <div class="text-[#575B6F] font-normal text-[16px]">
-                                                โรงเรียน/มหาวิทยาลัย
-                                            </div>
+                                        <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100" data-category="school">
+                                            <div class="text-[#575B6F] font-normal text-[16px]">โรงเรียน/มหาวิทยาลัย</div>
                                         </button>
-                                        <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100">
-                                            <div class="text-[#575B6F] font-normal text-[16px]">
-                                                สนามบิน
-                                            </div>
+                                        <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100" data-category="airport">
+                                            <div class="text-[#575B6F] font-normal text-[16px]">สนามบิน</div>
                                         </button>
-                                        <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100">
-                                            <div class="text-[#575B6F] font-normal text-[16px]">
-                                                ห้างสรรพสินค้า
-                                            </div>
+                                        <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100" data-category="mall">
+                                            <div class="text-[#575B6F] font-normal text-[16px]">ห้างสรรพสินค้า</div>
                                         </button>
-                                        <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100">
-                                            <div class="text-[#575B6F] font-normal text-[16px]">
-                                                สวนสาธารณะ
-                                            </div>
+                                      <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100" data-category="hospital">
+                                            <div class="text-[#575B6F] font-normal text-[16px]">โรงพยาบาล</div>
                                         </button>
-                                        <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100">
-                                            <div class="text-[#575B6F] font-normal text-[16px]">
-                                                ขนส่งสาธารณะ
-                                            </div>
+                                      <button class="tab-nearby-btn flex items-center justify-center gap-1 px-5 py-2 hover:bg-gray-100" data-category="transport">
+                                            <div class="text-[#575B6F] font-normal text-[16px]">สถานีรถไฟฟ้า</div>
                                         </button>
                                     </div>
                                     <!-- Table List -->
                                     <div class="flex items-center px-5 gap-2 self-stretch">
                                         <table class="w-full border-collapse">
                                             <thead>
-                                            <tr>
-                                                <th class="text-left font-bold text-[16px] border-b border-[#575B6F] p-2">
-                                                    สถานที่
-                                                </th>
-                                                <th class="text-left font-bold text-[16px] border-b border-[#575B6F] p-2 bg-indigo-100">
-                                                    ระยะทาง
-                                                </th>
-                                                <th class="text-left font-bold text-[16px] border-b border-[#575B6F] p-2">
-                                                    ค้นหาในละแวก
-                                                </th>
-                                            </tr>
+                                                <tr>
+                                                    <th class="text-left font-bold text-[16px] border-b border-[#575B6F] p-2">สถานที่</th>
+                                                    <th class="text-left font-bold text-[16px] border-b border-[#575B6F] p-2 bg-indigo-100">ระยะทาง</th>
+                                                </tr>
                                             </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td class="p-2 flex items-center">
-                                                    <span class="w-[24px] h-[24px] mr-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" 
-                                                             fill="none">
-                                                            <g clip-path="url(#clip0_37_699)">
-                                                                <path d="M5.00003 13.18V15.99C5.00003 16.72 5.40003 17.4 6.04003 17.75L11.04 20.48C11.64 20.81 12.36 20.81 12.96 20.48L17.96 17.75C18.6 17.4 19 16.72 19 15.99V13.18L12.96 16.48C12.36 16.81 11.64 16.81 11.04 16.48L5.00003 13.18ZM11.04 3.52003L2.61003 8.12003C1.92003 8.50003 1.92003 9.50003 2.61003 9.88003L11.04 14.48C11.64 14.81 12.36 14.81 12.96 14.48L21 10.09V16C21 16.55 21.45 17 22 17C22.55 17 23 16.55 23 16V9.59003C23 9.22003 22.8 8.89003 22.48 8.71003L12.96 3.52003C12.36 3.20003 11.64 3.20003 11.04 3.52003Z" 
-                                                                      fill="#575B6F"/>
-                                                            </g>
-                                                            <defs>
-                                                                <clipPath id="clip0_37_699">
-                                                                    <rect width="24" height="24" fill="white"/>
-                                                                </clipPath>
-                                                            </defs>
-                                                        </svg>
-                                                    </span>
-                                                    สถาบันการจัดการปัญญาภิวัฒน์
-                                                </td>
-                                                <td class="p-2 bg-indigo-100">
-                                                    0.5 กม.
-                                                </td>
-                                                <td class="p-2 text-[#2162D0]">
-                                                    <a href=" ">ค้นหา ></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p-2 flex items-center">
-                                                    <span class="w-[24px] h-[24px] mr-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" 
-                                                             fill="none">
-                                                            <path d="M5.84615 15.9375C4.74606 15.9375 3.84615 16.8514 3.84615 17.9688C3.84615 19.086 4.74606 20 5.84615 20C6.94625 20 7.8462 19.086 7.8462 17.9688C7.84615 16.8514 6.9462 15.9375 5.84615 15.9375ZM0 0V2.03125H2L5.60014 9.43758L4.09495 11.9256C3.94505 12.1795 3.84495 12.535 3.84495 12.8906C3.84495 14.2505 4.75962 14.9219 6 14.9219H17.6923V12.9688H6.24486C6.09495 12.9688 5.99486 12.8671 5.99486 12.7149C5.99486 12.6643 6.10096 12.461 6.10096 12.461L7.1001 10.8594H14.5498C15.2999 10.8594 15.9502 10.4533 16.2998 9.79319L19.8999 3.50414C19.9594 3.38398 20 3.19916 20 2.99638C20 2.43749 19.5498 2.03129 19 2.03129H4.20019L3.25 0H0ZM15.6923 15.9375C14.5922 15.9375 13.6923 16.8514 13.6923 17.9688C13.6923 19.086 14.5922 20 15.6923 20C16.7924 20 17.6923 19.086 17.6923 17.9687C17.6923 16.8514 16.7924 15.9375 15.6923 15.9375Z" 
-                                                                  fill="#575B6F"/>
-                                                        </svg>
-                                                    </span>
-                                                    เซ็นทรัลพลาซ่า แจ้งวัฒนะ
-                                                </td>
-                                                <td class="p-2 bg-indigo-100">
-                                                    0.7 กม.
-                                                </td>
-                                                <td class="p-2 text-[#2162D0]">
-                                                    <a href=" ">ค้นหา ></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p-2 flex items-center">
-                                                    <span class="w-[24px] h-[24px] mr-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                         viewBox="0 0 24 24"
-                                                         fill="none">
-                                                            <g clip-path="url(#clip0_37_699)">
-                                                                <path d="M5.00003 13.18V15.99C5.00003 16.72 5.40003 17.4 6.04003 17.75L11.04 20.48C11.64 20.81 12.36 20.81 12.96 20.48L17.96 17.75C18.6 17.4 19 16.72 19 15.99V13.18L12.96 16.48C12.36 16.81 11.64 16.81 11.04 16.48L5.00003 13.18ZM11.04 3.52003L2.61003 8.12003C1.92003 8.50003 1.92003 9.50003 2.61003 9.88003L11.04 14.48C11.64 14.81 12.36 14.81 12.96 14.48L21 10.09V16C21 16.55 21.45 17 22 17C22.55 17 23 16.55 23 16V9.59003C23 9.22003 22.8 8.89003 22.48 8.71003L12.96 3.52003C12.36 3.20003 11.64 3.20003 11.04 3.52003Z"
-                                                              fill="#575B6F"/>
-                                                            </g>
-                                                            <defs>
-                                                                <clipPath id="clip0_37_699">
-                                                                    <rect width="24" height="24" fill="white"/>
-                                                                </clipPath>
-                                                            </defs>
-                                                        </svg>
-                                                    </span>
-                                                    มหาวิทยาลัยหอการค้าไทย
-                                                </td>
-                                                <td class="p-2 bg-indigo-100">
-                                                    1.5 กม.
-                                                </td>
-                                                <td class="p-2 text-[#2162D0]">
-                                                    <a href=" ">ค้นหา ></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p-2 flex items-center">
-                                                    <span class="w-[24px] h-[24px] mr-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" 
-                                                             fill="none">
-                                                            <path d="M5.84615 15.9375C4.74606 15.9375 3.84615 16.8514 3.84615 17.9688C3.84615 19.086 4.74606 20 5.84615 20C6.94625 20 7.8462 19.086 7.8462 17.9688C7.84615 16.8514 6.9462 15.9375 5.84615 15.9375ZM0 0V2.03125H2L5.60014 9.43758L4.09495 11.9256C3.94505 12.1795 3.84495 12.535 3.84495 12.8906C3.84495 14.2505 4.75962 14.9219 6 14.9219H17.6923V12.9688H6.24486C6.09495 12.9688 5.99486 12.8671 5.99486 12.7149C5.99486 12.6643 6.10096 12.461 6.10096 12.461L7.1001 10.8594H14.5498C15.2999 10.8594 15.9502 10.4533 16.2998 9.79319L19.8999 3.50414C19.9594 3.38398 20 3.19916 20 2.99638C20 2.43749 19.5498 2.03129 19 2.03129H4.20019L3.25 0H0ZM15.6923 15.9375C14.5922 15.9375 13.6923 16.8514 13.6923 17.9688C13.6923 19.086 14.5922 20 15.6923 20C16.7924 20 17.6923 19.086 17.6923 17.9687C17.6923 16.8514 16.7924 15.9375 15.6923 15.9375Z" 
-                                                                  fill="#575B6F"/>
-                                                        </svg>
-                                                    </span>
-                                                    สยามพารากอน
-                                                </td>
-                                                <td class="p-2 bg-indigo-100">
-                                                    1.8 กม.
-                                                </td>
-                                                <td class="p-2 text-[#2162D0]">
-                                                    <a href=" ">ค้นหา ></a>
-                                                </td>
-                                            </tr>
+                                            <tbody id="nearby-places">
+                                            {% for place in nearby_university %}
+                                                <tr data-category="school">
+                                                    <td class="p-2">{{ place.name }}</td>
+                                                    <td class="p-2 bg-indigo-100">{{ place.distance }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            {% for place in nearby_school %}
+                                                <tr data-category="school">
+                                                    <td class="p-2">{{ place.name }}</td>
+                                                    <td class="p-2 bg-indigo-100">{{ place.distance }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            {% for place in nearby_airport %}
+                                                <tr data-category="airport">
+                                                    <td class="p-2">{{ place.name }}</td>
+                                                    <td class="p-2 bg-indigo-100">{{ place.distance }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            {% for place in nearby_mall %}
+                                                <tr data-category="mall">
+                                                    <td class="p-2">{{ place.name }}</td>
+                                                    <td class="p-2 bg-indigo-100">{{ place.distance }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            {% for place in nearby_hospital %}
+                                                <tr data-category="hospital">
+                                                    <td class="p-2">{{ place.name }}</td>
+                                                    <td class="p-2 bg-indigo-100">{{ place.distance }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            {% for place in nearby_transport %}
+                                                <tr data-category="transport">
+                                                    <td class="p-2">(สถานีรถไฟฟ้า) {{ place.name }}</td>
+                                                    <td class="p-2 bg-indigo-100">{{ place.distance }}</td>
+                                                </tr>
+                                            {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>
@@ -816,7 +337,7 @@
                                             </div>
                                         </button>
                                         {% endif %}
-                                    
+
                                         <!-- Line Button -->
                                         {% if seller_line_id %}
                                         <button name="line" onclick="flipCard(this, 'line-info')" class="flip-card flex p-2 items-center gap-2 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6] transition-transform duration-300">
@@ -840,7 +361,7 @@
                                             </div>
                                         </button>
                                         {% endif %}
-                                    
+
                                         <!-- Mail Button -->
                                         {% if seller_email %}
                                         <button name="mail" onclick="flipCard(this, 'mail-info')" class="flip-card flex p-2 items-center gap-2 self-stretch rounded-md border border-[#D0D9EF] bg-[#FAF9F6] transition-transform duration-300">
@@ -1053,19 +574,28 @@
             });
         });
 
-        document.querySelectorAll(".tab-nearby-btn").forEach(button => {
-            button.addEventListener("click", function () {
-                document.querySelectorAll(".tab-nearby-btn").forEach(btn => {
-                    btn.classList.remove("border-b-2", "border-[#575B6F]");
-                });
-                this.classList.add("border-b-2", "border-[#575B6F]");
+    document.querySelectorAll(".tab-nearby-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            document.querySelectorAll(".tab-nearby-btn").forEach(btn => {
+                btn.classList.remove("border-b-2", "border-[#575B6F]");
+            });
+            this.classList.add("border-b-2", "border-[#575B6F]");
+
+            let selectedCategory = this.getAttribute("data-category");
+            document.querySelectorAll("#nearby-places tr").forEach(row => {
+                if (selectedCategory === "all" || row.getAttribute("data-category") === selectedCategory) {
+                    row.style.display = "table-row";
+                } else {
+                    row.style.display = "none";
+                }
             });
         });
-        
+    });
+
     function flipCard(button, infoId) {
         const info = document.getElementById(infoId);
         const front = button.querySelector('.flip-card-front');
-        
+
         if (info.classList.contains('hidden')) {
             // Flip to show info
             front.classList.add('hidden');
@@ -1077,6 +607,36 @@
         }
     }
 
+    function toggleBookmark(button) {
+        const icon = button.querySelector('#bookmark-icon');
+        const ring = button.querySelector('span');
+        const isBooked = icon.src.includes('booked.svg');
+
+        // Toggle the image source
+        icon.src = isBooked ? "{% static 'property-detail/bookmark.svg' %}" : "{% static 'property-detail/booked.svg' %}";
+
+        // Add animation
+        ring.classList.add('ring-animate');
+        setTimeout(() => {
+            ring.classList.remove('ring-animate');
+        }, 300);
+    }
+
+
     </script>
+
+    <style>
+
+    @keyframes ring-pop {
+        0% { transform: scale(0.5); opacity: 0.5; }
+        50% { transform: scale(1.1); opacity: 0.8; }
+        100% { transform: scale(1); opacity: 0; }
+    }
+
+    .ring-animate {
+        animation: ring-pop 0.3s ease-out;
+    }
+
+    </style>
 
 {% endblock %}

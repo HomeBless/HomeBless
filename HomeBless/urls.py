@@ -1,4 +1,5 @@
 from django.urls import path
+
 from .views import *
 app_name = "HomeBless"
 
@@ -10,5 +11,5 @@ urlpatterns = [
     path('sell/', Sell.as_view(), name='sell'),
     path('manage/', PropertyManage.as_view(), name='manage'),
     path('edit-property/<int:property_id>/', edit_property, name='edit_property'),
-
+    path('wishlist/', WishlistView.as_view(), name='wishlist'),
 ]

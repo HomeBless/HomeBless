@@ -1,0 +1,256 @@
+<!-- Decoration -->
+{% if decoration_tags or flooring_tags or wall_tags or ceiling_tags %}
+<div class="flex flex-col items-start gap-[8px] self-stretch">
+    <div class="text-[#575B6F] font-bold text-[16px] self-stretch">
+        การตกแต่ง
+    </div>
+    
+    {% if decoration_tags %}
+    <div class="self-stretch pl-4 inline-flex flex-col justify-start items-start gap-2">
+        <div class="self-stretch justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
+            ตกแต่งภายใน
+        </div>
+        <div class="self-stretch inline-flex justify-start items-center gap-2 flex-wrap content-center">
+            {% for tag in decoration_tags %}
+            <div class="px-2.5 py-[3px] bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-gray-600 flex justify-center items-center gap-2.5">
+                <div class="justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
+                    {{ tag.name }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    
+    {% if flooring_tags %}
+    <div class="self-stretch pl-4 inline-flex flex-col justify-start items-start gap-2">
+        <div class="self-stretch justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
+            วัสดุปูพื้น
+        </div>
+        <div class="self-stretch inline-flex justify-start items-center gap-2 flex-wrap content-center">
+            {% for tag in flooring_tags %}
+            <div class="px-2.5 py-[3px] bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-gray-600 flex justify-center items-center gap-2.5">
+                <div class="justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
+                    {{ tag.name }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    
+    {% if wall_tags %}
+    <div class="self-stretch pl-4 inline-flex flex-col justify-start items-start gap-2">
+        <div class="self-stretch justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
+            ผนัง
+        </div>
+        <div class="self-stretch inline-flex justify-start items-center gap-2 flex-wrap content-center">
+            {% for tag in wall_tags %}
+            <div class="px-2.5 py-[3px] bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-gray-600 flex justify-center items-center gap-2.5">
+                <div class="justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
+                    {{ tag.name }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    
+    {% if ceiling_tags %}
+    <div class="self-stretch pl-4 inline-flex flex-col justify-start items-start gap-2">
+        <div class="self-stretch justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
+            เพดาน
+        </div>
+        <div class="self-stretch inline-flex justify-start items-center gap-2 flex-wrap content-center">
+            {% for tag in ceiling_tags %}
+            <div class="px-2.5 py-[3px] bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-gray-600 flex justify-center items-center gap-2.5">
+                <div class="justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
+                    {{ tag.name }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+{% endif %}
+
+
+{% if home_features_tags %}
+<!-- Home Features -->
+<div class="flex flex-col items-start gap-[8px] self-stretch">
+    <div class="text-[#575B6F] font-bold text-[16px] self-stretch">
+        สิ่งอำนวยความสะดวกในบ้าน
+    </div>
+    <div class="self-stretch inline-flex justify-start items-center gap-2 flex-wrap content-center">
+        {% for tag in home_features_tags %}
+        <div class="px-2.5 py-[3px] bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-gray-600 flex justify-center items-center gap-2.5">
+            <div class="justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
+                {{ tag.name }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+
+<!-- Project Amenities -->
+{% if security_tags or common_area_tags or travelling_tags or facility_tags %}
+<div class="flex flex-col items-start gap-[8px] self-stretch">
+    <div class="text-[#575B6F] font-bold text-[16px] self-stretch">
+        สิ่งอำนวยความสะดวกในโครงการ
+    </div>
+
+    {% if security_tags %}
+    <div class="self-stretch pl-4 inline-flex flex-col justify-start items-start gap-2">
+        <div class="self-stretch justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
+            ความปลอดภัย
+        </div>
+        <div class="self-stretch inline-flex justify-start items-center gap-2 flex-wrap content-center">
+            {% for tag in security_tags %}
+            <div class="px-2.5 py-[3px] bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-gray-600 flex justify-center items-center gap-2.5">
+                <div class="justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
+                    {{ tag.name }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if common_area_tags %}
+    <div class="self-stretch pl-4 inline-flex flex-col justify-start items-start gap-2">
+        <div class="self-stretch justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
+            พื้นที่ส่วนกลาง
+        </div>
+        <div class="self-stretch inline-flex justify-start items-center gap-2 flex-wrap content-center">
+            {% for tag in common_area_tags %}
+            <div class="px-2.5 py-[3px] bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-gray-600 flex justify-center items-center gap-2.5">
+                <div class="justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
+                    {{ tag.name }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if travelling_tags %}
+    <div class="self-stretch pl-4 inline-flex flex-col justify-start items-start gap-2">
+        <div class="self-stretch justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
+            การเดินทาง
+        </div>
+        <div class="self-stretch inline-flex justify-start items-center gap-2 flex-wrap content-center">
+            {% for tag in travelling_tags %}
+            <div class="px-2.5 py-[3px] bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-gray-600 flex justify-center items-center gap-2.5">
+                <div class="justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
+                    {{ tag.name }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if facility_tags %}
+    <div class="self-stretch pl-4 inline-flex flex-col justify-start items-start gap-2">
+        <div class="self-stretch justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
+            สิ่งอำนวยความสะดวก
+        </div>
+        <div class="self-stretch inline-flex justify-start items-center gap-2 flex-wrap content-center">
+            {% for tag in facility_tags %}
+            <div class="px-2.5 py-[3px] bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-gray-600 flex justify-center items-center gap-2.5">
+                <div class="justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
+                    {{ tag.name }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+{% endif %}
+
+
+{% if home_system_tags %}
+<!-- Home Features -->
+<div class="flex flex-col items-start gap-[8px] self-stretch">
+    <div class="text-[#575B6F] font-bold text-[16px] self-stretch">
+        ระบบภายในบ้าน
+    </div>
+    <div class="self-stretch inline-flex justify-start items-center gap-2 flex-wrap content-center">
+        {% for tag in home_system_tags %}
+        <div class="px-2.5 py-[3px] bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-gray-600 flex justify-center items-center gap-2.5">
+            <div class="justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
+                {{ tag.name }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<!-- Additional -->
+{% if condition_tags or view_tags or warranty_tags %}
+<div class="flex flex-col items-start gap-[8px] self-stretch">
+    <div class="text-[#575B6F] font-bold text-[16px] self-stretch">
+        รายละเอียดอื่น ๆ
+    </div>
+
+    {% if condition_tags %}
+    <div class="self-stretch pl-4 inline-flex flex-col justify-start items-start gap-2">
+        <div class="self-stretch justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
+            สภาพบ้าน
+        </div>
+        <div class="self-stretch inline-flex justify-start items-center gap-2 flex-wrap content-center">
+            {% for tag in condition_tags %}
+            <div class="px-2.5 py-[3px] bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-gray-600 flex justify-center items-center gap-2.5">
+                <div class="justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
+                    {{ tag.name }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if view_tags %}
+    <div class="self-stretch pl-4 inline-flex flex-col justify-start items-start gap-2">
+        <div class="self-stretch justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
+            วิวบ้าน
+        </div>
+        <div class="self-stretch inline-flex justify-start items-center gap-2 flex-wrap content-center">
+            {% for tag in view_tags %}
+            <div class="px-2.5 py-[3px] bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-gray-600 flex justify-center items-center gap-2.5">
+                <div class="justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
+                    {{ tag.name }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if warranty_tags %}
+    <div class="self-stretch pl-4 inline-flex flex-col justify-start items-start gap-2">
+        <div class="self-stretch justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
+            การรับประกัน
+        </div>
+        <div class="self-stretch inline-flex justify-start items-center gap-2 flex-wrap content-center">
+            {% for tag in warranty_tags %}
+            <div class="px-2.5 py-[3px] bg-stone-50 rounded-md outline outline-1 outline-offset-[-1px] outline-gray-600 flex justify-center items-center gap-2.5">
+                <div class="justify-start text-gray-600 text-base font-normal font-['IBM_Plex_Sans_Thai']">
+                    {{ tag.name }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endif %}
+
+</div>

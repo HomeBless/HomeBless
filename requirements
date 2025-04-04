@@ -4,3 +4,4 @@ django-storages
 Pillow
 django-allauth
 cryptography
+requests

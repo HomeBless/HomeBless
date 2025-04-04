@@ -15,6 +15,10 @@
         }
     </style>
     <link rel="icon" type="image/svg+xml" href="{% static 'Logo.svg' %}">
+
+    {% block head %}
+
+    {% endblock %}
 </head>
 
 <body>
@@ -57,6 +61,11 @@
         <a href="{% url 'HomeBless:compare' %}">
         <button class="px-5 py-2.5 justify-center items-center gap-1.5 flex {% if request.path == '/compare/' %}border-b-2 border-[#faf9f6]{% endif %}">
             <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">เปรียบเทียบ</div>
+        </button>
+        </a>
+        <a href="{% url 'HomeBless:wishlist' %}">
+        <button class="px-5 py-2.5 justify-center items-center gap-1.5 flex {% if request.path == '/wishlist/' %}border-b-2 border-[#faf9f6]{% endif %}">
+            <div class="text-[#faf9f6] text-base font-normal font-['IBM Plex Sans Thai']">รายการโปรด</div>
         </button>
         </a>
     </div>
